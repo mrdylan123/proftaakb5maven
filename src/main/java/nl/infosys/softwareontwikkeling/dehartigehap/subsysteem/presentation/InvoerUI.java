@@ -67,12 +67,6 @@ public class InvoerUI {
         grid.setPadding(new javafx.geometry.Insets(5, 5, 5, 5));
         grid.autosize();
         
-        String image = WeergaveUI.class.getResource("splash.jpg").toExternalForm();
-        grid.setStyle("-fx-background-image: url('" + image + "'); " +
-           "-fx-background-position: center center; " +
-           "-fx-background-repeat: stretch;");
-       
-        
         Scene  scene  =  new  Scene(grid);
         
         
