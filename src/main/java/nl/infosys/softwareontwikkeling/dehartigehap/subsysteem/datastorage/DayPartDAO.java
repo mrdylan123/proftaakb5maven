@@ -31,7 +31,7 @@ public class DayPartDAO {
         if(connection.openConnection())
         {
             // If a connection was successfully setup, execute the SELECT statement.
-            String execStr = "SELECT * FROM employee_daypart WHERE date =\'" + dateStr + 
+            String execStr = "SELECT * FROM daypart_employee WHERE date =\'" + dateStr + 
                         "\' AND dayparttype =\'" + 
                     dayPartType.toString().toLowerCase() + "\';";
             
@@ -98,13 +98,16 @@ public class DayPartDAO {
         DatabaseConnection connection = new DatabaseConnection();
         if(connection.openConnection())
         {
-            String execStr = "INSERT INTO employee_daypart VALUES(\'" +
+            String execStr = "INSERT INTO daypart_employee(employeeid,"
+                    + "date,dayparttype,presencestatus)"
+                    + " VALUES(\'" +
                     dpe.getEmployee().getEmployeeId() + "\',\'" + 
                     d.toSQLString() + "\',\'" + 
                     dpt.toString().toLowerCase() + "\',\'" +
                         dpe.getPresenceStatus().toString().toLowerCase() 
                         + "\');";
                 
+                System.out.println(execStr);
                 connection.executeSQLInsertStatement(execStr);
         }
     }
@@ -115,7 +118,7 @@ public class DayPartDAO {
         DatabaseConnection connection = new DatabaseConnection();
         if(connection.openConnection())
         {
-            String execStr = "DELETE FROM employee_daypart WHERE date=\'" + 
+            String execStr = "DELETE FROM daypart_employee WHERE date=\'" + 
                     d.toSQLString() + "\' AND dayparttype=\'" + 
                     dpt.toString().toLowerCase() + "\';";
                 
@@ -130,7 +133,7 @@ public class DayPartDAO {
         if(connection.openConnection())
         {
             // If a connection was successfully setup, execute the SELECT statement.
-            String execStr = "SELECT * FROM employee_daypart WHERE date =\'" 
+            String execStr = "SELECT * FROM daypart_employee WHERE date =\'" 
                     + d.toSQLString() + "\' AND dayparttype =\'" + 
                     dpt.toString().toLowerCase() + "\' AND employeeid=\'" +
                     e.getEmployeeId() + "\';";
