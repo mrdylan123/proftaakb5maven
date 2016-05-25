@@ -107,7 +107,7 @@ public class DayPartDAO {
                         dpe.getPresenceStatus().toString().toLowerCase() 
                         + "\');";
                 
-                System.out.println(execStr);
+               // System.out.println(execStr);
                 connection.executeSQLInsertStatement(execStr);
         }
     }
