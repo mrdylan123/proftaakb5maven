@@ -12,7 +12,7 @@ import javafx.scene.control.Alert;
  * @author maikel
  */
 public class PresentationUtils {
-        static public void showJavaFXAlert(String msg) {
+        static public void showSwingAlert(String msg) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
