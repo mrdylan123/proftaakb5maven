@@ -5,236 +5,158 @@
  */
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.embed.swing.JFXPanel;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import static javafx.scene.paint.Color.BLUE;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.event.*;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.*;
-import javafx.stage.Stage;
+
 
 /**
  *
  * @author J. Bouman
  */
-public class InvoerUI {
-    private Button backButton, logOutButton, confirmButton, checkButton;
-    private ComboBox worker1CB, worker2CB, worker3CB, dayPartCB;
-    private Label workerLabel, dateLabel, dayPartLabel;
-    private TextField dayTF, monthTF, yearTF;
+public class InvoerUI extends JPanel{
+    private JButton backButton, logOutButton, confirmButton, checkButton;
+    private JComboBox worker1CB, worker2CB, worker3CB, dayPartCB;
+    private JLabel workerLabel, dateLabel, dayPartLabel;
+    private JTextField dayTF, monthTF, yearTF;
+    private JPanel panelNorth;
+    private JPanel panelSouth;
+    private JPanel panelCenter;
     private InputManager inputManager;
     
     public InvoerUI() {
         inputManager = new InputManager();
-    }
-    
-    
-    public void initFX(JFXPanel fxPanel) {
-        // This method is invoked on the JavaFX thread
-        Scene scene = createScene();
-        fxPanel.setScene(scene);
-        Start(new Stage());
-    }
+        
+        setLayout(new BorderLayout());
 
-    public void Start(Stage primaryStage)
-    {
-        Scene scene = createScene();
-        primaryStage.setScene(scene);
-        primaryStage.sizeToScene();
-        primaryStage.setTitle("Planning invoeren");
-        primaryStage.show();
-    }
-    
-    public Scene createScene() {
-        GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setPadding(new javafx.geometry.Insets(5, 5, 5, 5));
-        grid.autosize();
+        panelNorth = new JPanel();
+        panelSouth = new JPanel();
+        panelCenter = new JPanel();
+   
+        add(panelNorth, BorderLayout.NORTH);
+        add(panelCenter, BorderLayout.CENTER);
+        add(panelSouth, BorderLayout.SOUTH);
         
-        Scene  scene  =  new  Scene(grid);
+        panelNorth.setLayout(new GridLayout(1,4, 2, 2));
+        panelSouth.setLayout(new GridLayout(1,4, 2, 2 ));
+        panelCenter.setLayout(new GridLayout(4,4,2,2));
         
-        
-        backButton = new Button("<--");
-        logOutButton = new Button("Uitloggen");
-        confirmButton = new Button("Invoer bevestigen");
-        checkButton = new Button("Check mogelijkheid");
 
-        worker1CB = new ComboBox();
-        worker2CB = new ComboBox();
-        worker3CB = new ComboBox();
+        
+        backButton = new JButton("<--");
+        logOutButton = new JButton("Uitloggen");
+        confirmButton = new JButton("Invoer bevestigen");
+        checkButton = new JButton("Check mogelijkheid");
+
+        worker1CB = new JComboBox();
+        worker2CB = new JComboBox();
+        worker3CB = new JComboBox();
         
         
-        worker1CB.getItems().add("");
-        worker2CB.getItems().add("");
-        worker3CB.getItems().add("");
+        worker1CB.addItem("");
+        worker2CB.addItem("");
+        worker3CB.addItem("");
         
-        for (Employee e : inputManager.getEmployees() )
+        for(Employee e : inputManager.getEmployees() )
         {
-            worker1CB.getItems().add(e.getName());
-            worker2CB.getItems().add(e.getName());
-            worker3CB.getItems().add(e.getName());
+            worker1CB.addItem(e.getName());
+            worker2CB.addItem(e.getName());
+            worker3CB.addItem(e.getName());
         }
         
-        dayPartCB = new ComboBox();
+        dayPartCB = new JComboBox();
         
-        dayPartCB.getItems().addAll("Ochtend", 
-                                    "Middag",
-                                    "Avond");
-
-        dayPartCB.setValue("Ochtend");
+        dayPartCB.addItem("Ochtend"); 
+        dayPartCB.addItem("Middag");
+        dayPartCB.addItem("Avond");
+        dayPartCB.setSelectedIndex(0);
         
-        workerLabel = new Label("Medewerker");
-        dateLabel = new Label("Datum");
-        dayPartLabel = new Label("Dagdeel");
+        workerLabel = new JLabel("Medewerker");
+        dateLabel = new JLabel("Datum");
+        dayPartLabel = new JLabel("Dagdeel");
 
-        dayTF = new TextField("Dag");
+        dayTF = new JTextField("Dag");
         // Add a listener to the textfield, so that when the textfield is clicked, it removes the placeholder text.
-        dayTF.focusedProperty().addListener(new ChangeListener<Boolean>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
-            {
-                if (newPropertyValue)
-                {
-                    dayTF.setText("");
-                }
-            }
-        }
-        );
+        dayTF.addActionListener(al -> dayTF.setText("") );
                 
-        monthTF = new TextField("Maand");
+        monthTF = new JTextField("Maand");
         // Add a listener to the textfield, so that when the textfield is clicked, it removes the placeholder text.
-        monthTF.focusedProperty().addListener(new ChangeListener<Boolean>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
-            {
-                if (newPropertyValue)
-                {
-                    monthTF.setText("");
-                }
-            }
-        }
-        );
+        monthTF.addActionListener(al -> monthTF.setText("") );
                   
-        yearTF = new TextField("Jaar");
+        yearTF = new JTextField("Jaar");
         // Add a listener to the textfield, so that when the textfield is clicked, it removes the placeholder text.
-        yearTF.focusedProperty().addListener(new ChangeListener<Boolean>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
+        yearTF.addActionListener(al -> yearTF.setText("") );        
+
+        // north is 1 x 4
+        panelNorth.add(backButton);
+        panelNorth.add(new JLabel(""));
+        panelNorth.add(new JLabel(""));
+        panelNorth.add(logOutButton);
+
+        // center is 4 x 4
+        // rij 1
+        panelCenter.add(workerLabel);
+        panelCenter.add(worker1CB);
+        panelCenter.add(worker2CB);
+        panelCenter.add(worker3CB);
+        
+        // rij 2
+        panelCenter.add(dateLabel);
+        panelCenter.add(dayTF);
+        panelCenter.add(monthTF);
+        panelCenter.add(yearTF);
+        
+        // rij 3
+        panelCenter.add(dayPartLabel);
+        panelCenter.add(new JLabel(""));
+        panelCenter.add(dayPartCB);    
+        panelCenter.add(new JLabel(""));
+        panelCenter.add(new JLabel(""));       
+        panelCenter.add(new JLabel(""));
+
+        // south is 1 x 4
+        panelSouth.add(checkButton);
+        panelSouth.add(new JLabel(""));
+        panelSouth.add(new JLabel(""));
+        panelSouth.add(confirmButton);
+        
+
+        
+        confirmButton.addActionListener(a1 -> {
+            int CB1SelectedIndex = worker1CB.getSelectedIndex();
+            int CB2SelectedIndex = worker2CB.getSelectedIndex();
+            int CB3SelectedIndex = worker3CB.getSelectedIndex();
+            int dayPartCBSelectedIndex = dayPartCB.getSelectedIndex();
+
+            if (CB1SelectedIndex < 1 && CB2SelectedIndex < 1 
+                       && CB3SelectedIndex < 1)
             {
-                if (newPropertyValue)
-                {
-                    yearTF.setText("");
-                }
+                return;
             }
-        }
-        );
 
-        grid.add(backButton,1,1);
-        grid.add(logOutButton,4,1);
+            String dayStr = dayTF.getText();
+            String monthStr = monthTF.getText();
+            String yearStr = yearTF.getText();
 
-        grid.add(workerLabel,1,2);
-        grid.add(worker1CB,2,2);
-        grid.add(worker2CB,3,2);
-        grid.add(worker3CB,4,2);
+            try
+            {
+                inputManager.OnConfirmButtonPress(CB1SelectedIndex, CB2SelectedIndex, 
+                        CB3SelectedIndex, dayPartCBSelectedIndex, dayStr, monthStr, yearStr);
 
-        grid.add(dateLabel,1,3);
-        grid.add(dayTF,2,3);
-        grid.add(monthTF,3,3);
-        grid.add(yearTF,4,3);
-
-        grid.add(dayPartLabel,1,4);
-        grid.add(dayPartCB,2,4);
-
-        grid.add(checkButton,1,5);
-        grid.add(confirmButton,4,5);
-        
-    backButton.setOnAction(new EventHandler<ActionEvent>() {
- 
-    @Override
-    public void handle(ActionEvent e) {
-
-    }
-});
-            
-    logOutButton.setOnAction(new EventHandler<ActionEvent>() {
- 
-    @Override
-    public void handle(ActionEvent e) {
-
-    }
-});
-                        
-    logOutButton.setOnAction(new EventHandler<ActionEvent>() {
- 
-    @Override
-    public void handle(ActionEvent e) {
-
-    }
-});
-    
-    checkButton.setOnAction(new EventHandler<ActionEvent>() {
- 
-    @Override
-    public void handle(ActionEvent e) {
-
-    }
-});
-    
-    confirmButton.setOnAction(new EventHandler<ActionEvent>() {
- 
-    @Override
-    public void handle(ActionEvent e) {
-        
-     int CB1SelectedIndex = worker1CB.getSelectionModel().getSelectedIndex();
-     int CB2SelectedIndex = worker2CB.getSelectionModel().getSelectedIndex();
-     int CB3SelectedIndex = worker3CB.getSelectionModel().getSelectedIndex();
-     int dayPartCBSelectedIndex = dayPartCB.getSelectionModel()
-             .getSelectedIndex();
-     
-     if (CB1SelectedIndex < 1 && CB2SelectedIndex < 1 
-                && CB3SelectedIndex < 1)
-     {
-         return;
-     }
-     
-     String dayStr = dayTF.getText();
-     String monthStr = monthTF.getText();
-     String yearStr = yearTF.getText();
-     
-     try
-     {
-         inputManager.OnConfirmButtonPress(CB1SelectedIndex, CB2SelectedIndex, 
-                 CB3SelectedIndex, dayPartCBSelectedIndex, dayStr, monthStr, yearStr);
-
-         PresentationUtils.showJavaFXAlert("Successfully entered input.");
-     }
-     catch(DateInvalidException die)
-     {
-         PresentationUtils.showJavaFXAlert("Entered date is invalid.");
-     }
-    }
-        });
-        
-        return (scene);
+                PresentationUtils.showSwingAlert("Successfully entered input.");
+            }
+            catch(DateInvalidException die)
+            {
+                PresentationUtils.showSwingAlert("Entered date is invalid.");
+            }
+           });
     }
 }
 
