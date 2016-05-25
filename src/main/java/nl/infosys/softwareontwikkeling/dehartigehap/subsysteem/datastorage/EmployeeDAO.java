@@ -83,11 +83,11 @@ public class EmployeeDAO {
                         String zipcode = resultset.getString("zipcode");
                         String name = resultset.getString("name");
                         String nationality = resultset.getString("nationality");
-                        String street = resultset.getString("street");
-                        String address = resultset.getString("address");
+                        String street = "";
+                        String address = resultset.getString("adress");
                         String city = resultset.getString("city");
                         String phonenumber = resultset.getString("phonenumber");
-                        String email = resultset.getString("email");
+                        String email = "";
                         
                         // date strings
                         String employmentdatestr = resultset.getString("employmentdate");
