@@ -5,21 +5,19 @@
  */
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
+import java.awt.BorderLayout;
+import static java.awt.BorderLayout.CENTER;
+import static java.awt.BorderLayout.NORTH;
+import static java.awt.BorderLayout.SOUTH;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.Box;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.embed.swing.JFXPanel;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPart;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartEmployee;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
@@ -28,140 +26,87 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
  *
  * @author J. Bouman
  */
-public class WeergaveUI {
-    private Button backBtn, logoutBtn, requestBtn;
-    private TextArea barTA, keukenTA;
-    private TextField dayTF, monthTF, yearTF;
+public class WeergaveUI extends JPanel{
+    
+    private JButton backBtn, logOutBtn, requestBtn;
+    private JLabel dateLbl;
+    private JTextArea barTA, keukenTA;
+    private JTextField dayTF, monthTF, yearTF;
+    private JPanel panelNorth;
+    private JPanel panelCenter;
+    private JPanel panelSouth;
     private PresentationManager presentationManager;
     
     public WeergaveUI() {   
         presentationManager = new PresentationManager();
-    }
-    public void initFX(JFXPanel fxPanel) {
-        // This method is invoked on the JavaFX thread
-        Scene scene = createScene();
-        fxPanel.setScene(scene);
-        Start(new Stage());
-    }
-    
-    public void Start(Stage primaryStage)
-    {
-        Scene scene = createScene();
-        primaryStage.setScene(scene);
-        primaryStage.sizeToScene();
-        primaryStage.setTitle("Planning weergave");
-        primaryStage.show();
-    }
-    
-    public Scene createScene() {
-        GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setPadding(new javafx.geometry.Insets(5, 5, 5, 5));
-        grid.autosize();
-       
-        Scene  scene  =  new  Scene(grid);
+        panelNorth = new JPanel();
+        panelCenter = new JPanel();
+        panelSouth = new JPanel();
+        setLayout(new BorderLayout());
+        
+        add(panelNorth, NORTH);
+        add(panelCenter, CENTER);
+        add(panelSouth, SOUTH);
         
         // De knoppen op het paneel
-        backBtn = new Button ("<--");
-        logoutBtn = new Button ("Uitloggen");
-        barTA= new TextArea ("De weergave van bar");
-        keukenTA = new TextArea ("De weergave van keuken.");
-        requestBtn = new Button ("Vraag op");
+        backBtn = new JButton ("<--");
+        logOutBtn = new JButton ("Uitloggen");
+        dateLbl = new JLabel("Datum :");
+        barTA= new JTextArea ("De weergave van bar");
+        keukenTA = new JTextArea ("De weergave van keuken.");
+        requestBtn = new JButton ("Vraag op");
         
-        dayTF = new TextField("dag");
-        monthTF = new TextField("maand");
-        yearTF = new TextField("jaar");
+        dayTF = new JTextField("dag");
+        monthTF = new JTextField("maand");
+        yearTF = new JTextField("jaar");
+               
         
-        final Text barText = new Text(25, 25, "BAR");
-        barText.setFill(Color.CHOCOLATE);
-        barText.setFont(Font.font(java.awt.Font.SERIF, 30));
-        barText.setTextAlignment(TextAlignment.CENTER);
+        panelNorth.add(backBtn);
+        panelNorth.add(Box.createHorizontalStrut(100));
+        panelNorth.add(logOutBtn);
         
-        final Text kitchenText = new Text(25, 25, "KEUKEN");
-        kitchenText.setFill(Color.CHOCOLATE);
-        kitchenText.setFont(Font.font(java.awt.Font.SERIF, 30));        
+        panelCenter.add(dateLbl);
+        panelCenter.add(dayTF);
+        panelCenter.add(monthTF);
+        panelCenter.add(yearTF);
         
-        grid.add(backBtn,1,1);
-        grid.add(dayTF,2,1);
-        grid.add(monthTF,3,1);
-        grid.add(yearTF,4,1);
-        grid.add(logoutBtn,5,1);
-        grid.add(barTA,2,4);
-        grid.add(keukenTA,4,4);
-        grid.add(requestBtn,3,5);
-        grid.add(barText,2,3);
-        grid.add(kitchenText,4,3);
+        panelCenter.add(barTA);
+        panelCenter.add(keukenTA);
         
+        panelSouth.add(requestBtn);
         
-        dayTF.focusedProperty().addListener(new ChangeListener<Boolean>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
-            {
-                if (newPropertyValue)
-                {
-                    dayTF.setText("");
-                }
-            }
-        }
-        );
+        //Reset TextField when mouse click
+        dayTF.addMouseListener(new MouseAdapter(){
+                    @Override
+                    public void mouseClicked(MouseEvent e)
+                    {
+                        dayTF.setText("");
+                    }
+                    });
                 
         // Add a listener to the textfield, so that when the textfield is clicked, it removes the placeholder text.
-        monthTF.focusedProperty().addListener(new ChangeListener<Boolean>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
-            {
-                if (newPropertyValue)
-                {
-                    monthTF.setText("");
-                }
-            }
-        }
-        );
+        monthTF.addMouseListener(new MouseAdapter(){
+                    @Override
+                    public void mouseClicked(MouseEvent e)
+                    {
+                        monthTF.setText("");
+                    }
+                    });
                   
         // Add a listener to the textfield, so that when the textfield is clicked, it removes the placeholder text.
-        yearTF.focusedProperty().addListener(new ChangeListener<Boolean>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
-            {
-                if (newPropertyValue)
-                {
-                    yearTF.setText("");
-                }
-            }
-        }
-        );
-    backBtn.setOnAction(new EventHandler<ActionEvent>() {
- 
-    @Override
-    public void handle(ActionEvent e) {
-        
-    }
-});
+        yearTF.addMouseListener(new MouseAdapter(){
+                    @Override
+                    public void mouseClicked(MouseEvent e)
+                    {
+                        yearTF.setText("");
+                    }
+                    });
             
-    logoutBtn.setOnAction(new EventHandler<ActionEvent>() {
- 
-    @Override
-    public void handle(ActionEvent e) {
+    logOutBtn.addActionListener(A1-> {
      barTA.setText("Gelukt!");
-    }
-});
-                        
-    requestBtn.setOnAction(new EventHandler<ActionEvent>() {
- 
-    @Override
-    public void handle(ActionEvent e) {
-
-    }
-});        
+});      
     
-    requestBtn.setOnAction(new EventHandler<ActionEvent>() {
- 
-    @Override
-    public void handle(ActionEvent e) {
-        
+    requestBtn.addActionListener(A1 -> {        
      
      String dayStr = dayTF.getText();
      String monthStr = monthTF.getText();
@@ -184,16 +129,11 @@ public class WeergaveUI {
      }
      catch(DateInvalidException die)
      {
-         PresentationUtils.showJavaFXAlert("Entered date is invalid");
+         PresentationUtils.showSwingAlert("Entered date is invalid");
      }
-    }
-        });
-        return (scene);
-        
-        
-    }
+    });}
     
-    public String getFormattedOutputForDayPart(DayPart dp)
+     public String getFormattedOutputForDayPart(DayPart dp)
     {
         String s = dp.getDate().toSQLString();
         s += "\t\t\t";
