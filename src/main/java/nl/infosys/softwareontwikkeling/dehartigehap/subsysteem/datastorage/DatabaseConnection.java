@@ -37,7 +37,7 @@ public class DatabaseConnection {
             {   
                 // Try to create a connection with the library database
                 connection = DriverManager.getConnection(
-                    "jdbc:mysql://164.132.101.65:3306/" , "root", "Kaas123");
+                    "jdbc:mysql://164.132.101.65:3306/ivpb4" , "ivpb4", "ivpb4");
 
                 if(connection != null)
                 {
