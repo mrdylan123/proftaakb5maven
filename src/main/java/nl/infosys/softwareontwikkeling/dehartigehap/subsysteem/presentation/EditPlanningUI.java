@@ -131,9 +131,18 @@ public class EditPlanningUI extends JPanel {
         statusDayPart3.removeAllItems();
         
         int cBIndex = employeeCB.getSelectedIndex();
-        int day = Integer.parseInt(dayTF.getText());
-        int month = Integer.parseInt(monthTF.getText());
-        int year = Integer.parseInt(yearTF.getText());
+        
+        int day = 0, month = 0, year = 0;
+        
+        try {
+            day = Integer.parseInt(dayTF.getText());
+            month = Integer.parseInt(monthTF.getText());
+            year = Integer.parseInt(yearTF.getText());
+        }
+        catch(NumberFormatException nfe)
+        {
+            return; // TODO: show error message
+        }
         
         Date d = new Date(day,month,year);
         Employee e = epManager.getEmployees().get(cBIndex);
