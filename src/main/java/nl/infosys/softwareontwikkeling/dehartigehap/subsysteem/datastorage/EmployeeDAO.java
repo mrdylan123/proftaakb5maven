@@ -118,4 +118,40 @@ public class EmployeeDAO {
         }
         return e;
     }
+    
+    public int getAmountServed(Employee e, String table)
+    {
+        int count = 0;
+        
+        DatabaseConnection connection = new DatabaseConnection();
+        if(connection.openConnection())
+        {
+            // If a connection was successfully setup, execute the SELECT statement.
+            ResultSet resultset = connection.executeSQLSelectStatement(
+                "SELECT * FROM " + table + " WHERE employeeid='" 
+                        + e.getEmployeeId() + "' AND status='ready';");
+
+            try 
+            {
+                count = resultset.last() ? resultset.getRow() : 0;
+            }
+            catch(SQLException sqlexcept)
+            {
+                connection.closeConnection();
+            }
+        }
+        
+        return count;
+    }
+    
+    public int getAmountMealsServed(Employee e)
+    {
+        return getAmountServed(e, "mealorder");
+    }
+    
+    public int getAmountDrinksServed(Employee e)
+    {
+        return getAmountServed(e, "drinkorder");
+    }
+    
 }
