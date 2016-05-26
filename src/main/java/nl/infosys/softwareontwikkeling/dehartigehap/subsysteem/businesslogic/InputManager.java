@@ -28,7 +28,7 @@ public class InputManager {
         return employees;
     }
     
-    public void OnConfirmButtonPress(Employee e1, Employee e2, Employee e3, 
+    public void planEmployeesIntoDayPart(Employee e1, Employee e2, Employee e3, 
             int dayPartSelectedIndex, String dayStr, String monthStr, 
             String yearStr) throws DateInvalidException
     {

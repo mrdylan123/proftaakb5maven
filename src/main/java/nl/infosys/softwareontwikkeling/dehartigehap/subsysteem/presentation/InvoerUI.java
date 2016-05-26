@@ -231,7 +231,7 @@ public class InvoerUI {
      
      try
      {
-         inputManager.OnConfirmButtonPress(e1, e2, e3, dayPartCBSelectedIndex, 
+         inputManager.planEmployeesIntoDayPart(e1, e2, e3, dayPartCBSelectedIndex, 
                                                 dayStr, monthStr, yearStr);
 
          PresentationUtils.showJavaFXAlert("Successfully entered input.");
