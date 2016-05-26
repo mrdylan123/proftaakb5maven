@@ -9,7 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.StatsManager;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.EmployeeDAO;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
 
 /**
@@ -86,11 +85,9 @@ public class StatsUI extends JPanel {
     }
     
     private void setStatsResultTextArea(Employee e)
-    {
-        EmployeeDAO eDAO = new EmployeeDAO();
-        
-        int mealsServed = eDAO.getAmountMealsServed(e);
-        int drinksServed = eDAO.getAmountDrinksServed(e);
+    {        
+        int mealsServed = statsManager.getAmountMealsServed(e);
+        int drinksServed = statsManager.getAmountDrinksServed(e);
         
         String s = String.format("Hoeveelheid maaltijden geserveerd: %d\n",
                                                 mealsServed);

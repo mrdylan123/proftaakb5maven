@@ -8,7 +8,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.EditPlanningManager;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.DayPartDAO;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Date;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPart;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartEmployee;
@@ -151,8 +150,8 @@ public class EditPlanningUI extends JPanel {
         epManager.setSelectedEmployee(e);
         
         
-        ArrayList<DayPart> dayParts = (new DayPartDAO()).
-                loadDayPartsForEmployee(e, d);
+        ArrayList<DayPart> dayParts = epManager.getDayPartsForEmployee(
+                                   e, d);
         
         setRosterAreaText(dayParts, e);
         
@@ -235,17 +234,16 @@ public class EditPlanningUI extends JPanel {
     
     private void doAction(EditAction ea, DayPartType dpt)
     {
-        DayPartDAO dpDAO = new DayPartDAO();
         Employee e = epManager.getSelectedEmployee();
         if (ea == EditAction.ACTION_ADD )
         {
             DayPartEmployee dpe = new DayPartEmployee(e, PresenceStatus.PLANNED);
-            dpDAO.saveDayPartEmployee(dpe, epManager.getSelectedDate(), dpt);
+            epManager.saveDayPartEmployee(dpe, epManager.getSelectedDate(), dpt);
         }
         
         if (ea == EditAction.ACTION_DELETE)
         {
-            dpDAO.deleteDayPartEmployee(e, epManager.getSelectedDate(), dpt);
+            epManager.deleteDayPartEmployee(e, epManager.getSelectedDate(), dpt);
         }
     }
 }

@@ -6,8 +6,11 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 
 import java.util.ArrayList;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.EmployeeDAO;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Date;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPart;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartEmployee;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartType;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
 
 /**
@@ -43,5 +46,18 @@ public class EditPlanningManager {
 
     public Employee getSelectedEmployee() {
         return selectedEmployee;
+    }
+    
+    public ArrayList<DayPart> getDayPartsForEmployee(Employee e, Date d)
+    {
+         return (new DayPartDAO()).loadDayPartsForEmployee(e, d);
+    }
+    
+    public void saveDayPartEmployee(DayPartEmployee dpe, Date d, DayPartType dpt) {
+        (new DayPartDAO()).saveDayPartEmployee(dpe, d, dpt);
+    }
+    
+    public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt) {
+        (new DayPartDAO()).deleteDayPartEmployee(e, d, dpt);
     }
 }

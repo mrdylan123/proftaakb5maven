@@ -20,6 +20,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.DBUtils;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPart;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartEmployee;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
@@ -195,7 +196,7 @@ public class WeergaveUI {
     
     public String getFormattedOutputForDayPart(DayPart dp)
     {
-        String s = dp.getDate().toSQLString();
+        String s = DBUtils.toSQLString(dp.getDate());
         s += "\t\t\t";
         s += dp.getDayPartType().toString();
         s += "\n----------------------------------------\n";

@@ -22,7 +22,7 @@ public class DayPartDAO {
     {
         DayPart dp = null;
         
-        String dateStr = d.toSQLString();
+        String dateStr = DBUtils.toSQLString(d);
         
         ArrayList<DayPartEmployee> dpeList = new ArrayList<>();
         
@@ -77,7 +77,7 @@ public class DayPartDAO {
         if(connection.openConnection())
         {
             String execStr = "INSERT INTO daypart VALUES(\'" + 
-                    dp.getDate().toSQLString() + "\',\'" + 
+                    DBUtils.toSQLString(dp.getDate()) + "\',\'" + 
                     dp.getDayPartType().toString().toLowerCase() + "\');";
             
             connection.executeSQLInsertStatement(execStr);
@@ -102,7 +102,7 @@ public class DayPartDAO {
                     + "date,dayparttype,presencestatus)"
                     + " VALUES('" +
                     dpe.getEmployee().getEmployeeId() + "','" + 
-                    d.toSQLString() + "','" + 
+                    DBUtils.toSQLString(d) + "','" + 
                     dpt.toString().toLowerCase() + "','" +
                         dpe.getPresenceStatus().toString().toLowerCase() 
                         + "');";
@@ -119,7 +119,7 @@ public class DayPartDAO {
         if(connection.openConnection())
         {
             String execStr = "DELETE FROM daypart_employee WHERE date='" + 
-                    d.toSQLString() + "' AND dayparttype='" + 
+                    DBUtils.toSQLString(d) + "' AND dayparttype='" + 
                     dpt.toString().toLowerCase() + "';";
                 
                 connection.executeSQLInsertStatement(execStr);
@@ -133,7 +133,7 @@ public class DayPartDAO {
         if(connection.openConnection())
         {
             String execStr = "DELETE FROM daypart_employee WHERE date='" + 
-                    d.toSQLString() + "' AND dayparttype='" + 
+                    DBUtils.toSQLString(d) + "' AND dayparttype='" + 
                     dpt.toString().toLowerCase() + "' AND employeeid='" +  
                     e.getEmployeeId() + "';";
                 
@@ -149,7 +149,7 @@ public class DayPartDAO {
         {
             // If a connection was successfully setup, execute the SELECT statement.
             String execStr = "SELECT * FROM daypart_employee WHERE date =\'" 
-                    + d.toSQLString() + "\' AND dayparttype =\'" + 
+                    + DBUtils.toSQLString(d) + "\' AND dayparttype =\'" + 
                     dpt.toString().toLowerCase() + "\' AND employeeid=\'" +
                     e.getEmployeeId() + "\';";
             
@@ -190,7 +190,7 @@ public class DayPartDAO {
             // If a connection was successfully setup, execute the SELECT statement.
             String execStr = String.format("SELECT * FROM daypart_employee WHERE"
                     + " employeeid='%d' AND date='%s';",
-                    e.getEmployeeId(), date.toSQLString());
+                    e.getEmployeeId(), DBUtils.toSQLString(date));
             
             ResultSet resultset = connection.executeSQLSelectStatement(execStr);
 
@@ -204,7 +204,7 @@ public class DayPartDAO {
                        String dateStr = resultset.getString("date");
                        
                        DayPartType dpt = DayPartType.valueOf(dptStr.toUpperCase());
-                       Date d = Date.fromSQLString(dateStr);
+                       Date d = DBUtils.fromSQLString(dateStr);
                        
                        DayPart dp = (new DayPartDAO()).loadDayPart(d, dpt);
                        dayParts.add(dp);

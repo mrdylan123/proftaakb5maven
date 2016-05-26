@@ -220,10 +220,19 @@ public class InvoerUI {
      String monthStr = monthTF.getText();
      String yearStr = yearTF.getText();
      
+    Employee e1 = null, e2 = null, e3 = null;
+        
+    if (CB1SelectedIndex > 0) e1 = inputManager.getEmployees()
+                                    .get(CB1SelectedIndex - 1);
+    if (CB2SelectedIndex > 0) e2 = inputManager.getEmployees()
+                                    .get(CB2SelectedIndex - 1);
+    if (CB3SelectedIndex > 0) e3 = inputManager.getEmployees()
+                                    .get(CB3SelectedIndex - 1);
+     
      try
      {
-         inputManager.OnConfirmButtonPress(CB1SelectedIndex, CB2SelectedIndex, 
-                 CB3SelectedIndex, dayPartCBSelectedIndex, dayStr, monthStr, yearStr);
+         inputManager.OnConfirmButtonPress(e1, e2, e3, dayPartCBSelectedIndex, 
+                                                dayStr, monthStr, yearStr);
 
          PresentationUtils.showJavaFXAlert("Successfully entered input.");
      }

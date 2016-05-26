@@ -28,27 +28,4 @@ public class Date {
     public int getYear() {
         return year;
     }
-    
-    public static Date fromSQLString(String s)
-    {
-        String[] tokens = s.split("[-]");
-        
-        int year = Integer.parseInt(tokens[0]);
-        int month = Integer.parseInt(tokens[1]);
-        int day = Integer.parseInt(tokens[2]);
-        
-        return new Date(day, month, year);
-    }
-    
-    public String toSQLString()
-    {
-        String s = "";
-        s += year;
-        s += "-";
-        s += month;
-        s += "-";
-        s += day;
-        
-        return s;
-    }
 }

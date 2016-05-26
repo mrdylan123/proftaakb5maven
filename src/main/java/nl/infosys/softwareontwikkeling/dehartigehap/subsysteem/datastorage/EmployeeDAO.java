@@ -95,8 +95,8 @@ public class EmployeeDAO {
                         
                         // To our Date class
                         
-                        Date employmentdate = Date.fromSQLString(employmentdatestr);
-                        Date dateofbirth = Date.fromSQLString(dateofbirthstr);
+                        Date employmentdate = DBUtils.fromSQLString(employmentdatestr);
+                        Date dateofbirth = DBUtils.fromSQLString(dateofbirthstr);
                         
                         e = new Employee(name, email, null /*loginName*/,
                         null /*loginPassword*/, street, address, city, phonenumber,

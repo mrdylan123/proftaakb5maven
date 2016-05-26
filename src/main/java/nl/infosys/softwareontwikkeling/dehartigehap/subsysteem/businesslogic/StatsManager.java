@@ -25,5 +25,14 @@ public class StatsManager {
     {
         return employees;
     }
+        
+    public int getAmountDrinksServed(Employee e)
+    {
+        return (new EmployeeDAO()).getAmountDrinksServed(e);
+    }
     
+    public int getAmountMealsServed(Employee e)
+    {
+        return (new EmployeeDAO()).getAmountMealsServed(e);
+    }
 }
