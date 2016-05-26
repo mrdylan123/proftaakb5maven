@@ -14,7 +14,7 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
  * @author dyl
  */
 public class StatsManager {
-    ArrayList<Employee> employees;
+    private ArrayList<Employee> employees;
     
     public StatsManager() 
     {

@@ -181,7 +181,6 @@ public class EditPlanningUI extends JPanel {
                 // Matched, so the employee is planned in for the daypart
                 // set selected combobox item to 'verwijder planning'
                 set = true;
-                break;
             }
         }
         if (set)
