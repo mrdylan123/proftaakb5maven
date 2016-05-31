@@ -129,35 +129,43 @@ public class InvoerUI extends JPanel{
         
 
         
-        confirmButton.addActionListener(a1 -> {
-            int CB1SelectedIndex = worker1CB.getSelectedIndex();
-            int CB2SelectedIndex = worker2CB.getSelectedIndex();
-            int CB3SelectedIndex = worker3CB.getSelectedIndex();
-            int dayPartCBSelectedIndex = dayPartCB.getSelectedIndex();
+        confirmButton.addActionListener(a1 -> { int CB1SelectedIndex = worker1CB.getSelectedIndex();
+             int CB2SelectedIndex = worker2CB.getSelectedIndex();
+             int CB3SelectedIndex = worker3CB.getSelectedIndex();
+             int dayPartCBSelectedIndex = dayPartCB.getSelectedIndex();
 
-            if (CB1SelectedIndex < 1 && CB2SelectedIndex < 1 
-                       && CB3SelectedIndex < 1)
-            {
-                return;
+             if (CB1SelectedIndex < 1 && CB2SelectedIndex < 1 
+                        && CB3SelectedIndex < 1)
+             {
+                 return;
+             }
+
+             String dayStr = dayTF.getText();
+             String monthStr = monthTF.getText();
+             String yearStr = yearTF.getText();
+
+            Employee e1 = null, e2 = null, e3 = null;
+
+            if (CB1SelectedIndex > 0) e1 = inputManager.getEmployees()
+                                            .get(CB1SelectedIndex - 1);
+            if (CB2SelectedIndex > 0) e2 = inputManager.getEmployees()
+                                            .get(CB2SelectedIndex - 1);
+            if (CB3SelectedIndex > 0) e3 = inputManager.getEmployees()
+                                            .get(CB3SelectedIndex - 1);
+
+             try
+             {
+                 inputManager.planEmployeesIntoDayPart(e1, e2, e3, dayPartCBSelectedIndex, 
+                                                        dayStr, monthStr, yearStr);
+
+                 PresentationUtils.showSwingAlert("Successfully entered input.");
+             }
+             catch(DateInvalidException die)
+             {
+                 PresentationUtils.showSwingAlert("Entered date is invalid.");
+             }
+            });
             }
-
-            String dayStr = dayTF.getText();
-            String monthStr = monthTF.getText();
-            String yearStr = yearTF.getText();
-
-            try
-            {
-                inputManager.OnConfirmButtonPress(CB1SelectedIndex, CB2SelectedIndex, 
-                        CB3SelectedIndex, dayPartCBSelectedIndex, dayStr, monthStr, yearStr);
-
-                PresentationUtils.showSwingAlert("Successfully entered input.");
-            }
-            catch(DateInvalidException die)
-            {
-                PresentationUtils.showSwingAlert("Entered date is invalid.");
-            }
-           });
-    }
 }
 
 

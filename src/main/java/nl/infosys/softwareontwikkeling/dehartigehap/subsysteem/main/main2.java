@@ -19,19 +19,41 @@ public class main2 extends JFrame{
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        JFrame frame = new main2();
-        frame.setSize( 400, 280);
-        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
-        frame.setTitle ("Testje");
-        frame.setContentPane(new StatsUI());
-        frame.setVisible(true);
+        {
+            JFrame frame = new main2();
+            frame.setSize( 400, 280);
+            frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
+            frame.setTitle ("Statistieken");
+            frame.setContentPane(new StatsUI());
+            frame.setVisible(true);
+        }
         
-        JFrame frame2 = new main2();
-        frame2.setSize( 400, 280);
-        frame2.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
-        frame2.setTitle ("Edit Planning UI");
-        frame2.setContentPane(new EditPlanningUI());
-        frame2.setVisible(true);
+        {
+            JFrame frame = new main2();
+            frame.setSize( 400, 280);
+            frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
+            frame.setTitle ("Edit Planning UI");
+            frame.setContentPane(new EditPlanningUI());
+            frame.setVisible(true);
+        }
+        
+        {
+            JFrame frame = new Main();
+            frame.setTitle("Planning invoeren");     
+            frame.setSize(500,500);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setContentPane(new InvoerUI());
+            frame.setVisible(true);
+        }
+        
+        {
+            JFrame frame = new Main();
+            frame.setTitle("Planning weergave");     
+            frame.setSize(500,500);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setContentPane(new WeergaveUI());
+            frame.setVisible(true);
+        }
     }
     
 }

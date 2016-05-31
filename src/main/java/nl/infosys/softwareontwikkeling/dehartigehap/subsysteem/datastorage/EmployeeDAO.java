@@ -83,11 +83,11 @@ public class EmployeeDAO {
                         String zipcode = resultset.getString("zipcode");
                         String name = resultset.getString("name");
                         String nationality = resultset.getString("nationality");
-                        String street = resultset.getString("street");
-                        String address = resultset.getString("address");
+                        String street = "";
+                        String address = resultset.getString("adress");
                         String city = resultset.getString("city");
                         String phonenumber = resultset.getString("phonenumber");
-                        String email = resultset.getString("email");
+                        String email = "";
                         
                         // date strings
                         String employmentdatestr = resultset.getString("employmentdate");
@@ -95,8 +95,8 @@ public class EmployeeDAO {
                         
                         // To our Date class
                         
-                        Date employmentdate = Date.fromSQLString(employmentdatestr);
-                        Date dateofbirth = Date.fromSQLString(dateofbirthstr);
+                        Date employmentdate = DBUtils.fromSQLString(employmentdatestr);
+                        Date dateofbirth = DBUtils.fromSQLString(dateofbirthstr);
                         
                         e = new Employee(name, email, null /*loginName*/,
                         null /*loginPassword*/, street, address, city, phonenumber,
@@ -118,4 +118,40 @@ public class EmployeeDAO {
         }
         return e;
     }
+    
+    public int getAmountServed(Employee e, String table)
+    {
+        int count = 0;
+        
+        DatabaseConnection connection = new DatabaseConnection();
+        if(connection.openConnection())
+        {
+            // If a connection was successfully setup, execute the SELECT statement.
+            ResultSet resultset = connection.executeSQLSelectStatement(
+                "SELECT * FROM " + table + " WHERE employeeid='" 
+                        + e.getEmployeeId() + "' AND status='ready';");
+
+            try 
+            {
+                count = resultset.last() ? resultset.getRow() : 0;
+            }
+            catch(SQLException sqlexcept)
+            {
+                connection.closeConnection();
+            }
+        }
+        
+        return count;
+    }
+    
+    public int getAmountMealsServed(Employee e)
+    {
+        return getAmountServed(e, "mealorder");
+    }
+    
+    public int getAmountDrinksServed(Employee e)
+    {
+        return getAmountServed(e, "drinkorder");
+    }
+    
 }

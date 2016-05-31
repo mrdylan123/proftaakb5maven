@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.DBUtils;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPart;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartEmployee;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
@@ -135,7 +136,7 @@ public class WeergaveUI extends JPanel{
     
      public String getFormattedOutputForDayPart(DayPart dp)
     {
-        String s = dp.getDate().toSQLString();
+        String s = DBUtils.toSQLString(dp.getDate());
         s += "\t\t\t";
         s += dp.getDayPartType().toString();
         s += "\n----------------------------------------\n";
