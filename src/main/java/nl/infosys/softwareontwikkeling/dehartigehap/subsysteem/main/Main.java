@@ -13,14 +13,16 @@ import javax.swing.JFrame;
  */
 public class Main extends JFrame{
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * @param args the command line arguments
      */
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        
+    public static void main(String[] args) 
+    {    
         JFrame frame = new Main();
         frame.setTitle("Planning invoeren");     
         frame.setSize(500,500);
