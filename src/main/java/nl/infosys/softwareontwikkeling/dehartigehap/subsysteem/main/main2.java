@@ -6,7 +6,7 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.main;
 
 import javax.swing.JFrame;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation.StatsUI;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation.*;
 
 /**
  *
@@ -25,6 +25,13 @@ public class main2 extends JFrame{
         frame.setTitle ("Testje");
         frame.setContentPane(new StatsUI());
         frame.setVisible(true);
+        
+        JFrame frame2 = new main2();
+        frame2.setSize( 400, 280);
+        frame2.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
+        frame2.setTitle ("Edit Planning UI");
+        frame2.setContentPane(new EditPlanningUI());
+        frame2.setVisible(true);
     }
     
 }

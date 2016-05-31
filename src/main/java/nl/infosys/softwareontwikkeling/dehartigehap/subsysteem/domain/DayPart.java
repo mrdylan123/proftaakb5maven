@@ -37,4 +37,17 @@ public class DayPart {
     public ArrayList<DayPartEmployee> getDpeList() {
         return dpeList;
     }
+    
+    public DayPartEmployee getDaypartEmployeeForEmployee(Employee e)
+    {
+        for (DayPartEmployee dpe2 : getDpeList())
+        {
+            if (dpe2.getEmployee().getEmployeeId() == e.getEmployeeId() )
+            {
+                return dpe2;
+            }
+        }
+        
+        return null;
+    }
 }

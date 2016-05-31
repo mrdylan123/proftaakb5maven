@@ -21,7 +21,7 @@ public class StatsUI extends JPanel {
     private JButton backButton, logOutButton, getStatsButton;
     private JLabel employeesLabel;
     private JComboBox employeeCB;
-    private JTextArea statresults;
+    private JTextArea statsResults;
     private StatsManager statsManager;
     
     public StatsUI() {
@@ -54,7 +54,7 @@ public class StatsUI extends JPanel {
             
         }
         
-        statresults = new JTextArea("Het aantal uitgeserveerde gerechten voor medewerker x.");
+        statsResults = new JTextArea("");
         
         panelNorth.add(backButton);
         panelNorth.add(new JLabel("") );
@@ -62,7 +62,7 @@ public class StatsUI extends JPanel {
         
         panelCenter.add(employeesLabel);
         panelCenter.add(employeeCB);
-        panelCenter.add(statresults);
+        panelCenter.add(statsResults);
         
         panelCenter.add(new JLabel("") );
         panelCenter.add(getStatsButton);
@@ -70,6 +70,32 @@ public class StatsUI extends JPanel {
         
         add( panelNorth, BorderLayout.NORTH );
         add( panelCenter, BorderLayout.CENTER);
+        
+        getStatsButton.addActionListener(a1 -> getStats());
     }
     
+    private void getStats()
+    {
+        Employee e = statsManager.getEmployees().get(
+                employeeCB.getSelectedIndex());
+        
+        if (e == null) return;
+        
+        setStatsResultTextArea(e);
+    }
+    
+    private void setStatsResultTextArea(Employee e)
+    {        
+        int mealsServed = statsManager.getAmountMealsServed(e);
+        int drinksServed = statsManager.getAmountDrinksServed(e);
+        
+        String s = String.format("Hoeveelheid maaltijden geserveerd: %d\n",
+                                                mealsServed);
+        s += String.format("Hoeveelheid drankjes geserveerd: %d\n",
+                                                drinksServed);
+        
+        
+        statsResults.setText(s);
+        
+    }
 }

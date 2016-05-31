@@ -22,7 +22,7 @@ public class DayPartDAO {
     {
         DayPart dp = null;
         
-        String dateStr = d.toSQLString();
+        String dateStr = DBUtils.toSQLString(d);
         
         ArrayList<DayPartEmployee> dpeList = new ArrayList<>();
         
@@ -31,9 +31,9 @@ public class DayPartDAO {
         if(connection.openConnection())
         {
             // If a connection was successfully setup, execute the SELECT statement.
-            String execStr = "SELECT * FROM employee_daypart WHERE date =\'" + dateStr + 
-                        "\' AND dayparttype =\'" + 
-                    dayPartType.toString().toLowerCase() + "\';";
+            String execStr = "SELECT * FROM daypart_employee WHERE date ='" + dateStr + 
+                        "' AND dayparttype ='" + 
+                    dayPartType.toString().toLowerCase() + "';";
             
             ResultSet resultset = connection.executeSQLSelectStatement(execStr);
 
@@ -77,7 +77,7 @@ public class DayPartDAO {
         if(connection.openConnection())
         {
             String execStr = "INSERT INTO daypart VALUES(\'" + 
-                    dp.getDate().toSQLString() + "\',\'" + 
+                    DBUtils.toSQLString(dp.getDate()) + "\',\'" + 
                     dp.getDayPartType().toString().toLowerCase() + "\');";
             
             connection.executeSQLInsertStatement(execStr);
@@ -98,13 +98,16 @@ public class DayPartDAO {
         DatabaseConnection connection = new DatabaseConnection();
         if(connection.openConnection())
         {
-            String execStr = "INSERT INTO employee_daypart VALUES(\'" +
-                    dpe.getEmployee().getEmployeeId() + "\',\'" + 
-                    d.toSQLString() + "\',\'" + 
-                    dpt.toString().toLowerCase() + "\',\'" +
+            String execStr = "INSERT INTO daypart_employee(employeeid,"
+                    + "date,dayparttype,presencestatus)"
+                    + " VALUES('" +
+                    dpe.getEmployee().getEmployeeId() + "','" + 
+                    DBUtils.toSQLString(d) + "','" + 
+                    dpt.toString().toLowerCase() + "','" +
                         dpe.getPresenceStatus().toString().toLowerCase() 
-                        + "\');";
+                        + "');";
                 
+               // System.out.println(execStr);
                 connection.executeSQLInsertStatement(execStr);
         }
     }
@@ -115,9 +118,24 @@ public class DayPartDAO {
         DatabaseConnection connection = new DatabaseConnection();
         if(connection.openConnection())
         {
-            String execStr = "DELETE FROM employee_daypart WHERE date=\'" + 
-                    d.toSQLString() + "\' AND dayparttype=\'" + 
-                    dpt.toString().toLowerCase() + "\';";
+            String execStr = "DELETE FROM daypart_employee WHERE date='" + 
+                    DBUtils.toSQLString(d) + "' AND dayparttype='" + 
+                    dpt.toString().toLowerCase() + "';";
+                
+                connection.executeSQLInsertStatement(execStr);
+        }
+    }
+    
+        public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt)
+    {
+        // First open a database connnection
+        DatabaseConnection connection = new DatabaseConnection();
+        if(connection.openConnection())
+        {
+            String execStr = "DELETE FROM daypart_employee WHERE date='" + 
+                    DBUtils.toSQLString(d) + "' AND dayparttype='" + 
+                    dpt.toString().toLowerCase() + "' AND employeeid='" +  
+                    e.getEmployeeId() + "';";
                 
                 connection.executeSQLInsertStatement(execStr);
         }
@@ -130,8 +148,8 @@ public class DayPartDAO {
         if(connection.openConnection())
         {
             // If a connection was successfully setup, execute the SELECT statement.
-            String execStr = "SELECT * FROM employee_daypart WHERE date =\'" 
-                    + d.toSQLString() + "\' AND dayparttype =\'" + 
+            String execStr = "SELECT * FROM daypart_employee WHERE date =\'" 
+                    + DBUtils.toSQLString(d) + "\' AND dayparttype =\'" + 
                     dpt.toString().toLowerCase() + "\' AND employeeid=\'" +
                     e.getEmployeeId() + "\';";
             
@@ -161,4 +179,50 @@ public class DayPartDAO {
         return false;
     }
     
+    public ArrayList<DayPart> loadDayPartsForEmployee(Employee e, Date date)
+    {
+        ArrayList<DayPart> dayParts = new ArrayList<>();
+        
+        // First open a database connnection
+        DatabaseConnection connection = new DatabaseConnection();
+        if(connection.openConnection())
+        {
+            // If a connection was successfully setup, execute the SELECT statement.
+            String execStr = String.format("SELECT * FROM daypart_employee WHERE"
+                    + " employeeid='%d' AND date='%s';",
+                    e.getEmployeeId(), DBUtils.toSQLString(date));
+            
+            ResultSet resultset = connection.executeSQLSelectStatement(execStr);
+
+            if(resultset != null)
+            {
+                try
+                {
+                    while(resultset.next())
+                    {
+                       String dptStr = resultset.getString("dayparttype");
+                       String dateStr = resultset.getString("date");
+                       
+                       DayPartType dpt = DayPartType.valueOf(dptStr.toUpperCase());
+                       Date d = DBUtils.fromSQLString(dateStr);
+                       
+                       DayPart dp = (new DayPartDAO()).loadDayPart(d, dpt);
+                       dayParts.add(dp);
+                    }
+                }
+                catch(SQLException excpt)
+                {
+                    System.out.println(e);
+                }
+            }
+            // else an error occurred leave array list empty.
+
+            // We had a database connection opened. Since we're finished,
+            // we need to close it.
+            connection.closeConnection();
+        }
+        
+        return dayParts;
+    
+    }
 }

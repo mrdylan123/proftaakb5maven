@@ -16,7 +16,7 @@ import javafx.scene.control.Alert.AlertType;
  * @author J. Bouman
  */
 public class InputManager {
-    ArrayList<Employee> employees;
+    private ArrayList<Employee> employees;
     
     public InputManager() 
     {
@@ -28,16 +28,11 @@ public class InputManager {
         return employees;
     }
     
-    public void OnConfirmButtonPress(int CB1SelectedIndex, int CB2SelectedIndex, 
-             int CB3SelectedIndex, int dayPartSelectedIndex, String dayStr, 
-             String monthStr, String yearStr) throws DateInvalidException
+    public void planEmployeesIntoDayPart(Employee e1, Employee e2, Employee e3, 
+            int dayPartSelectedIndex, String dayStr, String monthStr, 
+            String yearStr) throws DateInvalidException
     {
-        Employee e1 = null, e2 = null, e3 = null;
-        
-        if (CB1SelectedIndex > 0) e1 = employees.get(CB1SelectedIndex - 1);
-        if (CB2SelectedIndex > 0) e2 = employees.get(CB2SelectedIndex - 1);
-        if (CB3SelectedIndex > 0) e3 = employees.get(CB3SelectedIndex - 1);
-        
+
         try {
             Integer day = Integer.parseInt(dayStr);
             Integer month = Integer.parseInt(monthStr);
@@ -52,11 +47,15 @@ public class InputManager {
 
             DayPartDAO dpDAO = new DayPartDAO();
 
-            DayPart dp = dpDAO.loadDayPart(new Date((int)day, (int)month, (int)year), dpt);
+            DayPart dp = dpDAO.loadDayPart(new Date((int)day, (int)month, 
+                                                (int)year), dpt);
 
-            if (e1 != null) dp.getDpeList().add(new DayPartEmployee(e1, PresenceStatus.PLANNED));
-            if (e2 != null) dp.getDpeList().add(new DayPartEmployee(e2, PresenceStatus.PLANNED));
-            if (e3 != null) dp.getDpeList().add(new DayPartEmployee(e3, PresenceStatus.PLANNED));
+            if (e1 != null) dp.getDpeList().add(new DayPartEmployee(e1, 
+                                                    PresenceStatus.PLANNED));
+            if (e2 != null) dp.getDpeList().add(new DayPartEmployee(e2, 
+                                                    PresenceStatus.PLANNED));
+            if (e3 != null) dp.getDpeList().add(new DayPartEmployee(e3, 
+                                                    PresenceStatus.PLANNED));
 
             dpDAO.saveDayPart(dp);
         }

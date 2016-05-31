@@ -14,7 +14,7 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
  * @author dyl
  */
 public class StatsManager {
-    ArrayList<Employee> employees;
+    private ArrayList<Employee> employees;
     
     public StatsManager() 
     {
@@ -25,5 +25,14 @@ public class StatsManager {
     {
         return employees;
     }
+        
+    public int getAmountDrinksServed(Employee e)
+    {
+        return (new EmployeeDAO()).getAmountDrinksServed(e);
+    }
     
+    public int getAmountMealsServed(Employee e)
+    {
+        return (new EmployeeDAO()).getAmountMealsServed(e);
+    }
 }
