@@ -6,6 +6,10 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
 import javafx.scene.control.Alert;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.main.main2;
 
 /**
  *
@@ -13,12 +17,18 @@ import javafx.scene.control.Alert;
  */
 public class PresentationUtils {
     
-        static public void showSwingAlert(String msg) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        
-        alert.showAndWait();
+    static public void showSwingAlert(String msg) {
+        JOptionPane.showMessageDialog(null, msg, "Error", 
+                                            JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    static void createWindow(JPanel panel, String windowName)
+    {
+            JFrame frame = new JFrame();
+            frame.setSize( 400, 280);
+            frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
+            frame.setTitle (windowName);
+            frame.setContentPane(panel);
+            frame.setVisible(true);
     }
 }

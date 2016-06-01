@@ -27,7 +27,7 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
  *
  * @author J. Bouman
  */
-public class WeergaveUI extends JPanel{
+public class ViewUI extends JPanel{
     
     private JButton backBtn, logOutBtn, requestBtn;
     private JLabel dateLbl;
@@ -38,7 +38,7 @@ public class WeergaveUI extends JPanel{
     private JPanel panelSouth;
     private PresentationManager presentationManager;
     
-    public WeergaveUI() {   
+    public ViewUI() {   
         presentationManager = new PresentationManager();
         panelNorth = new JPanel();
         panelCenter = new JPanel();

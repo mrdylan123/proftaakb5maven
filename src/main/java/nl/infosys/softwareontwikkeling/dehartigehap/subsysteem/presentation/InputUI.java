@@ -21,7 +21,7 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
  *
  * @author J. Bouman
  */
-public class InvoerUI extends JPanel{
+public class InputUI extends JPanel{
     private JButton backButton, logOutButton, confirmButton, checkButton;
     private JComboBox worker1CB, worker2CB, worker3CB, dayPartCB;
     private JLabel workerLabel, dateLabel, dayPartLabel;
@@ -31,7 +31,7 @@ public class InvoerUI extends JPanel{
     private JPanel panelCenter;
     private InputManager inputManager;
     
-    public InvoerUI() {
+    public InputUI() {
         inputManager = new InputManager();
         
         setLayout(new BorderLayout());

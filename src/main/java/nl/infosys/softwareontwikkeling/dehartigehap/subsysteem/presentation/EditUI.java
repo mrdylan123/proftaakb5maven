@@ -18,7 +18,7 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.PresenceSt
  *
  * @author J. Bouman
  */
-public class EditPlanningUI extends JPanel {
+public class EditUI extends JPanel {
     private JPanel panelNorth, panelCenter;
     private JButton backButton, logOutButton, getActualRosterButton, confirmEditButton;
     private JComboBox employeeCB, statusDayPart1, statusDayPart2, statusDayPart3;
@@ -34,7 +34,7 @@ public class EditPlanningUI extends JPanel {
         ACTION_DELETE
     };
     
-    public EditPlanningUI() {
+    public EditUI() {
         
         epManager = new EditPlanningManager();
 

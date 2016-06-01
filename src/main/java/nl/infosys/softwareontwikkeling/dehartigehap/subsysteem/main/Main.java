@@ -25,7 +25,7 @@ public class Main extends JFrame{
         frame.setTitle("Planning invoeren");     
         frame.setSize(500,500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(new WeergaveUI());
+        frame.setContentPane(new ViewUI());
         frame.setVisible(true);
     }  
     
