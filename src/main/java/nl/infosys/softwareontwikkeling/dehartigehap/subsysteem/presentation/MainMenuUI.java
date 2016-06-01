@@ -49,6 +49,7 @@ public class MainMenuUI extends JPanel {
                                                 "Planning weergeven"));
         statsBtn.addActionListener(al -> newWindowButtonPress(new StatsUI(),
                                                 "Statistieken weergeven"));
+
         presenceBtn.addActionListener(al -> newWindowButtonPress(new PresenceUI(),
                                                 "Presentie bekijken"));
         

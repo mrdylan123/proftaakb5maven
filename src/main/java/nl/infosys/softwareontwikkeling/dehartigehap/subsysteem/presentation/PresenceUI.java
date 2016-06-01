@@ -7,12 +7,16 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.PresenceManager;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Date;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPart;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartEmployee;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
 
 /**
@@ -71,7 +75,43 @@ private JPanel panelNorth, panelCenter;
         backButton.addActionListener(a1 -> PresentationUtils.
                                                   returnToMainMenu(this));
         logOutButton.addActionListener(a1 -> PresentationUtils.logout());
+        
+        getPresentionButton.addActionListener(a1 -> getPresentionButtonPress());
+    }
+    
+    public void getPresentionButtonPress()
+    {
+        int index = employeeCB.getSelectedIndex();
+        Employee e = presenceManager.getEmployees().get(index);
+        
+        int limit = 10; // amount of results to return
+        
+        ArrayList<DayPart> dayparts = presenceManager.getDayPartsForEmployee(
+                                                            e, limit);
+        
+        String s = "";
+        
+        for (DayPart dp : dayparts)
+        {
+            s += getFormattedOutputForDayPart(dp, e);
+        }
+        presentionResults.setText(s);
     }
    
-   
+   public String getFormattedOutputForDayPart(DayPart dp, Employee e)
+   {
+       String s = "";
+       
+       DayPartEmployee dpe = dp.getDaypartEmployeeForEmployee(e);
+       Date d = dp.getDate();
+       
+       if (d != null && dpe != null)
+       {
+            s += String.format("%d-%d-%d %s (%s)\n", d.getDay(), d.getMonth(),
+                    d.getYear(), dp.getDayPartType().toString(), 
+                    dpe.getPresenceStatus().toString());
+       }
+       
+       return s;
+   }
 }
