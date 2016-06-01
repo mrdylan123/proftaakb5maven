@@ -6,6 +6,8 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.main;
 
 import javax.swing.JFrame;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.UserLoginManager;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.BCrypt;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation.*;
 
 /**
@@ -18,7 +20,15 @@ public class main2 extends JFrame{
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+
+        UserLoginManager ulm = new UserLoginManager();
+        
+        ulm.registerUser("Maikel", "test");
+        
+        boolean check = ulm.checkPassword("Maikel", "test");
+        
+        System.out.println(check);
+        
         {
             JFrame frame = new main2();
             frame.setSize( 400, 280);
