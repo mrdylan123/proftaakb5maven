@@ -23,7 +23,7 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
  *
  * @author maikel
  */
-public class PresenceUI extends JPanel {
+public class PresentionUI extends JPanel {
 private JPanel panelNorth, panelCenter;
     private JButton backButton, logOutButton, getPresentionButton;
     private JLabel employeesLabel;
@@ -31,7 +31,7 @@ private JPanel panelNorth, panelCenter;
     private JTextArea presentionResults;
     private PresenceManager presenceManager;
    
-    public PresenceUI() {
+    public PresentionUI() {
         presenceManager = new PresenceManager();
    
         setLayout(new BorderLayout() );

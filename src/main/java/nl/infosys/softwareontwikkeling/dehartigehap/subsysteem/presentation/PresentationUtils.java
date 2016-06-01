@@ -5,8 +5,13 @@
  */
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
+import java.awt.Component;
+import java.awt.Container;
 import javafx.scene.control.Alert;
+import javax.swing.AbstractButton;
+import javax.swing.Action;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -27,7 +32,7 @@ public class PresentationUtils {
     {
             JFrame frame = new JFrame();
             frame.setSize( 400, 280);
-            frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
+            frame.setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE);
             frame.setTitle (windowName);
             frame.setContentPane(panel);
             frame.setVisible(true);
@@ -55,4 +60,24 @@ public class PresentationUtils {
             System.exit(0);
         }
     }
+    
+    static public void removeCloseButton(Component comp) {
+    if (comp instanceof JMenu) {
+      Component[] children = ((JMenu) comp).getMenuComponents();
+      for (int i = 0; i < children.length; ++i)
+        removeCloseButton(children[i]);
+    }
+    else if (comp instanceof AbstractButton) {
+      Action action = ((AbstractButton) comp).getAction();
+      String cmd = (action == null) ? "" : action.toString();
+      if (cmd.contains("CloseAction")) {
+        comp.getParent().remove(comp);
+      }
+    }
+    else if (comp instanceof Container) {
+      Component[] children = ((Container) comp).getComponents();
+      for (int i = 0; i < children.length; ++i)
+        removeCloseButton(children[i]);
+    }
+  }
 }

@@ -50,7 +50,7 @@ public class MainMenuUI extends JPanel {
         statsBtn.addActionListener(al -> newWindowButtonPress(new StatsUI(),
                                                 "Statistieken weergeven"));
 
-        presenceBtn.addActionListener(al -> newWindowButtonPress(new PresenceUI(),
+        presenceBtn.addActionListener(al -> newWindowButtonPress(new PresentionUI(),
                                                 "Presentie bekijken"));
         
         
