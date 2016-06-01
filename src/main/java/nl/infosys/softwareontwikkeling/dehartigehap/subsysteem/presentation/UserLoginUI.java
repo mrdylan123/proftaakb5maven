@@ -20,24 +20,27 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.Use
 public class UserLoginUI extends JPanel {
     private JTextField usernameTF; 
     private JPasswordField passwordTF;
-    private JButton loginBtn;
+    private JButton loginBtn, exitBtn;
     private UserLoginManager ulm;
     
     public UserLoginUI()
     {
         
         ulm = new UserLoginManager();
-        setLayout(new GridLayout(3,1, 2, 2));
+        setLayout(new GridLayout(4,1, 2, 2));
         
         usernameTF = new JTextField("");
         passwordTF = new JPasswordField();
         loginBtn = new JButton("Login");
+        exitBtn = new JButton("Exit");
         
         add(usernameTF);
         add(passwordTF);
         add(loginBtn);
+        add(exitBtn);
         
         loginBtn.addActionListener(a1 -> loginButtonPress());
+        exitBtn.addActionListener(a1 -> exitButtonPress());
     }
     
     public void loginButtonPress()
@@ -56,7 +59,11 @@ public class UserLoginUI extends JPanel {
         }
         else {
             PresentationUtils.showSwingAlert("Invalid username/password.");
-        }
-        
+        }   
+    }
+    
+    public void exitButtonPress()
+    {
+        PresentationUtils.logout();
     }
 }
