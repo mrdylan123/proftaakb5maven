@@ -7,9 +7,11 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
 import java.awt.GridLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.UserLoginManager;
 
 /**
@@ -21,6 +23,7 @@ public class MainMenuUI extends JPanel {
     
     public MainMenuUI()
     {
+        
         setLayout(new GridLayout(3,1, 2, 2));
         
         inputBtn = new JButton("Planning Invoeren");
@@ -38,18 +41,31 @@ public class MainMenuUI extends JPanel {
         add(logoutBtn);
 
         
-        logoutBtn.addActionListener(a1 -> logoutButtonPress());
+        inputBtn.addActionListener(al -> newWindowButtonPress(new InputUI(),
+                                                "Planning invoeren"));
+        editBtn.addActionListener(al -> newWindowButtonPress(new EditUI(),
+                                                "Planning wijzigen"));
+        viewBtn.addActionListener(al -> newWindowButtonPress(new ViewUI(),
+                                                "Planning weergeven"));
+        statsBtn.addActionListener(al -> newWindowButtonPress(new StatsUI(),
+                                                "Statistieken weergeven"));
+        presenceBtn.addActionListener(al -> newWindowButtonPress(new PresenceUI(),
+                                                "Presentie bekijken"));
+        
+        
+        logoutBtn.addActionListener(al -> logoutButtonPress());
     }
     
     public void logoutButtonPress()
     {
-        int dialogResult = JOptionPane.showConfirmDialog(null, 
-                    "Are you sure you want to exit?","Warning",
-                    JOptionPane.WARNING_MESSAGE);
+        PresentationUtils.logout();
+    }
+    
+    public void newWindowButtonPress(JPanel panel, String windowTitle)
+    {
+        PresentationUtils.createWindow(panel, 
+                windowTitle);
         
-        if(dialogResult == JOptionPane.YES_OPTION)
-        {
-            System.exit(0);
-        }
+        PresentationUtils.destroyWindow(this);
     }
 }

@@ -72,6 +72,10 @@ public class StatsUI extends JPanel {
         add( panelCenter, BorderLayout.CENTER);
         
         getStatsButton.addActionListener(a1 -> getStats());
+        
+        backButton.addActionListener(a1 -> PresentationUtils.
+                                                  returnToMainMenu(this));
+        logOutButton.addActionListener(a1 -> PresentationUtils.logout());
     }
     
     private void getStats()

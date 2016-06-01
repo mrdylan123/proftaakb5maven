@@ -127,6 +127,9 @@ public class InputUI extends JPanel{
         panelSouth.add(new JLabel(""));
         panelSouth.add(confirmButton);
         
+        backButton.addActionListener(a1 -> PresentationUtils.
+                                                  returnToMainMenu(this));
+        logOutButton.addActionListener(a1 -> PresentationUtils.logout());
 
         
         confirmButton.addActionListener(a1 -> { int CB1SelectedIndex = worker1CB.getSelectedIndex();

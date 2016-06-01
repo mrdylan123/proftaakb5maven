@@ -120,6 +120,11 @@ public class EditUI extends JPanel {
 
         getActualRosterButton.addActionListener(al -> getRoster());
         confirmEditButton.addActionListener(a1 -> editRoster());
+        
+        backButton.addActionListener(a1 -> PresentationUtils.
+                                                  returnToMainMenu(this));
+        
+        logOutButton.addActionListener(a1 -> PresentationUtils.logout());
     }
     
     private void getRoster()

@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.main.main2;
 
 /**
@@ -22,7 +23,7 @@ public class PresentationUtils {
                                             JOptionPane.INFORMATION_MESSAGE);
     }
     
-    static void createWindow(JPanel panel, String windowName)
+    static public void createWindow(JPanel panel, String windowName)
     {
             JFrame frame = new JFrame();
             frame.setSize( 400, 280);
@@ -30,5 +31,28 @@ public class PresentationUtils {
             frame.setTitle (windowName);
             frame.setContentPane(panel);
             frame.setVisible(true);
+    }
+    
+    static public void destroyWindow(JPanel panel)
+    {
+       ((JFrame)SwingUtilities.getRoot(panel)).dispose();
+    }
+    
+    static public void returnToMainMenu(JPanel panel)
+    {
+        PresentationUtils.createWindow(new MainMenuUI(), "Hoofdmenu");
+        PresentationUtils.destroyWindow(panel);
+    }
+    
+    static public void logout()
+    {
+        int dialogResult = JOptionPane.showConfirmDialog(null, 
+                    "Are you sure you want to exit?","Warning",
+                    JOptionPane.WARNING_MESSAGE);
+        
+        if(dialogResult == JOptionPane.YES_OPTION)
+        {
+            System.exit(0);
+        }
     }
 }

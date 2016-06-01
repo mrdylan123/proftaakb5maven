@@ -33,7 +33,7 @@ public class main2 extends JFrame{
             JFrame frame = new main2();
             frame.setSize( 400, 280);
             frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
-            frame.setTitle ("Statistieken");
+            frame.setTitle ("Login");
             frame.setContentPane(new UserLoginUI());
             frame.setVisible(true);
         }

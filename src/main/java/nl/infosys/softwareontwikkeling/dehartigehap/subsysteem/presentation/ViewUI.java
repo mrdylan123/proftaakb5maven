@@ -76,6 +76,10 @@ public class ViewUI extends JPanel{
         
         panelSouth.add(requestBtn);
         
+        backBtn.addActionListener(a1 -> PresentationUtils.
+                                                  returnToMainMenu(this));
+        logOutBtn.addActionListener(a1 -> PresentationUtils.logout());
+        
         //Reset TextField when mouse click
         dayTF.addMouseListener(new MouseAdapter(){
                     @Override

@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -18,10 +19,11 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.Use
 public class UserLoginUI extends JPanel {
     private JTextField usernameTF, passwordTF;
     private JButton loginBtn;
-    UserLoginManager ulm;
+    private UserLoginManager ulm;
     
     public UserLoginUI()
     {
+        
         ulm = new UserLoginManager();
         setLayout(new GridLayout(3,1, 2, 2));
         
@@ -44,7 +46,11 @@ public class UserLoginUI extends JPanel {
         if ( ulm.checkPassword(username, password) )
         {
             /* create main menu window */
-            PresentationUtils.createWindow(new MainMenuUI(), "Hoofdmenu");
+            JFrame frame = new JFrame();
+            PresentationUtils.createWindow(new MainMenuUI(), 
+                                                "Hoofdmenu");
+            
+            PresentationUtils.destroyWindow(this);
         }
         else {
             PresentationUtils.showSwingAlert("Invalid username/password.");
