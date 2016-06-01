@@ -225,4 +225,51 @@ public class DayPartDAO {
         return dayParts;
     
     }
+    
+    public ArrayList<DayPart> loadDayPartsForEmployee(Employee e, int limit)
+    {
+        ArrayList<DayPart> dayParts = new ArrayList<>();
+        
+        // First open a database connnection
+        DatabaseConnection connection = new DatabaseConnection();
+        if(connection.openConnection())
+        {
+            // If a connection was successfully setup, execute the SELECT statement.
+            String execStr = String.format("SELECT * FROM daypart_employee WHERE"
+                    + " employeeid='%d' ORDER BY date ASC LIMIT %d;",
+                    e.getEmployeeId(), limit);
+            
+            ResultSet resultset = connection.executeSQLSelectStatement(execStr);
+
+            if(resultset != null)
+            {
+                try
+                {
+                    while(resultset.next())
+                    {
+                       String dptStr = resultset.getString("dayparttype");
+                       String dateStr = resultset.getString("date");
+                       
+                       DayPartType dpt = DayPartType.valueOf(dptStr.toUpperCase());
+                       Date d = DBUtils.fromSQLString(dateStr);
+                       
+                       DayPart dp = (new DayPartDAO()).loadDayPart(d, dpt);
+                       dayParts.add(dp);
+                    }
+                }
+                catch(SQLException excpt)
+                {
+                    System.out.println(e);
+                }
+            }
+            // else an error occurred leave array list empty.
+
+            // We had a database connection opened. Since we're finished,
+            // we need to close it.
+            connection.closeConnection();
+        }
+        
+        return dayParts;
+    
+    }
 }

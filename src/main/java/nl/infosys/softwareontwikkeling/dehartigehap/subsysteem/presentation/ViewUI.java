@@ -36,10 +36,10 @@ public class ViewUI extends JPanel{
     private JPanel panelNorth;
     private JPanel panelCenter;
     private JPanel panelSouth;
-    private PresentationManager presentationManager;
+    private ViewManager viewManager;
     
     public ViewUI() {   
-        presentationManager = new PresentationManager();
+        viewManager = new ViewManager();
         panelNorth = new JPanel();
         panelCenter = new JPanel();
         panelSouth = new JPanel();
@@ -119,7 +119,7 @@ public class ViewUI extends JPanel{
      
      try
      {
-         DayPart[] dpArr = presentationManager.OnRequestButtonPress(
+         DayPart[] dpArr = viewManager.OnRequestButtonPress(
                  dayStr, monthStr, yearStr);
 
          String s = "";

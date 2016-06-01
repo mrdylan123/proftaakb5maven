@@ -6,7 +6,9 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 
 import java.util.ArrayList;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.DayPartDAO;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.EmployeeDAO;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPart;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
 
 public class PresenceManager {
@@ -20,5 +22,10 @@ public class PresenceManager {
     public ArrayList<Employee> getEmployees()
     {
         return employees;
+    }
+    
+    public ArrayList<DayPart> getDayPartsForEmployee(Employee e, int limit)
+    {
+        return (new DayPartDAO()).loadDayPartsForEmployee(e, limit);
     }
 }
