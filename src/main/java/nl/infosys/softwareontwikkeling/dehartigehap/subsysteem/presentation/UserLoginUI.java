@@ -12,12 +12,14 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.UserLoginManager;
 
 
 public class UserLoginUI extends JPanel {
-    private JTextField usernameTF, passwordTF;
+    private JTextField usernameTF; 
+    private JPasswordField passwordTF;
     private JButton loginBtn;
     private UserLoginManager ulm;
     
@@ -28,7 +30,7 @@ public class UserLoginUI extends JPanel {
         setLayout(new GridLayout(3,1, 2, 2));
         
         usernameTF = new JTextField("");
-        passwordTF = new JTextField("");
+        passwordTF = new JPasswordField();
         loginBtn = new JButton("Login");
         
         add(usernameTF);
