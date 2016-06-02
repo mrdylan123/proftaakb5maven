@@ -23,10 +23,7 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPart;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartEmployee;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
 
-/**
- *
- * @author J. Bouman
- */
+
 public class ViewUI extends JPanel{
     
     private JButton backBtn, logOutBtn, requestBtn;
@@ -80,65 +77,41 @@ public class ViewUI extends JPanel{
                                                   returnToMainMenu(this));
         logOutBtn.addActionListener(a1 -> PresentationUtils.logout());
         
-        //Reset TextField when mouse click
-        dayTF.addMouseListener(new MouseAdapter(){
-                    @Override
-                    public void mouseClicked(MouseEvent e)
-                    {
-                        dayTF.setText("");
-                    }
-                    });
-                
-        // Add a listener to the textfield, so that when the textfield is clicked, it removes the placeholder text.
-        monthTF.addMouseListener(new MouseAdapter(){
-                    @Override
-                    public void mouseClicked(MouseEvent e)
-                    {
-                        monthTF.setText("");
-                    }
-                    });
-                  
-        // Add a listener to the textfield, so that when the textfield is clicked, it removes the placeholder text.
-        yearTF.addMouseListener(new MouseAdapter(){
-                    @Override
-                    public void mouseClicked(MouseEvent e)
-                    {
-                        yearTF.setText("");
-                    }
-                    });
-            
-    logOutBtn.addActionListener(A1-> {
-     barTA.setText("Gelukt!");
-});      
+        dayTF.addMouseListener(new EmptyOnMouseClickListener(dayTF));        
+        monthTF.addMouseListener(new EmptyOnMouseClickListener(monthTF));                 
+        yearTF.addMouseListener(new EmptyOnMouseClickListener(yearTF));               
     
-    requestBtn.addActionListener(A1 -> {        
-     
-     String dayStr = dayTF.getText();
-     String monthStr = monthTF.getText();
-     String yearStr = yearTF.getText();
-     
-     try
-     {
-         DayPart[] dpArr = viewManager.OnRequestButtonPress(
-                 dayStr, monthStr, yearStr);
-
-         String s = "";
-
-         for (DayPart dp : dpArr)
-         {
-             s += getFormattedOutputForDayPart(dp);
-         }
-
-         barTA.setText(s);
-         keukenTA.setText(s);
-     }
-     catch(DateInvalidException die)
-     {
-         PresentationUtils.showSwingAlert("Entered date is invalid");
-     }
-    });}
+        requestBtn.addActionListener(a1 -> doRequestButtonPress());       
+  }
     
-     public String getFormattedOutputForDayPart(DayPart dp)
+    private void doRequestButtonPress()
+    {   
+        String dayStr = dayTF.getText();
+        String monthStr = monthTF.getText();
+        String yearStr = yearTF.getText();
+
+        try
+        {
+            DayPart[] dpArr = viewManager.OnRequestButtonPress(
+                    dayStr, monthStr, yearStr);
+
+            String s = "";
+
+            for (DayPart dp : dpArr)
+            {
+                s += getFormattedOutputForDayPart(dp);
+            }
+
+            barTA.setText(s);
+            keukenTA.setText(s);
+        }
+        catch(DateInvalidException die)
+        {
+            PresentationUtils.showSwingAlert("Entered date is invalid");
+        }
+    }
+    
+    public String getFormattedOutputForDayPart(DayPart dp)
     {
         String s = DBUtils.toSQLString(dp.getDate());
         s += "\t\t\t";
