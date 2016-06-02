@@ -123,6 +123,8 @@ public class DayPartDAO {
                     dpt.toString().toLowerCase() + "';";
                 
                 connection.executeSQLInsertStatement(execStr);
+                
+                connection.closeConnection();
         }
     }
     
@@ -138,6 +140,8 @@ public class DayPartDAO {
                     e.getEmployeeId() + "';";
                 
                 connection.executeSQLInsertStatement(execStr);
+                
+                connection.closeConnection();
         }
     }
     
