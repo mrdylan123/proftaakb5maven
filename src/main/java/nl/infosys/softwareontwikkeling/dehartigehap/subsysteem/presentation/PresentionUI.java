@@ -39,7 +39,7 @@ private JPanel panelNorth, panelCenter;
         panelNorth = new JPanel();
         panelCenter = new JPanel();
 
-        panelNorth.setLayout(new GridLayout(3, 1) );
+        panelNorth.setLayout(new GridLayout(1, 3) );
         panelCenter.setLayout(new GridLayout(2, 3) );
 
         backButton = new JButton ("<--");
