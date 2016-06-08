@@ -29,11 +29,11 @@ public class Utils {
             return false;
         }
         
-        if (day < 1 || day > 32 || month < 1 ) {
+        if (day < MIN_DAY || day > MAX_DAY || month < MIN_MONTH ) {
             return false;
         }
 
-        if (month > 12 || year < 2016 || year > 2100) {
+        if (MAX_MONTH > 12 || MIN_YEAR < 2016 || MAX_YEAR > 2100) {
             return false;
         }        
          

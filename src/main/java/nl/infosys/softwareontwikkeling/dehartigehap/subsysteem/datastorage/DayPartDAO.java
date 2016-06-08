@@ -84,8 +84,7 @@ public class DayPartDAO {
 
                 connection.executeSQLInsertStatement(execStr);
 
-            }
-            catch(SQLException sqle){
+            } catch(SQLException sqle){
             }
             
             try {
@@ -253,28 +252,31 @@ public class DayPartDAO {
             
             ResultSet resultset = connection.executeSQLSelectStatement(execStr);
 
-            if(resultset != null) {
-                try {
-                    while(resultset.next()) {
-                       String dptStr = resultset.getString("dayparttype");
-                       String dateStr = resultset.getString("date");
-                       
-                       DayPartType dpt = DayPartType.valueOf(dptStr.toUpperCase());
-                       Date d = DBUtils.fromSQLString(dateStr);
-                       
-                       DayPart dp = (new DayPartDAO()).loadDayPart(d, dpt);
-                       dayParts.add(dp);
-                    }
-                } catch(SQLException excpt){
-                }
+            if(resultset == null) {
+                connection.closeConnection();
+                return dayParts;
             }
+            
+            try {
+                while(resultset.next()) {
+                   String dptStr = resultset.getString("dayparttype");
+                   String dateStr = resultset.getString("date");
+
+                   DayPartType dpt = DayPartType.valueOf(dptStr.toUpperCase());
+                   Date d = DBUtils.fromSQLString(dateStr);
+
+                   DayPart dp = (new DayPartDAO()).loadDayPart(d, dpt);
+                   dayParts.add(dp);
+                }
+            } catch(SQLException excpt){
+            }
+        }
             // else an error occurred leave array list empty.
 
             // We had a database connection opened. Since we're finished,
             // we need to close it.
-            connection.closeConnection();
-        }
-        
+        connection.closeConnection();
+
         return dayParts;
     
     }
@@ -305,8 +307,7 @@ public class DayPartDAO {
             }
             
             try {
-                while(resultset.next())
-                {
+                while(resultset.next()) {
                    String dptStr = resultset.getString("dayparttype");
                    String dateStr = resultset.getString("date");
 

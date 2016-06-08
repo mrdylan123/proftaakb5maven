@@ -24,12 +24,12 @@ public class PlanUI extends JPanel{
         // Het paneel dat in het midden komt, met de knoppen om te navigeren naar de verschillende usecases
         panelCenter = new JPanel();
         
-        int columns = 1;
-        int rows = 3;
-        int columnsCenter = 4;
+        int COLUMNS = 1;
+        int ROWS = 3;
+        int COLUMNSCENTER = 4;
         
-        panelNorth.setLayout ( new GridLayout( columns, rows ) );      
-        panelCenter.setLayout ( new GridLayout( columnsCenter, rows ) );
+        panelNorth.setLayout ( new GridLayout( COLUMNS, ROWS ) );      
+        panelCenter.setLayout ( new GridLayout( COLUMNSCENTER, ROWS ) );
         
         // De knoppen op het paneel
         terugKnop = new JButton ("<--");

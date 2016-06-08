@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
 import java.awt.BorderLayout;
 import static java.awt.BorderLayout.CENTER;
 import static java.awt.BorderLayout.NORTH;
 import static java.awt.BorderLayout.SOUTH;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.Box;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.*;
@@ -25,8 +19,7 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartEmp
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
 
 
-public class ViewUI extends JPanel{
-    
+public class ViewUI extends JPanel {
     private JButton backBtn, logOutBtn, requestBtn;
     private JLabel dateLbl;
     private JTable morningTable, afternoonTable, eveningTable;
@@ -46,13 +39,13 @@ public class ViewUI extends JPanel{
         setLayout(new BorderLayout());
         
         
-        int rowsNorth = 1;
-        int columnsNorth = 3;
-        int rowsCenter = 4;
-        int columnsCenter = 6;
+        int ROWSNORTH = 1;
+        int COLUMNSNORTH = 3;
+        int ROWSCENTER = 4;
+        int COLUMNSCENTER = 6;
         
-        panelNorth.setLayout(new GridLayout(rowsNorth, columnsNorth) );
-        panelCenter.setLayout(new GridLayout(rowsCenter, columnsNorth) );
+        panelNorth.setLayout(new GridLayout(ROWSNORTH, COLUMNSNORTH) );
+        panelCenter.setLayout(new GridLayout(ROWSCENTER, COLUMNSCENTER) );
         
         add(panelNorth, NORTH);
         add(panelCenter, CENTER);
@@ -76,8 +69,8 @@ public class ViewUI extends JPanel{
         
         panelNorth.add(backBtn);
         
-        int horizontalSpacing = 100;
-        panelNorth.add(Box.createHorizontalStrut(horizontalSpacing));
+        int HORIZONTALSPACING = 100;
+        panelNorth.add(Box.createHorizontalStrut(HORIZONTALSPACING));
         panelNorth.add(logOutBtn);
         
         panelCenter.add(new JLabel(""));
@@ -138,8 +131,8 @@ public class ViewUI extends JPanel{
 
             setTableData(morningTable, dpArr[0]);
             setTableData(afternoonTable, dpArr[1]);
-            int two = 2;
-            setTableData(eveningTable, dpArr[two]);
+            int TWO = 2;
+            setTableData(eveningTable, dpArr[TWO]);
         } catch(NumberFormatException nfe) {
             PresentationUtils.showSwingAlert("Ingevoerde datum is incorrect.");
         }

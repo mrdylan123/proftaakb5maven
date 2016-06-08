@@ -84,16 +84,15 @@ public class EmployeeDAO {
                 // The membershipnumber for a member is unique, so in case the
                 // resultset does contain data, we need its first entry.
                 if(resultset.next()) {
-                    int employee_Id = resultset.getInt("employeeid");                      
+                    int employeeId2 = resultset.getInt("employeeid");                      
                     String function = resultset.getString("function");
                     String name = resultset.getString("name");
 
 
-                    e = new Employee(employee_Id, name, function);
+                    e = new Employee(employeeId2, name, function);
 
                 }
-            }
-            catch(SQLException ex) {
+            } catch(SQLException ex) {
                 e = null;
             }
         }

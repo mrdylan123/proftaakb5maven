@@ -8,6 +8,8 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Date;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPart;
@@ -68,10 +70,11 @@ public class EditPlanningManager {
    * @param dpt DayPartType for which to save
    * @return Nothing
    */
-    public void saveDayPartEmployee(DayPartEmployee dpe, Date d, DayPartType dpt) {
-        try {   
+    public void saveDayPartEmployee(DayPartEmployee dpe, Date d, DayPartType dpt) {  
+        try {
             (new DayPartDAO()).saveDayPartEmployee(dpe, d, dpt);
-        } catch(PlanInPastException pipe){
+        } catch (PlanInPastException ex) {
+            Logger.getLogger(EditPlanningManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -86,8 +89,8 @@ public class EditPlanningManager {
     public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt) {
         try {
             (new DayPartDAO()).deleteDayPartEmployee(e, d, dpt);
-        }
-        catch(SQLException sqle){
+        } catch (SQLException ex) {
+            Logger.getLogger(EditPlanningManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

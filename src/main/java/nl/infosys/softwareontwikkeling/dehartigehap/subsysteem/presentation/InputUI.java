@@ -36,16 +36,16 @@ public class InputUI extends JPanel{
         
         int spacing = 2;
         
-        int rowsNorth = 4;
-        int columnsNorth = 1;
-        int rowsSouth = 4;
-        int columnsSouth = 1;
-        int rowsCenter = 4;
-        int columnsCenter = 4;
+        int ROWSNORTH = 4;
+        int COLUMNSNORTH = 1;
+        int ROWSSOUTH = 4;
+        int COLUMNSSOUTH = 1;
+        int ROWSCENTER = 4;
+        int COLUMNSCENTER = 4;
         
-        panelNorth.setLayout(new GridLayout(columnsNorth, rowsNorth, spacing, spacing));
-        panelSouth.setLayout(new GridLayout(columnsSouth, rowsSouth, spacing, spacing ));
-        panelCenter.setLayout(new GridLayout(columnsCenter, rowsCenter, spacing, spacing));
+        panelNorth.setLayout(new GridLayout(COLUMNSNORTH, ROWSNORTH, spacing, spacing));
+        panelSouth.setLayout(new GridLayout(COLUMNSSOUTH, ROWSSOUTH, spacing, spacing ));
+        panelCenter.setLayout(new GridLayout(COLUMNSCENTER, ROWSCENTER, spacing, spacing));
            
         backButton = new JButton("<--");
         logOutButton = new JButton("Uitloggen");

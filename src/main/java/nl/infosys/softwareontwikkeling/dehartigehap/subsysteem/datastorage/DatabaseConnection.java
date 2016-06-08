@@ -35,8 +35,7 @@ public class DatabaseConnection {
                 connection = DriverManager.getConnection(
                     url , username, password);
 
-                if(connection != null)
-                {
+                if(connection != null) {
                     statement = connection.createStatement();
                 }
                 
@@ -44,8 +43,7 @@ public class DatabaseConnection {
             } catch(SQLException e) {
                 result = false;
             }
-        }
-        else {
+        } else {
             // A connection was already initalized.
             result = true;
         }
@@ -83,7 +81,8 @@ public class DatabaseConnection {
             
             // Close the connection
             connection.close();
-        } catch(Exception e) {}
+        } catch(Exception e) {
+        }
     }
     
    /**
@@ -101,8 +100,7 @@ public class DatabaseConnection {
             // Then, if succeeded, execute the query.
             try {
                 resultset = statement.executeQuery(query);
-            } catch(SQLException e)
-            {
+            } catch(SQLException e) {
                 resultset = null;
             }
         }

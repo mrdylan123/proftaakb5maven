@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 import java.util.List;
 import java.awt.*;
@@ -43,13 +38,13 @@ public class EditUI extends JPanel {
         panelNorth = new JPanel();
         panelCenter = new JPanel();
 
-        int columnsNorth = 1;
-        int rowsNorth = 5;
-        int columnsCenter = 6;
-        int rowsCenter = 6;
+        int COLUMNSNORTH = 1;
+        int ROWSNORTH = 5;
+        int COLUMNSCENTER = 6;
+        int ROWSCENTER = 6;
         
-        panelNorth.setLayout( new GridLayout(columnsNorth, rowsNorth));
-        panelCenter.setLayout(  new GridLayout(columnsCenter, rowsCenter));
+        panelNorth.setLayout(new GridLayout(COLUMNSNORTH, ROWSNORTH));
+        panelCenter.setLayout(  new GridLayout(COLUMNSCENTER, ROWSCENTER));
 
         backButton = new JButton("<--");
         logOutButton = new JButton("Uitloggen");

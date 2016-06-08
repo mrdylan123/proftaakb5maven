@@ -25,15 +25,15 @@ public class ViewManager {
    * @return List of DayParts for the given date
    */
     public DayPart[] getDayPartsForDate(Date d) {
-        int amountOfDayParts = 3;
-        DayPart[] dpArr = new DayPart[amountOfDayParts];
+        int NUMOFDAYPARTS = 3;
+        DayPart[] dpArr = new DayPart[NUMOFDAYPARTS];
 
         DayPartDAO dpDAO = new DayPartDAO();
 
         dpArr[0] = dpDAO.loadDayPart(d, DayPartType.MORNING);
         dpArr[1] = dpDAO.loadDayPart(d, DayPartType.AFTERNOON);
-        int two = 2;
-        dpArr[two] = dpDAO.loadDayPart(d, DayPartType.EVENING);
+        int TWO = 2;
+        dpArr[TWO] = dpDAO.loadDayPart(d, DayPartType.EVENING);
 
         return dpArr;
     }

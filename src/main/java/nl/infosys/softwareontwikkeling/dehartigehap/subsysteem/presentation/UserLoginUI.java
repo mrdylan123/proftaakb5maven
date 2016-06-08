@@ -17,11 +17,11 @@ public class UserLoginUI extends JPanel {
     public UserLoginUI() {      
         ulm = new UserLoginManager();
         
-        int columns = 1;
-        int rows = 5;
-        int spacing = 6;
+        int COLUMNS = 1;
+        int ROWS = 5;
+        int SPACING = 6;
         
-        setLayout(new GridLayout(rows, columns, spacing, spacing));
+        setLayout(new GridLayout(ROWS, COLUMNS, SPACING, SPACING));
         
         usernameTF = new JTextField("");
         passwordTF = new JPasswordField();

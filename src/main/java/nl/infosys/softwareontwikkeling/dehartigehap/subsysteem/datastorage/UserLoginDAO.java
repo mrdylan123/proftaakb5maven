@@ -59,8 +59,8 @@ public class UserLoginDAO {
     public void saveUserLogin(String username, String password) 
             throws SQLException {
         
-        int hashSize = 12;
-        String hashedpassword = BCrypt.hashpw(password, BCrypt.gensalt(hashSize));
+        int HASHSIZE = 12;
+        String hashedpassword = BCrypt.hashpw(password, BCrypt.gensalt(HASHSIZE));
         
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();

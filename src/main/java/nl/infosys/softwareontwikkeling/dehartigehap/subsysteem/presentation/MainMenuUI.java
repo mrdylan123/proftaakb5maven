@@ -8,11 +8,11 @@ public class MainMenuUI extends JPanel {
     
     public MainMenuUI() {
         
-        int rows = 1;
-        int columns = 3;
-        int spacing = 2;
+        int ROWS = 1;
+        int COLUMNS = 3;
+        int SPACING = 2;
         
-        setLayout(new GridLayout(columns, rows, spacing, spacing));
+        setLayout(new GridLayout(COLUMNS, ROWS, SPACING, SPACING));
         
         inputBtn = new JButton("Planning Invoeren");
         editBtn = new JButton("Planning wijzigen");
