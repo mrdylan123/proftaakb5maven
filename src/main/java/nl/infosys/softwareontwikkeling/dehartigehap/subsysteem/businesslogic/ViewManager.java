@@ -7,7 +7,6 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.*;
-import java.util.ArrayList;
 
 /**
  *
@@ -26,13 +25,15 @@ public class ViewManager {
    * @return List of DayParts for the given date
    */
     public DayPart[] getDayPartsForDate(Date d) {
-        DayPart[] dpArr = new DayPart[3];
+        int amountOfDayParts = 3;
+        DayPart[] dpArr = new DayPart[amountOfDayParts];
 
         DayPartDAO dpDAO = new DayPartDAO();
 
         dpArr[0] = dpDAO.loadDayPart(d, DayPartType.MORNING);
         dpArr[1] = dpDAO.loadDayPart(d, DayPartType.AFTERNOON);
-        dpArr[2] = dpDAO.loadDayPart(d, DayPartType.EVENING);
+        int two = 2;
+        dpArr[two] = dpDAO.loadDayPart(d, DayPartType.EVENING);
 
         return dpArr;
     }

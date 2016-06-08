@@ -21,7 +21,6 @@ public class Main extends JFrame{
      */
     public static void main(String[] args) {
         JFrame frame = new Main();
-        frame.setSize( 400, 280);
         frame.setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE);
         frame.setTitle ("Login");
         frame.setContentPane(new UserLoginUI());

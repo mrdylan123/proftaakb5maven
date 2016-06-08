@@ -1,30 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
-import java.awt.GridLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.UserLoginManager;
+import java.awt.*;
+import javax.swing.*;
 
-/**
- *
- * @author maikel
- */
 public class MainMenuUI extends JPanel {
     private JButton inputBtn, editBtn, viewBtn, statsBtn, presenceBtn, logoutBtn;
     
-    public MainMenuUI()
-    {
+    public MainMenuUI() {
         
-        setLayout(new GridLayout(3,1, 2, 2));
+        int rows = 1;
+        int columns = 3;
+        int spacing = 2;
+        
+        setLayout(new GridLayout(columns, rows, spacing, spacing));
         
         inputBtn = new JButton("Planning Invoeren");
         editBtn = new JButton("Planning wijzigen");

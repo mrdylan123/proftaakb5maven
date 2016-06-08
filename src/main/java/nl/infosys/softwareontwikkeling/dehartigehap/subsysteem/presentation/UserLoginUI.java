@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -23,10 +14,14 @@ public class UserLoginUI extends JPanel {
     private JButton loginBtn, exitBtn;
     private UserLoginManager ulm;
     
-    public UserLoginUI() {
-        
+    public UserLoginUI() {      
         ulm = new UserLoginManager();
-        setLayout(new GridLayout(4,1, 2, 2));
+        
+        int columns = 1;
+        int rows = 5;
+        int spacing = 6;
+        
+        setLayout(new GridLayout(rows, columns, spacing, spacing));
         
         usernameTF = new JTextField("");
         passwordTF = new JPasswordField();
@@ -57,8 +52,7 @@ public class UserLoginUI extends JPanel {
         }   
     }
     
-    public void exitButtonPress()
-    {
+    public void exitButtonPress() {
         PresentationUtils.logout(this);
     }
 }

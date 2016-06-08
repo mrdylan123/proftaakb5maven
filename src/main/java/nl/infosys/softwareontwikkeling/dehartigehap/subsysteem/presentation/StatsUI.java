@@ -24,8 +24,11 @@ public class StatsUI extends JPanel {
         panelNorth = new JPanel();
         panelCenter = new JPanel();
         
-        panelNorth.setLayout(new GridLayout(1, 3) );
-        panelCenter.setLayout(new GridLayout(2, 3) );
+        int columns = 1;
+        int rows = 3;
+        int columnsCenter = 2;
+        panelNorth.setLayout(new GridLayout(columns, rows) );
+        panelCenter.setLayout(new GridLayout(columnsCenter, rows) );
         
         backButton = new JButton ("<--");
         logOutButton = new JButton ("Uitloggen");       

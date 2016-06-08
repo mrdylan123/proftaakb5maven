@@ -11,19 +11,14 @@ import static java.awt.BorderLayout.NORTH;
 import static java.awt.BorderLayout.SOUTH;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.Box;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.*;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.DBUtils;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Date;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPart;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartEmployee;
@@ -40,7 +35,8 @@ public class ViewUI extends JPanel{
     private JPanel panelCenter;
     private JPanel panelSouth;
     private ViewManager viewManager;
-    private final static int NUMROWSPERTABLE = 25;
+    private static final int NUMROWSPERTABLE = 25;
+    private static final int NUMCOLUMNSPERTABLE = 3;
     
     public ViewUI() {   
         viewManager = new ViewManager();
@@ -49,8 +45,14 @@ public class ViewUI extends JPanel{
         panelSouth = new JPanel();
         setLayout(new BorderLayout());
         
-        panelNorth.setLayout(new GridLayout(1, 3) );
-        panelCenter.setLayout(new GridLayout(4, 6) );
+        
+        int rowsNorth = 1;
+        int columnsNorth = 3;
+        int rowsCenter = 4;
+        int columnsCenter = 6;
+        
+        panelNorth.setLayout(new GridLayout(rowsNorth, columnsNorth) );
+        panelCenter.setLayout(new GridLayout(rowsCenter, columnsNorth) );
         
         add(panelNorth, NORTH);
         add(panelCenter, CENTER);
@@ -61,13 +63,9 @@ public class ViewUI extends JPanel{
         logOutBtn = new JButton ("Uitloggen");
         dateLbl = new JLabel("Datum :");
         
-        morningTable = new JTable(NUMROWSPERTABLE, 3);
-        afternoonTable = new JTable(NUMROWSPERTABLE, 3);
-        eveningTable = new JTable(NUMROWSPERTABLE, 3);
-        
-        morningTable.setPreferredSize(new Dimension(100, 200));
-        afternoonTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
-        eveningTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
+        morningTable = new JTable(NUMROWSPERTABLE, NUMCOLUMNSPERTABLE);
+        afternoonTable = new JTable(NUMROWSPERTABLE, NUMCOLUMNSPERTABLE);
+        eveningTable = new JTable(NUMROWSPERTABLE, NUMCOLUMNSPERTABLE);
         
         requestBtn = new JButton ("Vraag op");
         
@@ -77,7 +75,9 @@ public class ViewUI extends JPanel{
                
         
         panelNorth.add(backBtn);
-        panelNorth.add(Box.createHorizontalStrut(100));
+        
+        int horizontalSpacing = 100;
+        panelNorth.add(Box.createHorizontalStrut(horizontalSpacing));
         panelNorth.add(logOutBtn);
         
         panelCenter.add(new JLabel(""));
@@ -127,7 +127,7 @@ public class ViewUI extends JPanel{
             Integer month = Integer.parseInt(monthStr);
             Integer year = Integer.parseInt(yearStr);
 
-            if (Utils.isDateValid(day, month, year) == false) {
+            if ( ! Utils.isDateValid(day, month, year) ) {
                 PresentationUtils.showSwingAlert("Ingevoerde datum is incorrect.");
                 return;
             }
@@ -138,7 +138,8 @@ public class ViewUI extends JPanel{
 
             setTableData(morningTable, dpArr[0]);
             setTableData(afternoonTable, dpArr[1]);
-            setTableData(eveningTable, dpArr[2]);
+            int two = 2;
+            setTableData(eveningTable, dpArr[two]);
         } catch(NumberFormatException nfe) {
             PresentationUtils.showSwingAlert("Ingevoerde datum is incorrect.");
         }
@@ -172,8 +173,6 @@ public class ViewUI extends JPanel{
     
     private void addBlankRows(JTable table, int amount) {
         DefaultTableModel tm = (DefaultTableModel)table.getModel();
-        
-        int rowCount = tm.getRowCount();
         
         for (int i = tm.getRowCount(); i < amount; i++) {
             tm.addRow(new Object[]{"","",""});

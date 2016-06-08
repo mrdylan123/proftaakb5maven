@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -17,11 +11,6 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 
 
-
-/**
- *
- * @author J. Bouman
- */
 public class InputUI extends JPanel{
     private JButton backButton, logOutButton, confirmButton;
     private JComboBox worker1CB, worker2CB, worker3CB, dayPartCB;
@@ -45,9 +34,18 @@ public class InputUI extends JPanel{
         add(panelCenter, BorderLayout.CENTER);
         add(panelSouth, BorderLayout.SOUTH);
         
-        panelNorth.setLayout(new GridLayout(1,4, 2, 2));
-        panelSouth.setLayout(new GridLayout(1,4, 2, 2 ));
-        panelCenter.setLayout(new GridLayout(4,4,2,2));
+        int spacing = 2;
+        
+        int rowsNorth = 4;
+        int columnsNorth = 1;
+        int rowsSouth = 4;
+        int columnsSouth = 1;
+        int rowsCenter = 4;
+        int columnsCenter = 4;
+        
+        panelNorth.setLayout(new GridLayout(columnsNorth, rowsNorth, spacing, spacing));
+        panelSouth.setLayout(new GridLayout(columnsSouth, rowsSouth, spacing, spacing ));
+        panelCenter.setLayout(new GridLayout(columnsCenter, rowsCenter, spacing, spacing));
            
         backButton = new JButton("<--");
         logOutButton = new JButton("Uitloggen");
@@ -152,7 +150,7 @@ public class InputUI extends JPanel{
             PresentationUtils.showSwingAlert("De ingevulde datum is incorrect.");
         }
 
-        if (Utils.isDateValid(day, month, year) == false) {
+        if (! Utils.isDateValid(day, month, year) ) {
             PresentationUtils.showSwingAlert("De ingevulde datum is incorrect.");
             return;
         }
@@ -161,19 +159,19 @@ public class InputUI extends JPanel{
                 month, year, dayPartCBSelectedIndex);
     }
 
-    private void planEmployees(int CB1SelectedIndex, int CB2SelectedIndex, 
-            int CB3SelectedIndex, Integer day, Integer month, Integer year, 
+    private void planEmployees(int cB1SelectedIndex, int cB2SelectedIndex, 
+            int cB3SelectedIndex, Integer day, Integer month, Integer year, 
             int dayPartCBSelectedIndex) {
         Employee e1 = null, e2 = null, e3 = null;
         
-        if (CB1SelectedIndex > 0) {
-            e1 = inputManager.getEmployees().get(CB1SelectedIndex - 1);
+        if (cB1SelectedIndex > 0) {
+            e1 = inputManager.getEmployees().get(cB1SelectedIndex - 1);
         }
-        if (CB2SelectedIndex > 0) {
-            e2 = inputManager.getEmployees().get(CB2SelectedIndex - 1);
+        if (cB2SelectedIndex > 0) {
+            e2 = inputManager.getEmployees().get(cB2SelectedIndex - 1);
         }
-        if (CB3SelectedIndex > 0) {
-            e3 = inputManager.getEmployees().get(CB3SelectedIndex - 1);
+        if (cB3SelectedIndex > 0) {
+            e3 = inputManager.getEmployees().get(cB3SelectedIndex - 1);
         }
         
         try {

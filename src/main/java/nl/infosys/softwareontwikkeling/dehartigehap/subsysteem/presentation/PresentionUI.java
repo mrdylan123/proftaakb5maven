@@ -40,8 +40,13 @@ private JPanel panelNorth, panelCenter;
         panelNorth = new JPanel();
         panelCenter = new JPanel();
 
-        panelNorth.setLayout(new GridLayout(1, 3) );
-        panelCenter.setLayout(new GridLayout(2, 3) );
+        int columnsNorth = 1;
+        int rowsNorth = 3;
+        int columnsCenter = 2;
+        int rowsCenter = 3;
+        
+        panelNorth.setLayout(new GridLayout(columnsNorth, rowsNorth));
+        panelCenter.setLayout(new GridLayout(columnsCenter, rowsCenter));
 
         backButton = new JButton ("<--");
 
@@ -83,10 +88,10 @@ private JPanel panelNorth, panelCenter;
         int index = employeeCB.getSelectedIndex();
         Employee e = presenceManager.getEmployees().get(index);
         
-        int limit = 10; // amount of results to return
-        
-        List<DayPart> dayparts = presenceManager.getDayPartsForEmployee(
-                                                            e, limit);
+        // amount of results to return
+        int limit = 10; 
+             
+        List<DayPart> dayparts = presenceManager.getDayPartsForEmployee(e, limit);
         
         String s = "";
         

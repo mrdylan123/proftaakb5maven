@@ -43,8 +43,13 @@ public class EditUI extends JPanel {
         panelNorth = new JPanel();
         panelCenter = new JPanel();
 
-        panelNorth.setLayout( new GridLayout(1,5));
-        panelCenter.setLayout(  new GridLayout(6,6));
+        int columnsNorth = 1;
+        int rowsNorth = 5;
+        int columnsCenter = 6;
+        int rowsCenter = 6;
+        
+        panelNorth.setLayout( new GridLayout(columnsNorth, rowsNorth));
+        panelCenter.setLayout(  new GridLayout(columnsCenter, rowsCenter));
 
         backButton = new JButton("<--");
         logOutButton = new JButton("Uitloggen");
@@ -183,8 +188,7 @@ public class EditUI extends JPanel {
         if (set) {
             cmBox.addItem("Verwijder planning");
             ea = EditAction.ACTION_DELETE;
-        }
-        else {
+        } else {
             cmBox.addItem("Plan in");
             ea = EditAction.ACTION_ADD;
         }
@@ -206,8 +210,7 @@ public class EditUI extends JPanel {
        rosterArea.setText(s);
     }
     
-    private void editRoster()
-    {
+    private void editRoster() {
         int cbIndex1 = statusDayPart1.getSelectedIndex();
         int cbIndex2 = statusDayPart2.getSelectedIndex();
         int cbIndex3 = statusDayPart3.getSelectedIndex();

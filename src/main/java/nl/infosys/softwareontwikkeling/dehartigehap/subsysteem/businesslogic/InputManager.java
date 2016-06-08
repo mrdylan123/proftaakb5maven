@@ -10,13 +10,7 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.*;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
-/**
- *
- * @author J. Bouman
- */
 public class InputManager {
     private List<Employee> employees;
     

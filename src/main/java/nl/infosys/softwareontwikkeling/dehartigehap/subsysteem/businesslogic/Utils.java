@@ -14,12 +14,18 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
    * @return true if the input date is considered valid, else false
    */
 public class Utils {
+    private static final int MIN_DAY = 1;
+    private static final int MIN_MONTH = 1;
+    private static final int MIN_YEAR = 2015;
+    private static final int MAX_DAY = 31;
+    private static final int MAX_MONTH = 12;
+    private static final int MAX_YEAR = 2020;
     
     private Utils() {
     }
     
     public static boolean isDateValid(Integer day, Integer month, Integer year) {
-        if (year == null || month == null || day == null) {
+        if (checkNull(year, month, day)) {
             return false;
         }
         
@@ -32,5 +38,12 @@ public class Utils {
         }        
          
         return true;
+    }
+
+    private static boolean checkNull(Integer year, Integer month, Integer day) {
+        if (year == null || month == null || day == null) {
+            return true;
+        }
+        return false;
     }
 }

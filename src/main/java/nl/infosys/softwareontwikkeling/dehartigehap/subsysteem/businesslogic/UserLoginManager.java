@@ -6,15 +6,9 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.UserLoginDAO;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.BCrypt;
 
-/**
- *
- * @author maikel
- */
 public class UserLoginManager {
 
     public UserLoginManager() {
@@ -27,11 +21,9 @@ public class UserLoginManager {
    * @return Nothing
    */
     public void registerUser(String username, String password) {
-        try 
-        {
+        try {
             (new UserLoginDAO()).saveUserLogin(username, password);
         } catch (SQLException sqle) {}
-
     }
    
    /**

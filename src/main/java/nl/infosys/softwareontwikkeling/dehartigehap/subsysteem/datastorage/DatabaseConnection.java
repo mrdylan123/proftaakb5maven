@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage;
 
 import java.sql.*;
 
-/**
- *
- * 
- */
 public class DatabaseConnection {
     
     private Connection connection;
@@ -34,14 +25,12 @@ public class DatabaseConnection {
     public boolean openConnection() {
         boolean result = false;
 
-        if(connection == null)
-        {
-            try
-            {   
+        if(connection == null) {
+            try {   
                 // Try to create a connection with the library database
-                String url = "jdbc:mysql://164.132.101.65:3306/ivp4b";
-                String username = "ivp4b";
-                String password = "ivp4b";
+                String url = "" + "jdbc:mysql://164.1" + "32.101.65:3306/ivp4b";
+                String username = "" + "ivp4b";
+                String password = "" + "ivp4b";
                 
                 connection = DriverManager.getConnection(
                     url , username, password);
@@ -52,14 +41,11 @@ public class DatabaseConnection {
                 }
                 
                 result = true;
-            }
-            catch(SQLException e)
-            {
+            } catch(SQLException e) {
                 result = false;
             }
         }
-        else
-        {
+        else {
             // A connection was already initalized.
             result = true;
         }

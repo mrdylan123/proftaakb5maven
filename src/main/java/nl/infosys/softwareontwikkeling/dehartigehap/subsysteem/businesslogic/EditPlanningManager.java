@@ -23,8 +23,7 @@ public class EditPlanningManager {
     private Date selectedDate = null;
     private Employee selectedEmployee = null;
     
-    public EditPlanningManager()
-    {
+    public EditPlanningManager() {
         employees = (new EmployeeDAO()).loadEmployees();
     }
     
@@ -70,10 +69,10 @@ public class EditPlanningManager {
    * @return Nothing
    */
     public void saveDayPartEmployee(DayPartEmployee dpe, Date d, DayPartType dpt) {
-        try
-        {   
+        try {   
             (new DayPartDAO()).saveDayPartEmployee(dpe, d, dpt);
-        } catch(PlanInPastException pipe){}
+        } catch(PlanInPastException pipe){
+        }
     }
     
    /**
@@ -85,10 +84,10 @@ public class EditPlanningManager {
    * @return Nothing
    */
     public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt) {
-        try
-        {
+        try {
             (new DayPartDAO()).deleteDayPartEmployee(e, d, dpt);
         }
-        catch(SQLException sqle){}
+        catch(SQLException sqle){
+        }
     }
 }

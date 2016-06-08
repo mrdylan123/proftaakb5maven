@@ -26,7 +26,8 @@ public class DBUtils {
         
         int year = Integer.parseInt(tokens[0]);
         int month = Integer.parseInt(tokens[1]);
-        int day = Integer.parseInt(tokens[2]);
+        int two = 2;
+        int day = Integer.parseInt(tokens[two]);
         
         return new Date(day, month, year);
     }

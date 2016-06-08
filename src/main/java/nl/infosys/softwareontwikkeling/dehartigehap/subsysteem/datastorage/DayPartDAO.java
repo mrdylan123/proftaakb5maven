@@ -24,7 +24,7 @@ public class DayPartDAO {
         
         String dateStr = DBUtils.toSQLString(d);
         
-        ArrayList<DayPartEmployee> dpeList = new ArrayList<>();
+        List<DayPartEmployee> dpeList = new ArrayList<>();
         
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
@@ -36,29 +36,31 @@ public class DayPartDAO {
             
             ResultSet resultset = connection.executeSQLSelectStatement(execStr);
 
-            if(resultset != null) {
-                try {
-                    while(resultset.next()) {
-                        Employee e = (new EmployeeDAO()).
-                                loadEmployee(resultset.getString("employeeid"));
-                        
-                        PresenceStatus ps = PresenceStatus.valueOf(
-                                resultset.getString("presencestatus").toUpperCase());
-                        
-                        DayPartEmployee dpe = new DayPartEmployee(e, ps);
-                        dpeList.add(dpe);
-                   }
-                    dp = new DayPart(d, dayPartType, dpeList);
-                } catch(SQLException e) {
-                    dp = null;
-                }
+            if(resultset == null) {
+                connection.closeConnection();
+                return dp;
             }
+            try {
+                while(resultset.next()) {
+                    Employee e = (new EmployeeDAO()).
+                            loadEmployee(resultset.getString("employeeid"));
+
+                    PresenceStatus ps = PresenceStatus.valueOf(
+                            resultset.getString("presencestatus").toUpperCase());
+
+                    DayPartEmployee dpe = new DayPartEmployee(e, ps);
+                    dpeList.add(dpe);
+               }
+                dp = new DayPart(d, dayPartType, dpeList);
+            } catch(SQLException e) {
+                dp = null;
+            }
+        }
             // else an error occurred leave array list empty.
 
             // We had a database connection opened. Since we're finished,
             // we need to close it.
-            connection.closeConnection();
-        }
+        connection.closeConnection();
         
         return dp;
     }
@@ -83,7 +85,8 @@ public class DayPartDAO {
                 connection.executeSQLInsertStatement(execStr);
 
             }
-            catch(SQLException sqle){}
+            catch(SQLException sqle){
+            }
             
             try {
                 // Delete existing records for this DayPart in employee_daypart
@@ -94,7 +97,8 @@ public class DayPartDAO {
                 }
             } catch(PlanInPastException pipe) {
                 throw pipe;
-            } catch(SQLException sqle){}
+            } catch(SQLException sqle){
+            }
             
             connection.closeConnection();
         }
@@ -208,13 +212,17 @@ public class DayPartDAO {
             
             ResultSet resultset = connection.executeSQLSelectStatement(execStr);
 
-            if(resultset != null) {
-                try {
-                    while(resultset.next()) {
-                        return true;
-                   }
-                } catch(SQLException ex){}
+            if(resultset == null) {
+                connection.closeConnection();
+                return false;
             }
+            try {
+                while(resultset.next()) {
+                    return true;
+               }
+            } catch(SQLException ex){
+            }
+
             // else an error occurred leave array list empty.
 
             // We had a database connection opened. Since we're finished,
@@ -257,7 +265,8 @@ public class DayPartDAO {
                        DayPart dp = (new DayPartDAO()).loadDayPart(d, dpt);
                        dayParts.add(dp);
                     }
-                } catch(SQLException excpt){}
+                } catch(SQLException excpt){
+                }
             }
             // else an error occurred leave array list empty.
 
@@ -290,29 +299,30 @@ public class DayPartDAO {
             
             ResultSet resultset = connection.executeSQLSelectStatement(execStr);
 
-            if(resultset != null) {
-                try {
-                    while(resultset.next())
-                    {
-                       String dptStr = resultset.getString("dayparttype");
-                       String dateStr = resultset.getString("date");
-                       
-                       DayPartType dpt = DayPartType.valueOf(dptStr.toUpperCase());
-                       Date d = DBUtils.fromSQLString(dateStr);
-                       
-                       DayPart dp = (new DayPartDAO()).loadDayPart(d, dpt);
-                       dayParts.add(dp);
-                    }
-                } catch(SQLException excpt){}
+            if(resultset == null) {
+                connection.closeConnection();
+                return dayParts;
             }
-            // else an error occurred leave array list empty.
+            
+            try {
+                while(resultset.next())
+                {
+                   String dptStr = resultset.getString("dayparttype");
+                   String dateStr = resultset.getString("date");
+
+                   DayPartType dpt = DayPartType.valueOf(dptStr.toUpperCase());
+                   Date d = DBUtils.fromSQLString(dateStr);
+
+                   DayPart dp = (new DayPartDAO()).loadDayPart(d, dpt);
+                   dayParts.add(dp);
+                }
+            } catch(SQLException excpt){
+            }
 
             // We had a database connection opened. Since we're finished,
             // we need to close it.
             connection.closeConnection();
         }
-        
-        return dayParts;
-    
+        return dayParts;    
     }
 }

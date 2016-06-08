@@ -35,23 +35,26 @@ public class EmployeeDAO {
             ResultSet resultset = connection.executeSQLSelectStatement(
                 "SELECT * FROM view_planning_employee;");
 
-            if(resultset != null) {
-                try {
-                    while(resultset.next()) {
-                        Employee e = loadEmployee(resultset.getString("employeeid"));
-                        
-                        employees.add(e);
-                   }
-                } catch(SQLException e) {
-                    employees.clear();
-                }
+            if(resultset == null) {
+                connection.closeConnection();
+                return employees;
             }
-            // else an error occurred leave array list empty.
+                
+            try {
+                while(resultset.next()) {
+                    Employee e = loadEmployee(resultset.getString("employeeid"));
 
-            // We had a database connection opened. Since we're finished,
-            // we need to close it.
-            connection.closeConnection();
+                    employees.add(e);
+               }
+            } catch(SQLException e) {
+                employees.clear();
+            }
         }
+        // else an error occurred leave array list empty.
+
+        // We had a database connection opened. Since we're finished,
+        // we need to close it.
+        connection.closeConnection();
         
         return employees;
     }
@@ -72,30 +75,33 @@ public class EmployeeDAO {
                 "SELECT * FROM view_planning_employee WHERE employeeid = \"" 
                         + employeeId + "\";");
 
-            if(resultset != null) {
-                try {
-                    // The membershipnumber for a member is unique, so in case the
-                    // resultset does contain data, we need its first entry.
-                    if(resultset.next()) {
-                        int employee_Id = resultset.getInt("employeeid");                      
-                        String function = resultset.getString("function");
-                        String name = resultset.getString("name");
-                        
-                        
-                        e = new Employee(employee_Id, name, function);
-                        
-                    }
-                }
-                catch(SQLException ex) {
-                    e = null;
+            if(resultset == null) {
+                connection.closeConnection();
+                return e;
+            }
+            
+            try {
+                // The membershipnumber for a member is unique, so in case the
+                // resultset does contain data, we need its first entry.
+                if(resultset.next()) {
+                    int employee_Id = resultset.getInt("employeeid");                      
+                    String function = resultset.getString("function");
+                    String name = resultset.getString("name");
+
+
+                    e = new Employee(employee_Id, name, function);
+
                 }
             }
-            // else an error occurred leave 'member' to null.
-            
-            // We had a database connection opened. Since we're finished,
-            // we need to close it.
-            connection.closeConnection(); 
+            catch(SQLException ex) {
+                e = null;
+            }
         }
+        // else an error occurred leave 'member' to null.
+
+        // We had a database connection opened. Since we're finished,
+        // we need to close it.
+        connection.closeConnection(); 
         return e;
     }
   
