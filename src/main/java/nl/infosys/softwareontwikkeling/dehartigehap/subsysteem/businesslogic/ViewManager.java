@@ -8,6 +8,8 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.*;
  * @author maikel
  */
 public class ViewManager {
+    private static final int TWO = 2;
+    private static final int NUMOFDAYPARTS = 3;
     
     public ViewManager() {
     }
@@ -20,14 +22,12 @@ public class ViewManager {
    * @return List of DayParts for the given date
    */
     public DayPart[] getDayPartsForDate(Date d) {
-        int NUMOFDAYPARTS = 3;
         DayPart[] dpArr = new DayPart[NUMOFDAYPARTS];
 
         DayPartDAO dpDAO = new DayPartDAO();
 
         dpArr[0] = dpDAO.loadDayPart(d, DayPartType.MORNING);
         dpArr[1] = dpDAO.loadDayPart(d, DayPartType.AFTERNOON);
-        int TWO = 2;
         dpArr[TWO] = dpDAO.loadDayPart(d, DayPartType.EVENING);
 
         return dpArr;

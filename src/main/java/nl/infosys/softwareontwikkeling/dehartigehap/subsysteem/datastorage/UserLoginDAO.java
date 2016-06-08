@@ -6,6 +6,8 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.BCrypt;
 
 
 public class UserLoginDAO {
+    private static final int HASHSIZE = 12;
+    
     public UserLoginDAO() {
     }
     
@@ -59,7 +61,6 @@ public class UserLoginDAO {
     public void saveUserLogin(String username, String password) 
             throws SQLException {
         
-        int HASHSIZE = 12;
         String hashedpassword = BCrypt.hashpw(password, BCrypt.gensalt(HASHSIZE));
         
         // First open a database connnection

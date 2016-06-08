@@ -27,6 +27,11 @@ private JPanel panelNorth, panelCenter;
     private JTextArea presentionResults;
     private PresenceManager presenceManager;
    
+    private static final int COLUMNSNORTH = 1;
+    private static final int ROWSNORTH = 3;
+    private static final int COLUMNSCENTER = 2;
+    private static final int ROWSCENTER = 3;
+                            
     public PresentionUI() {
         presenceManager = new PresenceManager();
    
@@ -35,13 +40,13 @@ private JPanel panelNorth, panelCenter;
         panelNorth = new JPanel();
         panelCenter = new JPanel();
 
-        int columnsNorth = 1;
-        int rowsNorth = 3;
-        int columnsCenter = 2;
-        int rowsCenter = 3;
+        int COLUMNSNORTH = 1;
+        int ROWSNORTH = 3;
+        int COLUMNSCENTER = 2;
+        int ROWSCENTER = 3;
         
-        panelNorth.setLayout(new GridLayout(columnsNorth, rowsNorth));
-        panelCenter.setLayout(new GridLayout(columnsCenter, rowsCenter));
+        panelNorth.setLayout(new GridLayout(COLUMNSNORTH, ROWSNORTH));
+        panelCenter.setLayout(new GridLayout(COLUMNSCENTER, ROWSCENTER));
 
         backButton = new JButton ("<--");
 

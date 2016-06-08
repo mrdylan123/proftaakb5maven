@@ -19,21 +19,20 @@ public class ViewUI extends JPanel {
     private static final int NUMROWSPERTABLE = 25;
     private static final int NUMCOLUMNSPERTABLE = 3;
     
+    private static final int ROWSNORTH = 1;
+    private static final int COLUMNSNORTH = 3;
+    private static final int ROWSCENTER = 4;
+    private static final int COLUMNSCENTER = 6;
+    
     public ViewUI() {   
         viewManager = new ViewManager();
         panelNorth = new JPanel();
         panelCenter = new JPanel();
         panelSouth = new JPanel();
         setLayout(new BorderLayout());
-        
-        
-        int ROWSNORTH = 1;
-        int COLUMNSNORTH = 3;
-        int rowsCenter = 4;
-        int columnsCenter = 6;
-        
+                
         panelNorth.setLayout(new GridLayout(ROWSNORTH, COLUMNSNORTH) );
-        panelCenter.setLayout(new GridLayout(rowsCenter, columnsCenter) );
+        panelCenter.setLayout(new GridLayout(ROWSCENTER, COLUMNSCENTER) );
         
         add(panelNorth, BorderLayout.NORTH);
         add(panelCenter, BorderLayout.CENTER);

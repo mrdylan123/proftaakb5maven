@@ -17,6 +17,11 @@ public class EditUI extends JPanel {
     private EditPlanningManager epManager;
     private EditAction actionCB1, actionCB2, actionCB3;
     
+    private static final int COLUMNSNORTH = 1;
+    private static final int ROWSNORTH = 5;
+    private static final int COLUMNSCENTER = 6;
+    private static final int ROWSCENTER = 6;
+    
     public enum EditAction {
         ACTION_NONE,
         ACTION_ADD,
@@ -31,11 +36,6 @@ public class EditUI extends JPanel {
 
         panelNorth = new JPanel();
         panelCenter = new JPanel();
-
-        int COLUMNSNORTH = 1;
-        int ROWSNORTH = 5;
-        int COLUMNSCENTER = 6;
-        int ROWSCENTER = 6;
         
         panelNorth.setLayout(new GridLayout(COLUMNSNORTH, ROWSNORTH));
         panelCenter.setLayout(  new GridLayout(COLUMNSCENTER, ROWSCENTER));

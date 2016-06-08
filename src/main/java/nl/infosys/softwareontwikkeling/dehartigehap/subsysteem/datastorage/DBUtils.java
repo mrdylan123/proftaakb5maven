@@ -3,7 +3,8 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Date;
 
 public class DBUtils {
-    
+    private static final int TWO = 2;
+            
     private DBUtils() {
     }
     
@@ -17,7 +18,6 @@ public class DBUtils {
         
         int year = Integer.parseInt(tokens[0]);
         int month = Integer.parseInt(tokens[1]);
-        int TWO = 2;
         int day = Integer.parseInt(tokens[TWO]);
         
         return new Date(day, month, year);

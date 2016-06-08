@@ -6,12 +6,11 @@ import javax.swing.*;
 public class MainMenuUI extends JPanel {
     private JButton inputBtn, editBtn, viewBtn, statsBtn, presenceBtn, logoutBtn;
     
-    public MainMenuUI() {
-        
-        int ROWS = 1;
-        int COLUMNS = 3;
-        int SPACING = 2;
-        
+    private static final int ROWS = 1;
+    private static final int COLUMNS = 3;
+    private static final int SPACING = 2;            
+                
+    public MainMenuUI() {    
         setLayout(new GridLayout(COLUMNS, ROWS, SPACING, SPACING));
         
         inputBtn = new JButton("Planning Invoeren");

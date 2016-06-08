@@ -22,17 +22,23 @@ public class Utils {
     public static boolean isDateValid(Integer day, Integer month, Integer year) {
         if (checkNull(year, month, day)) {
             return false;
-        }
+        }    
         
-        if (day < MIN_DAY || day > MAX_DAY || month < MIN_MONTH ) {
-            return false;
-        }
-
-        if (MAX_MONTH > 12 || MIN_YEAR < 2016 || MAX_YEAR > 2100) {
+        if (checkDayMonthYear(day, month, year) ) {
             return false;
         }        
          
         return true;
+    }
+
+    private static boolean checkDayMonthYear(Integer day, Integer month, Integer year) {
+        if (day < MIN_DAY || day > MAX_DAY || month < MIN_MONTH) {
+            return true;
+        }
+        if (month > MAX_MONTH || year < MIN_YEAR || year > MAX_YEAR) {
+            return true;
+        }
+        return false;
     }
 
     private static boolean checkNull(Integer year, Integer month, Integer day) {

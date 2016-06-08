@@ -14,6 +14,10 @@ public class StatsUI extends JPanel {
     private JComboBox employeeCB;
     private JTextArea statsResults;
     private StatsManager statsManager;
+               
+    private static final int COLUMNS = 1;
+    private static final int ROWS = 3;
+    private static final int COLUMNSCENTER = 2;
     
     public StatsUI() {
         statsManager = new StatsManager();
@@ -22,11 +26,7 @@ public class StatsUI extends JPanel {
         
         panelNorth = new JPanel();
         panelCenter = new JPanel();
-        
-        int COLUMNS = 1;
-        int ROWS = 3;
-        int COLUMNSCENTER = 2;
-        
+            
         panelNorth.setLayout(new GridLayout(COLUMNS, ROWS) );
         panelCenter.setLayout(new GridLayout(COLUMNSCENTER, ROWS) );
         

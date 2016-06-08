@@ -15,7 +15,15 @@ public class InputUI extends JPanel{
     private JPanel panelSouth;
     private JPanel panelCenter;
     private InputManager inputManager;
-    
+           
+    private static final int SPACING = 2;     
+    private static final int ROWSNORTH = 4;
+    private static final int COLUMNSNORTH = 1;
+    private static final int ROWSSOUTH = 4;
+    private static final int COLUMNSSOUTH = 1;
+    private static final int ROWSCENTER = 4;
+    private static final int COLUMNSCENTER = 4;
+        
     public InputUI() {
         inputManager = new InputManager();
         
@@ -28,19 +36,10 @@ public class InputUI extends JPanel{
         add(panelNorth, BorderLayout.NORTH);
         add(panelCenter, BorderLayout.CENTER);
         add(panelSouth, BorderLayout.SOUTH);
-        
-        int spacing = 2;
-        
-        int ROWSNORTH = 4;
-        int COLUMNSNORTH = 1;
-        int ROWSSOUTH = 4;
-        int COLUMNSSOUTH = 1;
-        int ROWSCENTER = 4;
-        int COLUMNSCENTER = 4;
-        
-        panelNorth.setLayout(new GridLayout(COLUMNSNORTH, ROWSNORTH, spacing, spacing));
-        panelSouth.setLayout(new GridLayout(COLUMNSSOUTH, ROWSSOUTH, spacing, spacing ));
-        panelCenter.setLayout(new GridLayout(COLUMNSCENTER, ROWSCENTER, spacing, spacing));
+                
+        panelNorth.setLayout(new GridLayout(COLUMNSNORTH, ROWSNORTH, SPACING, SPACING));
+        panelSouth.setLayout(new GridLayout(COLUMNSSOUTH, ROWSSOUTH, SPACING, SPACING ));
+        panelCenter.setLayout(new GridLayout(COLUMNSCENTER, ROWSCENTER, SPACING, SPACING));
            
         backButton = new JButton("<--");
         logOutButton = new JButton("Uitloggen");

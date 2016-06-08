@@ -4,19 +4,18 @@ import java.awt.GridLayout;
 import javax.swing.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.UserLoginManager;
 
-
 public class UserLoginUI extends JPanel {
     private JTextField usernameTF; 
     private JPasswordField passwordTF;
     private JButton loginBtn, exitBtn;
     private UserLoginManager ulm;
+        
+    private static final int COLUMNS = 1;
+    private static final int ROWS = 5;
+    private static final int SPACING = 6;
     
     public UserLoginUI() {      
         ulm = new UserLoginManager();
-        
-        int COLUMNS = 1;
-        int ROWS = 5;
-        int SPACING = 6;
         
         setLayout(new GridLayout(ROWS, COLUMNS, SPACING, SPACING));
         

@@ -5,19 +5,16 @@ import javax.swing.*;
 public class PlanUI extends JPanel{
     JPanel panelNorth, panelCenter;
     private JButton terugKnop, loguitKnop, aanwezigheidKnop, inplanKnop, planningKnop, prestatieoverzichtKnop;
+            
+    private static final int COLUMNS = 1;
+    private static final int ROWS = 3;
+    private static final int COLUMNSCENTER = 4;
     
     public PlanUI() {
         setLayout (new BorderLayout() );
         
-        // Het paneel dat bovenaan komt, met de terugknop en de uitlogknop
         panelNorth = new JPanel();
-        
-        // Het paneel dat in het midden komt, met de knoppen om te navigeren naar de verschillende usecases
         panelCenter = new JPanel();
-        
-        int COLUMNS = 1;
-        int ROWS = 3;
-        int COLUMNSCENTER = 4;
         
         panelNorth.setLayout ( new GridLayout( COLUMNS, ROWS ) );      
         panelCenter.setLayout ( new GridLayout( COLUMNSCENTER, ROWS ) );
