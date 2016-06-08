@@ -75,6 +75,7 @@ public class BCrypt {
         private static final int FOUR = 4;
         private static final int SIX = 6;
         private static final int EIGHT = 8;
+        private static final int TEN = 10;
         private static final int SIXTEEN = 16;
         private static final int TWENTYFOUR = 24;
         private static final int TWENTYFIVE = 25;
@@ -415,15 +416,15 @@ public class BCrypt {
 				return rs.toString();
 			}
 			c2 = d[off++] & 0xff;
-			c1 |= (c2 >> 4) & 0x0f;
+			c1 |= (c2 >> FOUR) & 0x0f;
 			rs.append(BASE64_CODE[c1 & 0x3f]);
-			c1 = (c2 & 0x0f) << 2;
+			c1 = (c2 & 0x0f) << TWO;
 			if (off >= len) {
 				rs.append(BASE64_CODE[c1 & 0x3f]);
 				return rs.toString();
 			}
 			c2 = d[off++] & 0xff;
-			c1 |= (c2 >> 6) & 0x03;
+			c1 |= (c2 >> SIX) & 0x03;
 			rs.append(BASE64_CODE[c1 & 0x3f]);
 			rs.append(BASE64_CODE[c2 & 0x3f]);
 		}
@@ -485,8 +486,8 @@ public class BCrypt {
             if (c1 == -1 || c2 == -1) {
                 return olen2;
             }
-            o = (byte)(c1 << 2);
-            o |= (c2 & 0x30) >> 4;
+            o = (byte)(c1 << TWO);
+            o |= (c2 & 0x30) >> FOUR;
             rs.append((char)o);
             if (++olen2 >= maxolen || off >= slen) {
                 return olen2;
@@ -495,14 +496,14 @@ public class BCrypt {
             if (c3 == -1) {
                 return olen2;
             }
-            o = (byte)((c2 & 0x0f) << 4);
-            o |= (c3 & 0x3c) >> 2;
+            o = (byte)((c2 & 0x0f) << FOUR);
+            o |= (c3 & 0x3c) >> TWO;
             rs.append((char)o);
             if (++olen2 >= maxolen || off >= slen) {
                 return olen2;
             }
             c4 = char64(s.charAt(off++));
-            o = (byte)((c3 & 0x03) << 6);
+            o = (byte)((c3 & 0x03) << SIX);
             o |= c4;
             rs.append((char)o);
             ++olen2;
@@ -520,18 +521,18 @@ public class BCrypt {
 		int i, n, l = lr[off], r = lr[off + 1];
 
 		l ^= bfP[0];
-		for (i = 0; i <= BLOWFISH_NUM_ROUNDS - 2;) {
+		for (i = 0; i <= BLOWFISH_NUM_ROUNDS - TWO;) {
 			// Feistel substitution on left word
-			n = bfS[(l >> 24) & 0xff];
-			n += bfS[0x100 | ((l >> 16) & 0xff)];
-			n ^= bfS[0x200 | ((l >> 8) & 0xff)];
+			n = bfS[(l >> TWENTYFOUR) & 0xff];
+			n += bfS[0x100 | ((l >> SIXTEEN) & 0xff)];
+			n ^= bfS[0x200 | ((l >> EIGHT) & 0xff)];
 			n += bfS[0x300 | (l & 0xff)];
 			r ^= n ^ bfP[++i];
 
 			// Feistel substitution on right word
-			n = bfS[(r >> 24) & 0xff];
-			n += bfS[0x100 | ((r >> 16) & 0xff)];
-			n ^= bfS[0x200 | ((r >> 8) & 0xff)];
+			n = bfS[(r >> TWENTYFOUR) & 0xff];
+			n += bfS[0x100 | ((r >> SIXTEEN) & 0xff)];
+			n ^= bfS[0x200 | ((r >> EIGHT) & 0xff)];
 			n += bfS[0x300 | (r & 0xff)];
 			l ^= n ^ bfP[++i];
 		}
@@ -551,8 +552,8 @@ public class BCrypt {
 		int word = 0;
 		int off = offp[0];
 
-		for (i = 0; i < 4; i++) {
-			word = (word << 8) | (data[off] & 0xff);
+		for (i = 0; i < FOUR; i++) {
+			word = (word << EIGHT) | (data[off] & 0xff);
 			off = (off + 1) % data.length;
 		}
 
@@ -582,13 +583,13 @@ public class BCrypt {
 			bfP[i] = bfP[i] ^ streamToWord(key, koffp);
                 }
 
-		for (i = 0; i < plen; i += 2) {
+		for (i = 0; i < plen; i += TWO) {
 			encipher(lr, 0);
 			bfP[i] = lr[0];
 			bfP[i + 1] = lr[1];
 		}
 
-		for (i = 0; i < slen; i += 2) {
+		for (i = 0; i < slen; i += TWO) {
 			encipher(lr, 0);
 			bfS[i] = lr[0];
 			bfS[i + 1] = lr[1];
@@ -612,7 +613,7 @@ public class BCrypt {
 			bfP[i] = bfP[i] ^ streamToWord(key, koffp);
                 }
 
-		for (i = 0; i < plen; i += 2) {
+		for (i = 0; i < plen; i += TWO) {
 			lr[0] ^= streamToWord(data, doffp);
 			lr[1] ^= streamToWord(data, doffp);
 			encipher(lr, 0);
@@ -620,7 +621,7 @@ public class BCrypt {
 			bfP[i + 1] = lr[1];
 		}
 
-		for (i = 0; i < slen; i += 2) {
+		for (i = 0; i < slen; i += TWO) {
 			lr[0] ^= streamToWord(data, doffp);
 			lr[1] ^= streamToWord(data, doffp);
 			encipher(lr, 0);
@@ -645,7 +646,7 @@ public class BCrypt {
 		int clen = cdata.length;
 		byte[] ret;
 
-		if (logRounds < 4 || logRounds > 30) {
+		if (logRounds < FOUR || logRounds > THIRTY) {
 			throw new IllegalArgumentException ("Bad number of rounds");
                 }
 		rounds = 1 << logRounds;
@@ -660,17 +661,17 @@ public class BCrypt {
 			key(salt);
 		}
 
-		for (i = 0; i < 64; i++) {
+		for (i = 0; i < SIXTYFOUR; i++) {
 			for (j = 0; j < (clen >> 1); j++) {
 				encipher(cdata, j << 1);
                         }
 		}
 
-		ret = new byte[clen * 4];
+		ret = new byte[clen * FOUR];
 		for (i = 0, j = 0; i < clen; i++) {
-			ret[j++] = (byte)((cdata[i] >> 24) & 0xff);
-			ret[j++] = (byte)((cdata[i] >> 16) & 0xff);
-			ret[j++] = (byte)((cdata[i] >> 8) & 0xff);
+			ret[j++] = (byte)((cdata[i] >> TWENTYFOUR) & 0xff);
+			ret[j++] = (byte)((cdata[i] >> SIXTEEN) & 0xff);
+			ret[j++] = (byte)((cdata[i] >> EIGHT) & 0xff);
 			ret[j++] = (byte)(cdata[i] & 0xff);
 		}
 		return ret;
@@ -693,21 +694,21 @@ public class BCrypt {
 
             checkSalt(salt);
 
-            if (salt.charAt(2) == '$') {
-                    off = 3;
+            if (salt.charAt(TWO) == '$') {
+                    off = THREE;
             } else {
-                    minor = salt.charAt(2);
-                    if (minor != 'a' || salt.charAt(3) != '$') {
+                    minor = salt.charAt(TWO);
+                    if (minor != 'a' || salt.charAt(THREE) != '$') {
                             throw new IllegalArgumentException ("Invalid salt revision");
                     }
-                    off = 4;
+                    off = FOUR;
             }
 
             checkSalt2(salt, off);
 
-            rounds = Integer.parseInt(salt.substring(off, off + 2));
+            rounds = Integer.parseInt(salt.substring(off, off + TWO));
 
-            realSalt = salt.substring(off + 3, off + 25);
+            realSalt = salt.substring(off + THREE, off + TWENTYFIVE);
             passwordb = checkEncoding(passwordb, password, minor);
 
             saltb = decodeBase64(realSalt, BCRYPT_SALT_LEN);
@@ -726,7 +727,7 @@ public class BCrypt {
             rs.append("$");
             rs.append(encodeBase64(saltb, saltb.length));
             rs.append(encodeBase64(hashed,
-                BF_CRYPT_CIPHERTEXT.length * 4 - 1));
+                BF_CRYPT_CIPHERTEXT.length * FOUR - 1));
             return rs.toString();
 	}
 
@@ -744,10 +745,10 @@ public class BCrypt {
     }
 
     private static void checkRounds(int rounds, StringBuilder rs) {
-        if (rounds < 10) {
+        if (rounds < TEN) {
             rs.append("0");
         }
-        if (rounds > 30) {
+        if (rounds > THIRTY) {
             throw new IllegalArgumentException(
                     "rounds exceeds maximum (30)");
         }
@@ -755,7 +756,7 @@ public class BCrypt {
 
     private static void checkSalt2(String salt, int off) {
         // Extract number of rounds
-        if (salt.charAt(off + 2) > '$') {
+        if (salt.charAt(off + TWO) > '$') {
             throw new IllegalArgumentException ("Missing salt rounds");
         }
     }
@@ -781,10 +782,10 @@ public class BCrypt {
 		random.nextBytes(rnd);
 
 		rs.append("$2a$");
-		if (logRounds < 10) {
+		if (logRounds < TEN) {
 			rs.append("0");
                 }
-		if (logRounds > 30) {
+		if (logRounds > THIRTY) {
 			throw new IllegalArgumentException(
 			    "log_rounds exceeds maximum (30)");
 		}
