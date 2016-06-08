@@ -701,13 +701,7 @@ public class BCrypt {
             rounds = Integer.parseInt(salt.substring(off, off + 2));
 
             realSalt = salt.substring(off + 3, off + 25);
-            try {
-                passwordb = (password + (minor >= 'a' ? "\000" : "")).getBytes("UTF-8");
-            } catch (UnsupportedEncodingException uee) {
-                Logger.getLogger(BCrypt.class.getName()).log(
-                                                    Level.SEVERE, null, uee);
-                throw new AssertionError("UTF-8 is not supported");
-            }
+            passwordb = checkEncoding(passwordb, password, minor);
 
             saltb = decodeBase64(realSalt, BCRYPT_SALT_LEN);
 
@@ -720,13 +714,7 @@ public class BCrypt {
                     rs.append(minor);
             }
             rs.append("$");
-            if (rounds < 10) {
-                    rs.append("0");
-            }
-            if (rounds > 30) {
-                    throw new IllegalArgumentException(
-                        "rounds exceeds maximum (30)");
-            }
+            checkRounds(rounds, rs);
             rs.append(Integer.toString(rounds));
             rs.append("$");
             rs.append(encodeBase64(saltb, saltb.length));
@@ -734,6 +722,27 @@ public class BCrypt {
                 BF_CRYPT_CIPHERTEXT.length * 4 - 1));
             return rs.toString();
 	}
+
+    private static byte[] checkEncoding(byte[] passwordb, String password, char minor) throws AssertionError {
+        try {
+            passwordb = (password + (minor >= 'a' ? "\000" : "")).getBytes("UTF-8");
+        } catch (UnsupportedEncodingException uee) {
+            Logger.getLogger(BCrypt.class.getName()).log(
+                    Level.SEVERE, null, uee);
+            throw new AssertionError("UTF-8 is not supported");
+        }
+        return passwordb;
+    }
+
+    private static void checkRounds(int rounds, StringBuilder rs) throws IllegalArgumentException {
+        if (rounds < 10) {
+            rs.append("0");
+        }
+        if (rounds > 30) {
+            throw new IllegalArgumentException(
+                    "rounds exceeds maximum (30)");
+        }
+    }
 
     private static void checkSalt2(String salt, int off) throws IllegalArgumentException {
         // Extract number of rounds
