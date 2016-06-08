@@ -12,21 +12,20 @@ import javax.swing.*;
  * @author J. Bouman
  */
 public class PlanUI extends JPanel{
-    JPanel paneelNoord, paneelCentrum;
+    JPanel panelNorth, panelCenter;
     private JButton terugKnop, loguitKnop, aanwezigheidKnop, inplanKnop, planningKnop, prestatieoverzichtKnop;
     
     public PlanUI() {
         setLayout (new BorderLayout() );
         
         // Het paneel dat bovenaan komt, met de terugknop en de uitlogknop
-        paneelNoord = new JPanel();
+        panelNorth = new JPanel();
         
         // Het paneel dat in het midden komt, met de knoppen om te navigeren naar de verschillende usecases
-        paneelCentrum = new JPanel();
+        panelCenter = new JPanel();
         
-        paneelNoord.setLayout ( new GridLayout( 1 , 3 ) );
-        
-        paneelCentrum.setLayout ( new GridLayout( 4, 3 ) );
+        panelNorth.setLayout ( new GridLayout( 1 , 3 ) );      
+        panelCenter.setLayout ( new GridLayout( 4, 3 ) );
         
         // De knoppen op het paneel
         terugKnop = new JButton ("<--");
@@ -38,27 +37,27 @@ public class PlanUI extends JPanel{
         prestatieoverzichtKnop = new JButton ("Prestatieoverzicht opvragen");
         
         // Voeg de 2 bovenste knoppen toe aan het bovenste paneel
-        paneelNoord.add(terugKnop);
-        paneelNoord.add(new JLabel(""));
-        paneelNoord.add(loguitKnop);
+        panelNorth.add(terugKnop);
+        panelNorth.add(new JLabel(""));
+        panelNorth.add(loguitKnop);
         
         // Voeg de knoppen toe om te navigeren naar de verschillende usecases aan het middelste paneel
-        paneelCentrum.add(new JLabel(""));
-        paneelCentrum.add(aanwezigheidKnop);
-        paneelCentrum.add(new JLabel(""));
-        paneelCentrum.add(new JLabel(""));
-        paneelCentrum.add(inplanKnop);
-        paneelCentrum.add(new JLabel(""));
-        paneelCentrum.add(new JLabel(""));
-        paneelCentrum.add(planningKnop);
-        paneelCentrum.add(new JLabel(""));
-        paneelCentrum.add(new JLabel(""));
-        paneelCentrum.add(prestatieoverzichtKnop);
-        paneelCentrum.add(new JLabel(""));
+        panelCenter.add(new JLabel(""));
+        panelCenter.add(aanwezigheidKnop);
+        panelCenter.add(new JLabel(""));
+        panelCenter.add(new JLabel(""));
+        panelCenter.add(inplanKnop);
+        panelCenter.add(new JLabel(""));
+        panelCenter.add(new JLabel(""));
+        panelCenter.add(planningKnop);
+        panelCenter.add(new JLabel(""));
+        panelCenter.add(new JLabel(""));
+        panelCenter.add(prestatieoverzichtKnop);
+        panelCenter.add(new JLabel(""));
         
         // Voeg de panelen toe aan het hoofdpaneel
-        add (paneelNoord, BorderLayout.NORTH);
-        add (paneelCentrum, BorderLayout.CENTER);
+        add (panelNorth, BorderLayout.NORTH);
+        add (panelCenter, BorderLayout.CENTER);
         
     }
 }

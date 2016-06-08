@@ -28,8 +28,7 @@ public class EditUI extends JPanel {
     private EditPlanningManager epManager;
     private EditAction actionCB1, actionCB2, actionCB3;
     
-    public enum EditAction
-    {
+    public enum EditAction {
         ACTION_NONE,
         ACTION_ADD,
         ACTION_DELETE
@@ -114,8 +113,7 @@ public class EditUI extends JPanel {
         add(panelNorth, BorderLayout.NORTH);
         add(panelCenter, BorderLayout.CENTER);
 
-        for (Employee e : epManager.getEmployees())
-        {
+        for (Employee e : epManager.getEmployees()) {
             String str = String.format("%s (%s)", e.getName(), e.getFunction());
             employeeCB.addItem(str);
         }
@@ -129,8 +127,7 @@ public class EditUI extends JPanel {
         logOutButton.addActionListener(a1 -> PresentationUtils.logout(this));
     }
     
-    private void getRoster()
-    {
+    private void getRoster() {
         // clear comboboxes
         statusDayPart1.removeAllItems();
         statusDayPart2.removeAllItems();
@@ -144,10 +141,9 @@ public class EditUI extends JPanel {
             day = Integer.parseInt(dayTF.getText());
             month = Integer.parseInt(monthTF.getText());
             year = Integer.parseInt(yearTF.getText());
-        }
-        catch(NumberFormatException nfe)
-        {
-            return; // TODO: show error message
+        } catch(NumberFormatException nfe) {
+            PresentationUtils.showSwingAlert("Incorrecte datum ingevoerd.");
+            return; 
         }
         
         Date d = new Date(day,month,year);
@@ -155,10 +151,8 @@ public class EditUI extends JPanel {
         
         epManager.setSelectedDate(d);
         epManager.setSelectedEmployee(e);
-        
-        
-        List<DayPart> dayParts = epManager.getDayPartsForEmployee(
-                                   e, d);
+             
+        List<DayPart> dayParts = epManager.getDayPartsForEmployee(e, d);
         
         setRosterAreaText(dayParts, e);
         
@@ -168,8 +162,7 @@ public class EditUI extends JPanel {
     }
     
     private EditAction setComboBox(JComboBox cmBox, DayPartType dpt,
-                                List<DayPart> dayParts)
-    {
+                                List<DayPart> dayParts) {
         EditAction ea = EditAction.ACTION_NONE;
         
         cmBox.addItem("Geen actie");
@@ -180,36 +173,30 @@ public class EditUI extends JPanel {
         // we already know that an employee is planned for every
         // daypart in the dayparts list, so just check if one of the 
         // dayparts matches the DayPartType dpt that was passed as arg
-        for (DayPart dp : dayParts)
-        {
-            if (dp.getDayPartType() == dpt)
-            {
+        for (DayPart dp : dayParts) {
+            if (dp.getDayPartType() == dpt) {
                 // Matched, so the employee is planned in for the daypart
                 // set selected combobox item to 'verwijder planning'
                 set = true;
             }
         }
-        if (set)
-        {
+        if (set) {
             cmBox.addItem("Verwijder planning");
             ea = EditAction.ACTION_DELETE;
         }
-        else
-        {
+        else {
             cmBox.addItem("Plan in");
             ea = EditAction.ACTION_ADD;
         }
         return ea;
     }
     
-    private void setRosterAreaText(List<DayPart> dayParts, Employee e)
-    {
+    private void setRosterAreaText(List<DayPart> dayParts, Employee e) {
         String s = "";
-       for (DayPart dp : dayParts)
-        {
+       for (DayPart dp : dayParts) {
             DayPartEmployee dpe = dp.getDaypartEmployeeForEmployee(e);
-            if (dpe != null)
-            {           
+            
+            if (dpe != null) {           
                 s += String.format("%s (%s)\n", 
                         PresentationUtils.dayPartTypeToDutchString(dp.getDayPartType()),
                             PresentationUtils.presenceStatusToDutchString(dpe.getPresenceStatus()));
@@ -226,8 +213,7 @@ public class EditUI extends JPanel {
         int cbIndex3 = statusDayPart3.getSelectedIndex();
         
         // user didn't first press 'get roster' button, so display warning
-        if (cbIndex1 == -1 && cbIndex2 == -1 && cbIndex3 == -1)
-        {
+        if (cbIndex1 == -1 && cbIndex2 == -1 && cbIndex3 == -1) {
             PresentationUtils.showSwingAlert("Haal eerst de planning op "
                     + "voordat u probeert de planning te wijzigen.");
         }
@@ -255,17 +241,14 @@ public class EditUI extends JPanel {
         PresentationUtils.showSwingAlert("De planning is gewijzigd.");
     }
     
-    private void doAction(EditAction ea, DayPartType dpt)
-    {
+    private void doAction(EditAction ea, DayPartType dpt) {
         Employee e = epManager.getSelectedEmployee();
-        if (ea == EditAction.ACTION_ADD )
-        {
+        if (ea == EditAction.ACTION_ADD ) {
             DayPartEmployee dpe = new DayPartEmployee(e, PresenceStatus.PLANNED);
             epManager.saveDayPartEmployee(dpe, epManager.getSelectedDate(), dpt);
         }
         
-        if (ea == EditAction.ACTION_DELETE)
-        {
+        if (ea == EditAction.ACTION_DELETE) {
             epManager.deleteDayPartEmployee(e, epManager.getSelectedDate(), dpt);
         }
     }

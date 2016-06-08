@@ -26,30 +26,23 @@ public class UserLoginDAO {
    * @param username the username to return the hashed password for
    * @return the hashed password
    */
-    public String getHashedPasswordForUsername(String username)
-    {
+    public String getHashedPasswordForUsername(String username) {
         
         String s = null;
         
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
-        if(connection.openConnection())
-        {
+        if(connection.openConnection()) {
             // If a connection was successfully setup, execute the SELECT statement.
             ResultSet resultset = connection.executeSQLSelectStatement(
                 "SELECT password FROM userlogin WHERE username = \"" + username + "\";");
 
-            if(resultset != null)
-            {
-                try
-                {
-                    if(resultset.next())
-                    {
+            if(resultset != null) {
+                try {
+                    if(resultset.next()) {
                          s = resultset.getString("password");
                     }
-                }
-                catch(SQLException ex)
-                {
+                } catch(SQLException ex) {
                     s = null;
                 }
             }
@@ -71,22 +64,19 @@ public class UserLoginDAO {
    * @return Nothing
    * @throws SQLException when an SQL exception occurs
    */
-    public void saveUserLogin(String username, String password) throws SQLException
-    {
+    public void saveUserLogin(String username, String password) 
+            throws SQLException {
         String hashedpassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
+        
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
-        if(connection.openConnection())
-        {
-            try
-            {
-            String execStr = "INSERT INTO userlogin(username,"
+        if(connection.openConnection()) {
+            try {
+                String execStr = "INSERT INTO userlogin(username,"
                     + "password) VALUES('" + username + "','"  + hashedpassword + "');";
                 
                 connection.executeSQLInsertStatement(execStr);
-            }
-            catch(SQLException sqle)
-            {
+            } catch(SQLException sqle) {
                 throw sqle;
             }
             

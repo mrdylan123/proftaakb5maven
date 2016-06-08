@@ -14,13 +14,12 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain;
 import java.util.*;
 
 public class DayPart {
-    ArrayList<DayPartEmployee> dpeList = new ArrayList<>();
+    ArrayList<DayPartEmployee> dpeList;
     Date date;
     DayPartType dayPartType;
     
     public DayPart(Date date, DayPartType dayPartType, 
-            ArrayList<DayPartEmployee> dpeList)
-    {
+            ArrayList<DayPartEmployee> dpeList) {
         this.date = date;
         this.dayPartType = dayPartType;
         this.dpeList = dpeList;
@@ -38,8 +37,7 @@ public class DayPart {
         return dpeList;
     }
     
-    public DayPartEmployee getDaypartEmployeeForEmployee(Employee e)
-    {
+    public DayPartEmployee getDaypartEmployeeForEmployee(Employee e) {
         for (DayPartEmployee dpe2 : getDpeList())
         {
             if (dpe2.getEmployee().getEmployeeId() == e.getEmployeeId() )

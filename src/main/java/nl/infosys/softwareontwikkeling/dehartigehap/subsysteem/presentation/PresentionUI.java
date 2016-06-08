@@ -52,8 +52,7 @@ private JPanel panelNorth, panelCenter;
         employeesLabel = new JLabel ("Medewerker");
         employeeCB = new JComboBox();
        
-        for (Employee e : presenceManager.getEmployees() )
-        {
+        for (Employee e : presenceManager.getEmployees()) {
             employeeCB.addItem(e.getName());
         }    
 
@@ -80,8 +79,7 @@ private JPanel panelNorth, panelCenter;
         getPresentionButton.addActionListener(a1 -> getPresentionButtonPress());
     }
     
-    public void getPresentionButtonPress()
-    {
+    public void getPresentionButtonPress() {
         int index = employeeCB.getSelectedIndex();
         Employee e = presenceManager.getEmployees().get(index);
         
@@ -92,22 +90,19 @@ private JPanel panelNorth, panelCenter;
         
         String s = "";
         
-        for (DayPart dp : dayparts)
-        {
+        for (DayPart dp : dayparts) {
             s += getFormattedOutputForDayPart(dp, e);
         }
         presentionResults.setText(s);
     }
    
-   public String getFormattedOutputForDayPart(DayPart dp, Employee e)
-   {
+   public String getFormattedOutputForDayPart(DayPart dp, Employee e) {
        String s = "";
        
        DayPartEmployee dpe = dp.getDaypartEmployeeForEmployee(e);
        Date d = dp.getDate();
        
-       if (d != null && dpe != null)
-       {
+       if (d != null && dpe != null) {
             s += String.format("%d-%d-%d\t%s\t%s\n", d.getDay(), d.getMonth(),
                     d.getYear(), 
                     PresentationUtils.dayPartTypeToDutchString(dp.getDayPartType()), 

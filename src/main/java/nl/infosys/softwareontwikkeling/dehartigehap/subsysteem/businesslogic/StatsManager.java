@@ -17,23 +17,19 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
 public class StatsManager {
     private List<Employee> employees;
     
-    public StatsManager() 
-    {
+    public StatsManager() {
         employees = (new EmployeeDAO()).loadEmployees();
     }
     
-    public List<Employee> getEmployees()
-    {
+    public List<Employee> getEmployees() {
         return employees;
     }
         
-    public int getAmountDrinksServed(Employee e)
-    {
+    public int getAmountDrinksServed(Employee e) {
         return (new EmployeeDAO()).getAmountDrinksServed(e);
     }
     
-    public int getAmountMealsServed(Employee e)
-    {
+    public int getAmountMealsServed(Employee e) {
         return (new EmployeeDAO()).getAmountMealsServed(e);
     }
 }

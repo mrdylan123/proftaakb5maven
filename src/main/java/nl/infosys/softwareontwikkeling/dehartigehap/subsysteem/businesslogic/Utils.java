@@ -18,20 +18,16 @@ public class Utils {
     private Utils() {
     }
     
-    public static boolean isDateValid(Integer day, Integer month, Integer year)
-    {
-        if (year == null || month == null || day == null)
-        {
+    public static boolean isDateValid(Integer day, Integer month, Integer year) {
+        if (year == null || month == null || day == null) {
             return false;
         }
         
-        if (day < 1 || day > 32 || month < 1 )
-        {
+        if (day < 1 || day > 32 || month < 1 ) {
             return false;
         }
 
-        if (month > 12 || year < 2016 || year > 2100)
-        {
+        if (month > 12 || year < 2016 || year > 2100) {
             return false;
         }        
          

@@ -66,17 +66,9 @@ public class InputUI extends JPanel{
         dateLabel = new JLabel("Datum");
         dayPartLabel = new JLabel("Dagdeel");
 
-        dayTF = new JTextField("");
-        // Add a listener to the textfield, so that when the textfield is clicked, it removes the placeholder text.
-        dayTF.addActionListener(al -> dayTF.setText("") );
-                
+        dayTF = new JTextField("");               
         monthTF = new JTextField("");
-        // Add a listener to the textfield, so that when the textfield is clicked, it removes the placeholder text.
-        monthTF.addActionListener(al -> monthTF.setText("") );
-                  
-        yearTF = new JTextField("");
-        // Add a listener to the textfield, so that when the textfield is clicked, it removes the placeholder text.
-        yearTF.addActionListener(al -> yearTF.setText("") );        
+        yearTF = new JTextField("");    
 
         // north is 1 x 4
         panelNorth.add(backButton);
@@ -113,7 +105,6 @@ public class InputUI extends JPanel{
         backButton.addActionListener(a1 -> PresentationUtils.
                                                   returnToMainMenu(this));
         logOutButton.addActionListener(a1 -> PresentationUtils.logout(this));
-
         
         confirmButton.addActionListener(a1 -> doConfirmButtonPress() );
     
@@ -123,30 +114,26 @@ public class InputUI extends JPanel{
         worker1CB = new JComboBox();
         worker2CB = new JComboBox();
         worker3CB = new JComboBox();
-        
-        
+             
         worker1CB.addItem("");
         worker2CB.addItem("");
         worker3CB.addItem("");
         
-        for(Employee e : inputManager.getEmployees() )
-        {
+        for(Employee e : inputManager.getEmployees() ) {
             worker1CB.addItem(e.getName());
             worker2CB.addItem(e.getName());
             worker3CB.addItem(e.getName());
         }
     }
     
-    private void doConfirmButtonPress()
-    {
+    private void doConfirmButtonPress() {
         int cB1SelectedIndex = worker1CB.getSelectedIndex();
         int cB2SelectedIndex = worker2CB.getSelectedIndex();
         int cB3SelectedIndex = worker3CB.getSelectedIndex();
         int dayPartCBSelectedIndex = dayPartCB.getSelectedIndex();
 
         if (cB1SelectedIndex < 1 && cB2SelectedIndex < 1 
-                    && cB3SelectedIndex < 1)
-        {
+                    && cB3SelectedIndex < 1) {
             PresentationUtils.showSwingAlert("Geen medewerker(s) geselecteerd.");
             return;
         }
@@ -156,19 +143,16 @@ public class InputUI extends JPanel{
         String yearStr = yearTF.getText();
 
         Integer day = null, month = null, year = null;
-        try
-        {
+        
+        try {
             day = Integer.parseInt(dayStr);
             month = Integer.parseInt(monthStr);
             year = Integer.parseInt(yearStr);
-        }
-        catch(NumberFormatException nfe)
-        {
+        } catch(NumberFormatException nfe) {
             PresentationUtils.showSwingAlert("De ingevulde datum is incorrect.");
         }
 
-        if (Utils.isDateValid(day, month, year) == false)
-        {
+        if (Utils.isDateValid(day, month, year) == false) {
             PresentationUtils.showSwingAlert("De ingevulde datum is incorrect.");
             return;
         }
@@ -192,17 +176,14 @@ public class InputUI extends JPanel{
             e3 = inputManager.getEmployees().get(CB3SelectedIndex - 1);
         }
         
-        try
-        {
+        try {
             Date d = new Date(day, month, year);
             DayPartType dpt = DayPartType.values()[dayPartCBSelectedIndex];
-            inputManager.planEmployeesIntoDayPart(e1, e2, e3, dpt,
-                    d);
+            
+            inputManager.planEmployeesIntoDayPart(e1, e2, e3, dpt, d);
             
             PresentationUtils.showSwingAlert("Medewerker(s) succesvol ingepland.");
-        }
-        catch(PlanInPastException pipe)
-        {
+        } catch(PlanInPastException pipe) {
             PresentationUtils.showSwingAlert("Database fout: poging om in het verleden"
                     + " medewerker(s) in te voeren");
         }

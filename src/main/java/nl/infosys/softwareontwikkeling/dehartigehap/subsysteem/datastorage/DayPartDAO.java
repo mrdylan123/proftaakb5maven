@@ -19,8 +19,7 @@ public class DayPartDAO {
    * @param dayPartType DayPartType for DayPart to load from database
    * @return DayPart loaded from database for given Date and DayPartType
    */
-    public DayPart loadDayPart(Date d, DayPartType dayPartType)
-    {
+    public DayPart loadDayPart(Date d, DayPartType dayPartType) {
         DayPart dp = null;
         
         String dateStr = DBUtils.toSQLString(d);
@@ -29,8 +28,7 @@ public class DayPartDAO {
         
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
-        if(connection.openConnection())
-        {
+        if(connection.openConnection()) {
             // If a connection was successfully setup, execute the SELECT statement.
             String execStr = "SELECT * FROM daypart_employee WHERE date ='" + dateStr + 
                         "' AND dayparttype ='" + 
@@ -38,12 +36,9 @@ public class DayPartDAO {
             
             ResultSet resultset = connection.executeSQLSelectStatement(execStr);
 
-            if(resultset != null)
-            {
-                try
-                {
-                    while(resultset.next())
-                    {
+            if(resultset != null) {
+                try {
+                    while(resultset.next()) {
                         Employee e = (new EmployeeDAO()).
                                 loadEmployee(resultset.getString("employeeid"));
                         
@@ -54,9 +49,7 @@ public class DayPartDAO {
                         dpeList.add(dpe);
                    }
                     dp = new DayPart(d, dayPartType, dpeList);
-                }
-                catch(SQLException e)
-                {
+                } catch(SQLException e) {
                     dp = null;
                 }
             }
@@ -78,14 +71,11 @@ public class DayPartDAO {
    * @throws SQLException SQL exceptions other than PlanInPastException
    * @return Nothing
    */
-    public void saveDayPart(DayPart dp) throws PlanInPastException
-    {
+    public void saveDayPart(DayPart dp) throws PlanInPastException {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
-        if(connection.openConnection())
-        {
-            try 
-            {
+        if(connection.openConnection()) {
+            try {
                 String execStr = "INSERT INTO daypart VALUES(\'" + 
                         DBUtils.toSQLString(dp.getDate()) + "\',\'" + 
                         dp.getDayPartType().toString().toLowerCase() + "\');";
@@ -94,21 +84,17 @@ public class DayPartDAO {
 
             }
             catch(SQLException sqle){}
-            try
-            {
+            
+            try {
                 // Delete existing records for this DayPart in employee_daypart
                 deleteDayPartEmployees(dp.getDate(), dp.getDayPartType());
 
-                for( DayPartEmployee dpe : dp.getDpeList())
-                {
+                for( DayPartEmployee dpe : dp.getDpeList()) {
                     saveDayPartEmployee(dpe, dp.getDate(), dp.getDayPartType());
                 }
-            }
-            catch(PlanInPastException pipe)
-            {
+            } catch(PlanInPastException pipe) {
                 throw pipe;
-            }
-            catch(SQLException sqle){}
+            } catch(SQLException sqle){}
             
             connection.closeConnection();
         }
@@ -125,14 +111,11 @@ public class DayPartDAO {
    * @return Nothing
    */
     public void saveDayPartEmployee(DayPartEmployee dpe, Date d, DayPartType dpt)
-            throws PlanInPastException
-    {
+            throws PlanInPastException {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
-        if(connection.openConnection())
-        {
-            try
-            {
+        if(connection.openConnection()) {
+            try {
                 String execStr = "INSERT INTO daypart_employee(employeeid,"
                         + "date,dayparttype,presencestatus)"
                         + " VALUES('" +
@@ -143,9 +126,7 @@ public class DayPartDAO {
                             + "');";
 
                     connection.executeSQLInsertStatement(execStr);
-            }
-            catch(SQLException sqle)
-            {
+            } catch(SQLException sqle) {
                 throw new PlanInPastException();
             }
             
@@ -160,22 +141,18 @@ public class DayPartDAO {
    * @throws SQLException when SQL errors occur
    * @return Nothing
    */
-    public void deleteDayPartEmployees(Date d, DayPartType dpt) throws SQLException
-    {
+    public void deleteDayPartEmployees(Date d, DayPartType dpt) 
+            throws SQLException {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
-        if(connection.openConnection())
-        {
-            try
-            {
+        if(connection.openConnection()) {
+            try {
                 String execStr = "DELETE FROM daypart_employee WHERE date='" + 
                         DBUtils.toSQLString(d) + "' AND dayparttype='" + 
                         dpt.toString().toLowerCase() + "';";
                 
                 connection.executeSQLInsertStatement(execStr);
-            }
-            catch(SQLException sqle)
-            {
+            } catch(SQLException sqle) {
                 throw sqle;
             }
                 
@@ -191,23 +168,19 @@ public class DayPartDAO {
    * @throws SQLException when SQL errors occur
    * @return Nothing
    */
-    public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt) throws SQLException
-    {
+    public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt) 
+            throws SQLException {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
-        if(connection.openConnection())
-        {
-            try
-            {
+        if(connection.openConnection()) {
+            try {
                 String execStr = "DELETE FROM daypart_employee WHERE date='" + 
                         DBUtils.toSQLString(d) + "' AND dayparttype='" + 
                         dpt.toString().toLowerCase() + "' AND employeeid='" +  
                         e.getEmployeeId() + "';";
 
                     connection.executeSQLInsertStatement(execStr);
-            }
-            catch(SQLException sqle)
-            {
+            } catch(SQLException sqle) {
                 throw sqle;
             }
                 
@@ -223,12 +196,10 @@ public class DayPartDAO {
    * @return true if the employee is already planned in on the given daypart,
    * false otherwise
    */
-    public boolean checkExistsDayPartEmployee(Employee e, Date d, DayPartType dpt)
-    {
+    public boolean checkExistsDayPartEmployee(Employee e, Date d, DayPartType dpt) {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
-        if(connection.openConnection())
-        {
+        if(connection.openConnection()) {
             // If a connection was successfully setup, execute the SELECT statement.
             String execStr = "SELECT * FROM daypart_employee WHERE date =\'" 
                     + DBUtils.toSQLString(d) + "\' AND dayparttype =\'" + 
@@ -237,16 +208,12 @@ public class DayPartDAO {
             
             ResultSet resultset = connection.executeSQLSelectStatement(execStr);
 
-            if(resultset != null)
-            {
-                try
-                {
-                    while(resultset.next())
-                    {
+            if(resultset != null) {
+                try {
+                    while(resultset.next()) {
                         return true;
                    }
-                }
-                catch(SQLException ex){}
+                } catch(SQLException ex){}
             }
             // else an error occurred leave array list empty.
 
@@ -265,14 +232,12 @@ public class DayPartDAO {
    * @return List of dayparts for the given employee and date, which were
    * found in the database
    */
-    public List<DayPart> loadDayPartsForEmployee(Employee e, Date date)
-    {
+    public List<DayPart> loadDayPartsForEmployee(Employee e, Date date) {
         List<DayPart> dayParts = new ArrayList<>();
         
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
-        if(connection.openConnection())
-        {
+        if(connection.openConnection()) {
             // If a connection was successfully setup, execute the SELECT statement.
             String execStr = String.format("SELECT * FROM daypart_employee WHERE"
                     + " employeeid='%d' AND date='%s';",
@@ -280,12 +245,9 @@ public class DayPartDAO {
             
             ResultSet resultset = connection.executeSQLSelectStatement(execStr);
 
-            if(resultset != null)
-            {
-                try
-                {
-                    while(resultset.next())
-                    {
+            if(resultset != null) {
+                try {
+                    while(resultset.next()) {
                        String dptStr = resultset.getString("dayparttype");
                        String dateStr = resultset.getString("date");
                        
@@ -295,8 +257,7 @@ public class DayPartDAO {
                        DayPart dp = (new DayPartDAO()).loadDayPart(d, dpt);
                        dayParts.add(dp);
                     }
-                }
-                catch(SQLException excpt){}
+                } catch(SQLException excpt){}
             }
             // else an error occurred leave array list empty.
 
@@ -316,14 +277,12 @@ public class DayPartDAO {
    * @return List of DayParts for the given employee with the given limit of 
    * DayParts returned
    */
-    public List<DayPart> loadDayPartsForEmployee(Employee e, int limit)
-    {
+    public List<DayPart> loadDayPartsForEmployee(Employee e, int limit) {
         List<DayPart> dayParts = new ArrayList<>();
         
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
-        if(connection.openConnection())
-        {
+        if(connection.openConnection()) {
             // If a connection was successfully setup, execute the SELECT statement.
             String execStr = String.format("SELECT * FROM daypart_employee WHERE"
                     + " employeeid='%d' ORDER BY date ASC LIMIT %d;",
@@ -331,10 +290,8 @@ public class DayPartDAO {
             
             ResultSet resultset = connection.executeSQLSelectStatement(execStr);
 
-            if(resultset != null)
-            {
-                try
-                {
+            if(resultset != null) {
+                try {
                     while(resultset.next())
                     {
                        String dptStr = resultset.getString("dayparttype");
@@ -346,8 +303,7 @@ public class DayPartDAO {
                        DayPart dp = (new DayPartDAO()).loadDayPart(d, dpt);
                        dayParts.add(dp);
                     }
-                }
-                catch(SQLException excpt){}
+                } catch(SQLException excpt){}
             }
             // else an error occurred leave array list empty.
 

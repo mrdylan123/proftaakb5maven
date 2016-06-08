@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
 import java.awt.BorderLayout;
@@ -11,12 +6,9 @@ import javax.swing.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.StatsManager;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
 
-/**
- *
- * @author dyl
- */
 public class StatsUI extends JPanel {
-    //Add 2 panels, in north we will place the back and logout button. In center we will position our specific usecase.
+    //Add 2 panels, in north we will place the back and logout button. In center
+    // we will position our specific usecase.
     private JPanel panelNorth, panelCenter;
     private JButton backButton, logOutButton, getStatsButton;
     private JLabel employeesLabel;
@@ -27,7 +19,7 @@ public class StatsUI extends JPanel {
     public StatsUI() {
         statsManager = new StatsManager();
         
-        setLayout (new BorderLayout() );
+        setLayout(new BorderLayout());
         
         panelNorth = new JPanel();
         panelCenter = new JPanel();
@@ -43,10 +35,8 @@ public class StatsUI extends JPanel {
         
         employeeCB = new JComboBox();
         
-        for (Employee e : statsManager.getEmployees() )
-        {
-            employeeCB.addItem(e.getName());
-            
+        for (Employee e : statsManager.getEmployees()) {
+            employeeCB.addItem(e.getName());         
         }
         
         statsResults = new JTextArea("");
@@ -73,8 +63,7 @@ public class StatsUI extends JPanel {
         logOutButton.addActionListener(a1 -> PresentationUtils.logout(this));
     }
     
-    private void getStats()
-    {
+    private void getStats() {
         Employee e = statsManager.getEmployees().get(
                 employeeCB.getSelectedIndex());
         
@@ -85,8 +74,7 @@ public class StatsUI extends JPanel {
         setStatsResultTextArea(e);
     }
     
-    private void setStatsResultTextArea(Employee e)
-    {        
+    private void setStatsResultTextArea(Employee e) {        
         int mealsServed = statsManager.getAmountMealsServed(e);
         int drinksServed = statsManager.getAmountDrinksServed(e);
         
@@ -94,9 +82,7 @@ public class StatsUI extends JPanel {
                                                 mealsServed);
         s += String.format("Hoeveelheid drankjes geserveerd: %d\n",
                                                 drinksServed);
-        
-        
-        statsResults.setText(s);
-        
+             
+        statsResults.setText(s);     
     }
 }

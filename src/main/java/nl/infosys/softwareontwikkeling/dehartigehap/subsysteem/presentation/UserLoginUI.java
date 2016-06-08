@@ -23,8 +23,7 @@ public class UserLoginUI extends JPanel {
     private JButton loginBtn, exitBtn;
     private UserLoginManager ulm;
     
-    public UserLoginUI()
-    {
+    public UserLoginUI() {
         
         ulm = new UserLoginManager();
         setLayout(new GridLayout(4,1, 2, 2));
@@ -43,20 +42,17 @@ public class UserLoginUI extends JPanel {
         exitBtn.addActionListener(a1 -> exitButtonPress());
     }
     
-    public void loginButtonPress()
-    {
+    public void loginButtonPress() {
         String username = usernameTF.getText();
         String password = passwordTF.getText();
         
-        if ( ulm.checkPassword(username, password) )
-        {
+        if (ulm.checkPassword(username, password)) {
             /* create main menu window */
             PresentationUtils.createWindow(new MainMenuUI(), 
                                                 "Hoofdmenu");
             
             PresentationUtils.destroyWindow(this);
-        }
-        else {
+        } else {
             PresentationUtils.showSwingAlert("Invalid username/password.");
         }   
     }

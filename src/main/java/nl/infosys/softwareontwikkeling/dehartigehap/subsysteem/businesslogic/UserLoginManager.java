@@ -26,13 +26,11 @@ public class UserLoginManager {
    * @param password he password to save
    * @return Nothing
    */
-    public void registerUser(String username, String password)
-    {
+    public void registerUser(String username, String password) {
         try 
         {
             (new UserLoginDAO()).saveUserLogin(username, password);
-        } 
-        catch (SQLException sqle) {}
+        } catch (SQLException sqle) {}
 
     }
    
@@ -44,12 +42,13 @@ public class UserLoginManager {
    * @return true if the password matches the hashed password from database,
    * else false
    */
-    public boolean checkPassword(String username, String password)
-    {
+    public boolean checkPassword(String username, String password) {
         String hashedPasswordFromDB = (new UserLoginDAO()).
                                         getHashedPasswordForUsername(username);
                 
-        if (hashedPasswordFromDB == null ) return false;
+        if (hashedPasswordFromDB == null ) {
+            return false;
+        }
         
         return BCrypt.checkpw(password, hashedPasswordFromDB);
     }

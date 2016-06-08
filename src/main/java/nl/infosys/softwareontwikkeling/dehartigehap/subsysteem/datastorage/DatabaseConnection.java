@@ -21,8 +21,7 @@ public class DatabaseConnection {
     // execution method.
     private Statement statement;
     
-    public DatabaseConnection()
-    {
+    public DatabaseConnection() {
         connection = null;
         statement = null;
     }
@@ -32,8 +31,7 @@ public class DatabaseConnection {
    * @return true if the connection was successfully opened,
    *  false otherwise
    */
-    public boolean openConnection()
-    {
+    public boolean openConnection() {
         boolean result = false;
 
         if(connection == null)
@@ -73,18 +71,13 @@ public class DatabaseConnection {
    * Checks if a connection with the database is open
    * @return true if a connection with the database is open, false otherwise
    */
-    public boolean connectionIsOpen()
-    {
+    public boolean connectionIsOpen() {
         boolean open = false;
         
-        if(connection != null && statement != null)
-        {
-            try
-            {
+        if(connection != null && statement != null) {
+            try {
                 open = !connection.isClosed() && !statement.isClosed();
-            }
-            catch(SQLException e)
-            {
+            } catch(SQLException e) {
                 open = false;
             }
         }
@@ -98,16 +91,13 @@ public class DatabaseConnection {
    * closes the connection with the database
    * @return nothing
    */
-    public void closeConnection()
-    {
-        try
-        {
+    public void closeConnection() {
+        try {
             statement.close();
             
             // Close the connection
             connection.close();
-        }
-        catch(Exception e) {}
+        } catch(Exception e) {}
     }
     
    /**
@@ -116,20 +106,16 @@ public class DatabaseConnection {
    * @return an ResultSet object with the result of the executed select query,
    * or null if the SQL Select statement couldn't be executed
    */
-    public ResultSet executeSQLSelectStatement(String query)
-    {
+    public ResultSet executeSQLSelectStatement(String query) {
         ResultSet resultset = null;
         
         // First, check whether a some query was passed and the connection with
         // the database.
-        if(query != null && connectionIsOpen())
-        {
+        if(query != null && connectionIsOpen()) {
             // Then, if succeeded, execute the query.
-            try
-            {
+            try {
                 resultset = statement.executeQuery(query);
-            }
-            catch(SQLException e)
+            } catch(SQLException e)
             {
                 resultset = null;
             }
@@ -144,22 +130,17 @@ public class DatabaseConnection {
    * @return true if iit was possible to successfully execute the SQL delete
    * statement, otherwise false
    */
-    public boolean executeSQLDeleteStatement(String query)
-    {
+    public boolean executeSQLDeleteStatement(String query) {
         boolean result = false;
         
         // First, check whether a some query was passed and the connection with
         // the database.
-        if(query != null && connectionIsOpen())
-        {
+        if(query != null && connectionIsOpen()) {
             // Then, if succeeded, execute the query.
-            try
-            {
+            try {
                 statement.executeUpdate(query);
                 result = true;
-            }
-            catch(SQLException e)
-            {
+            } catch(SQLException e) {
                 result = false;
             }
         }
@@ -174,21 +155,17 @@ public class DatabaseConnection {
    * or null if the SQL Select statement couldn't be executed
    * @throws SQLException if a SQL-related exception occurs
    */
-    public ResultSet executeSQLInsertStatement(String query) throws SQLException
-    {
+    public ResultSet executeSQLInsertStatement(String query) 
+            throws SQLException {
         ResultSet rs = null;
         
         // First, check whether a some query was passed and the connection with
         // the database.
-        if(query != null && connectionIsOpen())
-        {
+        if(query != null && connectionIsOpen()) {
             // Then, if succeeded, execute the query.
-            try
-            {
+            try {
                 statement.execute(query);
-            }
-            catch(SQLException e)
-            {
+            } catch(SQLException e) {
                 throw e;
             }
         }
@@ -196,8 +173,7 @@ public class DatabaseConnection {
         return rs;
     }
     
-    public Connection getConnection()
-    {
+    public Connection getConnection() {
         return connection;
     }
 }

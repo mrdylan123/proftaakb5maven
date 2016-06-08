@@ -20,13 +20,11 @@ import javafx.scene.control.Alert.AlertType;
 public class InputManager {
     private List<Employee> employees;
     
-    public InputManager() 
-    {
+    public InputManager() {
         employees = (new EmployeeDAO()).loadEmployees();
     }
     
-    public List<Employee> getEmployees()
-    {
+    public List<Employee> getEmployees() {
         return employees;
     }
        /**
@@ -43,25 +41,28 @@ public class InputManager {
    * @return Nothing
    */
     public void planEmployeesIntoDayPart(Employee e1, Employee e2, Employee e3, 
-            DayPartType dpt, Date d) throws PlanInPastException
-    {
-        try
-        {
+            DayPartType dpt, Date d) throws PlanInPastException {
+        try {
             DayPartDAO dpDAO = new DayPartDAO();
 
             DayPart dp = dpDAO.loadDayPart(d, dpt);
 
-            if (e1 != null) dp.getDpeList().add(new DayPartEmployee(e1, 
+            if (e1 != null) {
+                dp.getDpeList().add(new DayPartEmployee(e1, 
                                                     PresenceStatus.PLANNED));
-            if (e2 != null) dp.getDpeList().add(new DayPartEmployee(e2, 
+            }
+            if (e2 != null) { 
+                dp.getDpeList().add(new DayPartEmployee(e2, 
                                                     PresenceStatus.PLANNED));
-            if (e3 != null) dp.getDpeList().add(new DayPartEmployee(e3, 
+            }
+            if (e3 != null) {
+                dp.getDpeList().add(new DayPartEmployee(e3, 
                                                     PresenceStatus.PLANNED));
+            }
 
             dpDAO.saveDayPart(dp);
-        }
-        catch(PlanInPastException pipe)
-        {
+            
+        } catch(PlanInPastException pipe) {
             throw pipe;
         }
     }

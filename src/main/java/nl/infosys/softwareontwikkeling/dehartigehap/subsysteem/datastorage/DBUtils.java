@@ -21,8 +21,7 @@ public class DBUtils {
    * @param s the SQL string to return a Date object for
    * @return the date object for the SQL string
    */
-    public static Date fromSQLString(String s)
-    {
+    public static Date fromSQLString(String s){
         String[] tokens = s.split("[-]");
         
         int year = Integer.parseInt(tokens[0]);
@@ -37,8 +36,7 @@ public class DBUtils {
    * @param d the date object to return a SQL style date string for
    * @return the SQL style string for the Date object
    */
-    public static String toSQLString(Date d)
-    {
+    public static String toSQLString(Date d) {
         String s = "";
         s += d.getYear();
         s += "-";

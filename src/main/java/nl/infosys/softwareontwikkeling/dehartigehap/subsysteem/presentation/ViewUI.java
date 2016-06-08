@@ -56,8 +56,7 @@ public class ViewUI extends JPanel{
         add(panelCenter, CENTER);
         add(panelSouth, SOUTH);
         
-        
-        // De knoppen op het paneel
+        // The buttons on the panel
         backBtn = new JButton ("<--");
         logOutBtn = new JButton ("Uitloggen");
         dateLbl = new JLabel("Datum :");
@@ -118,20 +117,17 @@ public class ViewUI extends JPanel{
         requestBtn.addActionListener(a1 -> doRequestButtonPress());       
   }
     
-    private void doRequestButtonPress()
-    {   
+    private void doRequestButtonPress() {   
         String dayStr = dayTF.getText();
         String monthStr = monthTF.getText();
         String yearStr = yearTF.getText();
 
-        try
-        {
+        try {
             Integer day = Integer.parseInt(dayStr);
             Integer month = Integer.parseInt(monthStr);
             Integer year = Integer.parseInt(yearStr);
 
-            if (Utils.isDateValid(day, month, year) == false)
-            {
+            if (Utils.isDateValid(day, month, year) == false) {
                 PresentationUtils.showSwingAlert("Ingevoerde datum is incorrect.");
                 return;
             }
@@ -143,21 +139,17 @@ public class ViewUI extends JPanel{
             setTableData(morningTable, dpArr[0]);
             setTableData(afternoonTable, dpArr[1]);
             setTableData(eveningTable, dpArr[2]);
-        }
-        catch(NumberFormatException nfe)
-        {
+        } catch(NumberFormatException nfe) {
             PresentationUtils.showSwingAlert("Ingevoerde datum is incorrect.");
         }
     }
     
-    private void setTableData(JTable table, DayPart dp)
-    {
+    private void setTableData(JTable table, DayPart dp) {
         clearTable(table);
         
         DefaultTableModel tm = (DefaultTableModel)table.getModel();
         
-        for (DayPartEmployee dpe : dp.getDpeList())
-        {
+        for (DayPartEmployee dpe : dp.getDpeList()) {
             Employee e = dpe.getEmployee();
             Object[] data = new Object[]{"" + e.getName(), "" + e.getFunction(),
                                 "" + PresentationUtils.presenceStatusToDutchString(
@@ -168,26 +160,22 @@ public class ViewUI extends JPanel{
         addBlankRows(table, NUMROWSPERTABLE);
     }
     
-    private void clearTable(JTable table)
-    {
+    private void clearTable(JTable table) {
         DefaultTableModel tm = (DefaultTableModel)table.getModel();
         
         int rowCount = tm.getRowCount();
         
-        for (int i = 0; i < rowCount; i++)
-        {
+        for (int i = 0; i < rowCount; i++) {
             tm.removeRow(0);
         }
     }
     
-    private void addBlankRows(JTable table, int amount)
-    {
+    private void addBlankRows(JTable table, int amount) {
         DefaultTableModel tm = (DefaultTableModel)table.getModel();
         
         int rowCount = tm.getRowCount();
         
-        for (int i = tm.getRowCount(); i < amount; i++)
-        {
+        for (int i = tm.getRowCount(); i < amount; i++) {
             tm.addRow(new Object[]{"","",""});
         }
     }

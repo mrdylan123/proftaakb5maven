@@ -25,8 +25,7 @@ public class ViewManager {
    * for
    * @return List of DayParts for the given date
    */
-    public DayPart[] getDayPartsForDate(Date d)
-    {
+    public DayPart[] getDayPartsForDate(Date d) {
         DayPart[] dpArr = new DayPart[3];
 
         DayPartDAO dpDAO = new DayPartDAO();

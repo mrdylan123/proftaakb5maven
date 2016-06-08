@@ -39,8 +39,7 @@ public class MainMenuUI extends JPanel {
         add(statsBtn);
         add(presenceBtn);
         add(logoutBtn);
-
-        
+       
         inputBtn.addActionListener(al -> newWindowButtonPress(new InputUI(),
                                                 "Planning invoeren"));
         editBtn.addActionListener(al -> newWindowButtonPress(new EditUI(),
@@ -52,21 +51,16 @@ public class MainMenuUI extends JPanel {
 
         presenceBtn.addActionListener(al -> newWindowButtonPress(new PresentionUI(),
                                                 "Presentie bekijken"));
-        
-        
+              
         logoutBtn.addActionListener(al -> logoutButtonPress());
     }
     
-    public void logoutButtonPress()
-    {
+    public void logoutButtonPress() {
         PresentationUtils.logout(this);
     }
     
-    public void newWindowButtonPress(JPanel panel, String windowTitle)
-    {
-        PresentationUtils.createWindow(panel, 
-                windowTitle);
-        
+    public void newWindowButtonPress(JPanel panel, String windowTitle) {
+        PresentationUtils.createWindow(panel, windowTitle);    
         PresentationUtils.destroyWindow(this);
     }
 }

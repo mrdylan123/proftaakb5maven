@@ -28,14 +28,12 @@ public class PresentationUtils {
     private PresentationUtils() {
     }
     
-    static public void showSwingAlert(String msg) 
-    {
+    static public void showSwingAlert(String msg) {
         JOptionPane.showMessageDialog(null, msg, "", 
                                             JOptionPane.INFORMATION_MESSAGE);
     }
     
-    static public void createWindow(JPanel panel, String windowName)
-    {
+    static public void createWindow(JPanel panel, String windowName) {
             JFrame frame = new JFrame();
             frame.setSize( 400, 280);
             frame.setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE);
@@ -45,33 +43,27 @@ public class PresentationUtils {
             frame.setVisible(true);
     }
     
-    static public void destroyWindow(JPanel panel)
-    {
+    static public void destroyWindow(JPanel panel) {
        ((JFrame)SwingUtilities.getRoot(panel)).dispose();
     }
     
-    static public void returnToMainMenu(JPanel panel)
-    {
+    static public void returnToMainMenu(JPanel panel) {
         PresentationUtils.createWindow(new MainMenuUI(), "Hoofdmenu");
         PresentationUtils.destroyWindow(panel);
     }
     
-    static public void logout(JPanel currentPanel)
-    {
+    static public void logout(JPanel currentPanel) {
         int dialogResult = JOptionPane.showConfirmDialog(null, 
                     "Weet u zeker dat u wilt uitloggen?","Waarschuwing",
                     JOptionPane.WARNING_MESSAGE);
         
-        if(dialogResult == JOptionPane.YES_OPTION)
-        {
+        if(dialogResult == JOptionPane.YES_OPTION) {
             destroyWindow(currentPanel);
         }
     }
     
-    static String presenceStatusToDutchString(PresenceStatus ps)
-    {
-        switch(ps)
-        {
+    static String presenceStatusToDutchString(PresenceStatus ps) {
+        switch(ps) {
             case PLANNED: return "Ingepland";
             case PRESENT: return "Aanwezig";              
             case NOTPRESENT: return "Niet aanwezig";             
@@ -79,10 +71,8 @@ public class PresentationUtils {
         }
     }
     
-    static String dayPartTypeToDutchString(DayPartType dpt)
-    {
-        switch(dpt)
-        {
+    static String dayPartTypeToDutchString(DayPartType dpt) {
+        switch(dpt) {
             case MORNING: return "Ochtend";
             case AFTERNOON: return "Middag";              
             case EVENING: return "Avond";             
