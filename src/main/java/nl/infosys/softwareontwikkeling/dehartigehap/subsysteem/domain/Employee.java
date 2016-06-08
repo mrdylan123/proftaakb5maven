@@ -10,30 +10,16 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain;
  * @author Maikel
  */
 public class Employee {
-    private String name, email, loginName, loginPassword, zipCode,
-                street, address, city, phonenumber, nationality;
-    private int employeeId, wage;
-    private Date dateOfBirth,employmentDate;
+    private String name, function;
+    private int employeeId;
 
-    public Employee(String name, String email, String loginName, 
-            String loginPassword, String street, String address, String city, 
-            String phonenumber, String nationality, int employeeId, int wage, 
-            String zipCode, Date dateOfBirth, Date employmentDate) {
+    public Employee(int employeeId, String name, String function) {
         this.name = name;
-        this.email = email;
-        this.loginName = loginName;
-        this.loginPassword = loginPassword;
-        this.street = street;
-        this.address = address;
-        this.city = city;
-        this.phonenumber = phonenumber;
-        this.nationality = nationality;
+        this.function = function;
         this.employeeId = employeeId;
-        this.wage = wage;
-        this.zipCode = zipCode;
-        this.dateOfBirth = dateOfBirth;
-        this.employmentDate = employmentDate;
     }
+
+    
     
     public int getEmployeeId() {
         return employeeId;

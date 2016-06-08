@@ -28,7 +28,7 @@ public class EmployeeDAO {
         {
             // If a connection was successfully setup, execute the SELECT statement.
             ResultSet resultset = connection.executeSQLSelectStatement(
-                "SELECT * FROM employee;");
+                "SELECT * FROM view_planning_employee;");
 
             if(resultset != null)
             {
@@ -67,7 +67,8 @@ public class EmployeeDAO {
         {
             // If a connection was successfully setup, execute the SELECT statement.
             ResultSet resultset = connection.executeSQLSelectStatement(
-                "SELECT * FROM employee WHERE employeeid = \"" + employeeId + "\";");
+                "SELECT * FROM view_planning_employee WHERE employeeid = \"" 
+                        + employeeId + "\";");
 
             if(resultset != null)
             {
@@ -77,30 +78,12 @@ public class EmployeeDAO {
                     // resultset does contain data, we need its first entry.
                     if(resultset.next())
                     {
-                        int wage = resultset.getInt("wage");
-                        int employeeid = resultset.getInt("employeeid");
-                        
-                        String zipcode = resultset.getString("zipcode");
+                        int employee_Id = resultset.getInt("employeeid");                      
+                        String function = resultset.getString("function");
                         String name = resultset.getString("name");
-                        String nationality = resultset.getString("nationality");
-                        String street = "";
-                        String address = resultset.getString("adress");
-                        String city = resultset.getString("city");
-                        String phonenumber = resultset.getString("phonenumber");
-                        String email = "";
                         
-                        // date strings
-                        String employmentdatestr = resultset.getString("employmentdate");
-                        String dateofbirthstr = resultset.getString("dateofbirth");
                         
-                        // To our Date class
-                        
-                        Date employmentdate = DBUtils.fromSQLString(employmentdatestr);
-                        Date dateofbirth = DBUtils.fromSQLString(dateofbirthstr);
-                        
-                        e = new Employee(name, email, null /*loginName*/,
-                        null /*loginPassword*/, street, address, city, phonenumber,
-                        nationality, employeeid, wage, zipcode, dateofbirth, employmentdate);
+                        e = new Employee(employee_Id, name, function);
                         
                     }
                 }
@@ -146,12 +129,12 @@ public class EmployeeDAO {
     
     public int getAmountMealsServed(Employee e)
     {
-        return getAmountServed(e, "mealorder");
+        return getAmountServed(e, "view_planning_mealorder");
     }
     
     public int getAmountDrinksServed(Employee e)
     {
-        return getAmountServed(e, "drinkorder");
+        return getAmountServed(e, "view_planning_drinkorder");
     }
     
 }
