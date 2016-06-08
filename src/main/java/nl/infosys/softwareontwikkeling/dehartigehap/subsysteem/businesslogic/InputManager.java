@@ -5,6 +5,7 @@
  */
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 
+import java.sql.SQLException;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.*;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class InputManager {
     
     public void planEmployeesIntoDayPart(Employee e1, Employee e2, Employee e3, 
             int dayPartSelectedIndex, String dayStr, String monthStr, 
-            String yearStr) throws DateInvalidException
+            String yearStr) throws DateInvalidException, SQLException, PlanInPastException
     {
 
         try {
@@ -62,6 +63,14 @@ public class InputManager {
         catch(NumberFormatException nfe)
         {
             throw new DateInvalidException();
+        }
+        catch(SQLException sqle)
+        {
+            throw sqle;
+        }
+        catch(PlanInPastException pipe)
+        {
+            throw pipe;
         }
     }
 }

@@ -8,6 +8,7 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.PlanInPastException;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 
 /**
@@ -70,78 +71,115 @@ public class DayPartDAO {
         return dp;
     }
     
-    public void saveDayPart(DayPart dp)
+    public void saveDayPart(DayPart dp) throws SQLException, PlanInPastException
     {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
         if(connection.openConnection())
         {
-            String execStr = "INSERT INTO daypart VALUES(\'" + 
-                    DBUtils.toSQLString(dp.getDate()) + "\',\'" + 
-                    dp.getDayPartType().toString().toLowerCase() + "\');";
-            
-            connection.executeSQLInsertStatement(execStr);
-            
-            // Delete existing records for this DayPart in employee_daypart
-            deleteDayPartEmployees(dp.getDate(), dp.getDayPartType());
-            
-            for( DayPartEmployee dpe : dp.getDpeList())
+            try 
             {
-                saveDayPartEmployee(dpe, dp.getDate(), dp.getDayPartType());
+                String execStr = "INSERT INTO daypart VALUES(\'" + 
+                        DBUtils.toSQLString(dp.getDate()) + "\',\'" + 
+                        dp.getDayPartType().toString().toLowerCase() + "\');";
+
+                connection.executeSQLInsertStatement(execStr);
+
+                // Delete existing records for this DayPart in employee_daypart
+                deleteDayPartEmployees(dp.getDate(), dp.getDayPartType());
+
+                for( DayPartEmployee dpe : dp.getDpeList())
+                {
+                    saveDayPartEmployee(dpe, dp.getDate(), dp.getDayPartType());
+                }
             }
+            catch(SQLException sqle)
+            {
+                throw sqle;
+            }
+            catch(PlanInPastException pipe)
+            {
+                throw pipe;
+            }
+            
+            connection.closeConnection();
         }
     }
     
     public void saveDayPartEmployee(DayPartEmployee dpe, Date d, DayPartType dpt)
+            throws SQLException, PlanInPastException
     {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
         if(connection.openConnection())
         {
-            String execStr = "INSERT INTO daypart_employee(employeeid,"
-                    + "date,dayparttype,presencestatus)"
-                    + " VALUES('" +
-                    dpe.getEmployee().getEmployeeId() + "','" + 
-                    DBUtils.toSQLString(d) + "','" + 
-                    dpt.toString().toLowerCase() + "','" +
-                        dpe.getPresenceStatus().toString().toLowerCase() 
-                        + "');";
-                
-               // System.out.println(execStr);
-                connection.executeSQLInsertStatement(execStr);
+            try
+            {
+                String execStr = "INSERT INTO daypart_employee(employeeid,"
+                        + "date,dayparttype,presencestatus)"
+                        + " VALUES('" +
+                        dpe.getEmployee().getEmployeeId() + "','" + 
+                        DBUtils.toSQLString(d) + "','" + 
+                        dpt.toString().toLowerCase() + "','" +
+                            dpe.getPresenceStatus().toString().toLowerCase() 
+                            + "');";
+
+                   // System.out.println(execStr);
+                    connection.executeSQLInsertStatement(execStr);
+            }
+            catch(SQLException sqle)
+            {
+                throw new PlanInPastException();
+            }
+            
+            connection.closeConnection();
         }
     }
     
-    public void deleteDayPartEmployees(Date d, DayPartType dpt)
+    public void deleteDayPartEmployees(Date d, DayPartType dpt) throws SQLException
     {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
         if(connection.openConnection())
         {
-            String execStr = "DELETE FROM daypart_employee WHERE date='" + 
-                    DBUtils.toSQLString(d) + "' AND dayparttype='" + 
-                    dpt.toString().toLowerCase() + "';";
+            try
+            {
+                String execStr = "DELETE FROM daypart_employee WHERE date='" + 
+                        DBUtils.toSQLString(d) + "' AND dayparttype='" + 
+                        dpt.toString().toLowerCase() + "';";
                 
                 connection.executeSQLInsertStatement(execStr);
+            }
+            catch(SQLException sqle)
+            {
+                throw sqle;
+            }
                 
                 connection.closeConnection();
         }
     }
     
-        public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt)
+        public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt) throws SQLException
     {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
         if(connection.openConnection())
         {
-            String execStr = "DELETE FROM daypart_employee WHERE date='" + 
-                    DBUtils.toSQLString(d) + "' AND dayparttype='" + 
-                    dpt.toString().toLowerCase() + "' AND employeeid='" +  
-                    e.getEmployeeId() + "';";
+            try
+            {
+                String execStr = "DELETE FROM daypart_employee WHERE date='" + 
+                        DBUtils.toSQLString(d) + "' AND dayparttype='" + 
+                        dpt.toString().toLowerCase() + "' AND employeeid='" +  
+                        e.getEmployeeId() + "';";
+
+                    connection.executeSQLInsertStatement(execStr);
+            }
+            catch(SQLException sqle)
+            {
+                throw sqle;
+            }
                 
-                connection.executeSQLInsertStatement(execStr);
-                
-                connection.closeConnection();
+            connection.closeConnection();
         }
     }
     

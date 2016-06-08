@@ -84,9 +84,9 @@ public class EditUI extends JPanel {
 
         panelCenter.add(new JLabel());
         panelCenter.add(new JLabel("Actuele planning"));
-        panelCenter.add(new JLabel("Selecteer gewenste status voor ochtend"));
-        panelCenter.add(new JLabel("Selecteer gewenste status voor middag"));
-        panelCenter.add(new JLabel("Selecteer gewenste status voor avond"));
+        panelCenter.add(new JLabel("Ochtend"));
+        panelCenter.add(new JLabel("Middag"));
+        panelCenter.add(new JLabel("Avond"));
         panelCenter.add(new JLabel());   
 
         panelCenter.add(new JLabel());
@@ -115,7 +115,8 @@ public class EditUI extends JPanel {
 
         for (Employee e : epManager.getEmployees())
         {
-            employeeCB.addItem(e.getName());
+            String str = String.format("%s (%s)", e.getName(), e.getFunction());
+            employeeCB.addItem(str);
         }
 
         getActualRosterButton.addActionListener(al -> getRoster());
@@ -189,7 +190,7 @@ public class EditUI extends JPanel {
         }
         if (set)
         {
-            cmBox.addItem("verwijder planning");
+            cmBox.addItem("Verwijder planning");
             ea = EditAction.ACTION_DELETE;
         }
         else
@@ -208,8 +209,9 @@ public class EditUI extends JPanel {
             DayPartEmployee dpe = dp.getDaypartEmployeeForEmployee(e);
             if (dpe != null)
             {           
-                s += String.format("%s(%s)\n", dp.getDayPartType().toString(),
-                            dpe.getPresenceStatus());
+                s += String.format("%s (%s)\n", 
+                        PresentationUtils.dayPartTypeToDutchString(dp.getDayPartType()),
+                            PresentationUtils.presenceStatusToDutchString(dpe.getPresenceStatus()));
             }
         }
        

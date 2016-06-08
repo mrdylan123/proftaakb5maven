@@ -144,7 +144,7 @@ public class DatabaseConnection {
         return result;
     }
     
-    public ResultSet executeSQLInsertStatement(String query)
+    public ResultSet executeSQLInsertStatement(String query) throws SQLException
     {
         ResultSet rs = null;
         
@@ -159,7 +159,7 @@ public class DatabaseConnection {
             }
             catch(SQLException e)
             {
-                System.out.println(e);
+                throw e;
             }
         }
         

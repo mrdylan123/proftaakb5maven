@@ -58,18 +58,27 @@ public class UserLoginDAO {
         
     }
     
-    public void saveUserLogin(String username, String password)
+    public void saveUserLogin(String username, String password) throws SQLException
     {
         String hashedpassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
         if(connection.openConnection())
         {
+            try
+            {
             String execStr = "INSERT INTO userlogin(username,"
                     + "password) VALUES('" + username + "','"  + hashedpassword + "');";
                 
                // System.out.println(execStr);
                 connection.executeSQLInsertStatement(execStr);
+            }
+            catch(SQLException sqle)
+            {
+                throw sqle;
+            }
+            
+            connection.closeConnection();;
         }
     }
 }

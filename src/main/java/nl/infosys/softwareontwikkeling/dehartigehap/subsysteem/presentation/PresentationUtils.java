@@ -15,6 +15,8 @@ import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartType;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.PresenceStatus;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.main.main2;
 
 /**
@@ -24,7 +26,7 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.main.main2;
 public class PresentationUtils {
     
     static public void showSwingAlert(String msg) {
-        JOptionPane.showMessageDialog(null, msg, "Error", 
+        JOptionPane.showMessageDialog(null, msg, "", 
                                             JOptionPane.INFORMATION_MESSAGE);
     }
     
@@ -53,7 +55,7 @@ public class PresentationUtils {
     static public void logout()
     {
         int dialogResult = JOptionPane.showConfirmDialog(null, 
-                    "Are you sure you want to exit?","Warning",
+                    "Weet u zeker dat u wilt uitloggen?","Waarschuwing",
                     JOptionPane.WARNING_MESSAGE);
         
         if(dialogResult == JOptionPane.YES_OPTION)
@@ -62,23 +64,25 @@ public class PresentationUtils {
         }
     }
     
-    static public void removeCloseButton(Component comp) {
-    if (comp instanceof JMenu) {
-      Component[] children = ((JMenu) comp).getMenuComponents();
-      for (int i = 0; i < children.length; ++i)
-        removeCloseButton(children[i]);
+    static String presenceStatusToDutchString(PresenceStatus ps)
+    {
+        switch(ps)
+        {
+            case PLANNED: return "Ingepland";
+            case PRESENT: return "Aanwezig";              
+            case NOTPRESENT: return "Niet aanwezig";             
+            default: return "";
+        }
     }
-    else if (comp instanceof AbstractButton) {
-      Action action = ((AbstractButton) comp).getAction();
-      String cmd = (action == null) ? "" : action.toString();
-      if (cmd.contains("CloseAction")) {
-        comp.getParent().remove(comp);
-      }
+    
+    static String dayPartTypeToDutchString(DayPartType dpt)
+    {
+        switch(dpt)
+        {
+            case MORNING: return "Ochtend";
+            case AFTERNOON: return "Middag";              
+            case EVENING: return "Avond";             
+            default: return "";
+        }
     }
-    else if (comp instanceof Container) {
-      Component[] children = ((Container) comp).getComponents();
-      for (int i = 0; i < children.length; ++i)
-        removeCloseButton(children[i]);
-    }
-  }
 }

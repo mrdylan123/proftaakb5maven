@@ -5,6 +5,7 @@
  */
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Date;
@@ -54,10 +55,26 @@ public class EditPlanningManager {
     }
     
     public void saveDayPartEmployee(DayPartEmployee dpe, Date d, DayPartType dpt) {
-        (new DayPartDAO()).saveDayPartEmployee(dpe, d, dpt);
+        try
+        {   
+            (new DayPartDAO()).saveDayPartEmployee(dpe, d, dpt);
+        }
+        catch(SQLException sqle)
+        {          
+        }
+        catch(PlanInPastException pipe)
+        {
+        }
     }
     
     public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt) {
-        (new DayPartDAO()).deleteDayPartEmployee(e, d, dpt);
+        try
+        {
+            (new DayPartDAO()).deleteDayPartEmployee(e, d, dpt);
+        }
+        catch(SQLException sqle)
+        {
+            
+        }
     }
 }

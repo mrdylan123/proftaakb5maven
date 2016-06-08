@@ -19,7 +19,9 @@ public class Employee {
         this.employeeId = employeeId;
     }
 
-    
+    public String getFunction() {
+        return function;
+    }
     
     public int getEmployeeId() {
         return employeeId;

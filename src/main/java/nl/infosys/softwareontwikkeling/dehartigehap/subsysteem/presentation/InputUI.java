@@ -7,6 +7,7 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -22,7 +23,7 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
  * @author J. Bouman
  */
 public class InputUI extends JPanel{
-    private JButton backButton, logOutButton, confirmButton, checkButton;
+    private JButton backButton, logOutButton, confirmButton;
     private JComboBox worker1CB, worker2CB, worker3CB, dayPartCB;
     private JLabel workerLabel, dateLabel, dayPartLabel;
     private JTextField dayTF, monthTF, yearTF;
@@ -47,13 +48,10 @@ public class InputUI extends JPanel{
         panelNorth.setLayout(new GridLayout(1,4, 2, 2));
         panelSouth.setLayout(new GridLayout(1,4, 2, 2 ));
         panelCenter.setLayout(new GridLayout(4,4,2,2));
-        
-
-        
+           
         backButton = new JButton("<--");
         logOutButton = new JButton("Uitloggen");
         confirmButton = new JButton("Invoer bevestigen");
-        checkButton = new JButton("Check mogelijkheid");
 
         worker1CB = new JComboBox();
         worker2CB = new JComboBox();
@@ -82,15 +80,15 @@ public class InputUI extends JPanel{
         dateLabel = new JLabel("Datum");
         dayPartLabel = new JLabel("Dagdeel");
 
-        dayTF = new JTextField("Dag");
+        dayTF = new JTextField("");
         // Add a listener to the textfield, so that when the textfield is clicked, it removes the placeholder text.
         dayTF.addActionListener(al -> dayTF.setText("") );
                 
-        monthTF = new JTextField("Maand");
+        monthTF = new JTextField("");
         // Add a listener to the textfield, so that when the textfield is clicked, it removes the placeholder text.
         monthTF.addActionListener(al -> monthTF.setText("") );
                   
-        yearTF = new JTextField("Jaar");
+        yearTF = new JTextField("");
         // Add a listener to the textfield, so that when the textfield is clicked, it removes the placeholder text.
         yearTF.addActionListener(al -> yearTF.setText("") );        
 
@@ -122,7 +120,6 @@ public class InputUI extends JPanel{
         panelCenter.add(new JLabel(""));
 
         // south is 1 x 4
-        panelSouth.add(checkButton);
         panelSouth.add(new JLabel(""));
         panelSouth.add(new JLabel(""));
         panelSouth.add(confirmButton);
@@ -140,6 +137,7 @@ public class InputUI extends JPanel{
              if (CB1SelectedIndex < 1 && CB2SelectedIndex < 1 
                         && CB3SelectedIndex < 1)
              {
+                 PresentationUtils.showSwingAlert("Geen medewerker(s) geselecteerd.");
                  return;
              }
 
@@ -161,11 +159,20 @@ public class InputUI extends JPanel{
                  inputManager.planEmployeesIntoDayPart(e1, e2, e3, dayPartCBSelectedIndex, 
                                                         dayStr, monthStr, yearStr);
 
-                 PresentationUtils.showSwingAlert("Successfully entered input.");
+                 PresentationUtils.showSwingAlert("Medewerker(s) succesvol ingepland.");
              }
              catch(DateInvalidException die)
              {
-                 PresentationUtils.showSwingAlert("Entered date is invalid.");
+                 PresentationUtils.showSwingAlert("De ingevulde datum is incorrect.");
+             }
+             catch(SQLException sqle)
+             {
+                 PresentationUtils.showSwingAlert("Medewerker(s) succesvol ingepland.");
+             }
+             catch(PlanInPastException pipe)
+             {
+                 PresentationUtils.showSwingAlert("Database fout: poging om in het verleden"
+                         + "medewerker(s) in te voeren");
              }
             });
             }

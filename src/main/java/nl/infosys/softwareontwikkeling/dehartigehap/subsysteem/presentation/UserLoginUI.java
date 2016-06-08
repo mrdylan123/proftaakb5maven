@@ -32,7 +32,7 @@ public class UserLoginUI extends JPanel {
         usernameTF = new JTextField("");
         passwordTF = new JPasswordField();
         loginBtn = new JButton("Login");
-        exitBtn = new JButton("Exit");
+        exitBtn = new JButton("Afsluitens");
         
         add(usernameTF);
         add(passwordTF);
