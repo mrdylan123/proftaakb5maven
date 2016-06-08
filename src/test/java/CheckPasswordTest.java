@@ -19,6 +19,7 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.*;
  * @author dyl
  */
 public class CheckPasswordTest {
+    private UserLoginManager ulm;
     
     public CheckPasswordTest() {
     }
@@ -33,7 +34,7 @@ public class CheckPasswordTest {
     
     @Before
     public void setUp() {
-        UserLoginManager ulm = new UserLoginManager();
+        ulm = new UserLoginManager();
     }
     
     @After
@@ -48,15 +49,13 @@ public class CheckPasswordTest {
     // public void hello() {}
     @Test
     public void testcheckPassword1(){
-        UserLoginManager ulm1 = new UserLoginManager();
-        boolean a = ulm1.checkPassword("maikel", "test");
+        boolean a = ulm.checkPassword("maikel", "test");
         assertEquals(a, true);
     }
     
     @Test
     public void testcheckPassword2(){
-        UserLoginManager ulm2 = new UserLoginManager();
-        boolean a = ulm2.checkPassword("maikel", "testt");
+        boolean a = ulm.checkPassword("maikel", "testt");
         assertEquals(a, false);
     }
     

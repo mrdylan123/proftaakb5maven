@@ -44,17 +44,15 @@ public class DateValidTest {
     //
     // @Test
     // public void hello() {}
-//    public void testDateValid() {
-//        Utils utl1 = new Utils();
-//        boolean a = utl1.isDateValid(17,9,1998);
-//        assertEquals(a, true);        
-//    }
+    public void testDateValid() {
+        boolean a = Utils.isDateValid(17,9,1998);
+        assertEquals(a, true);        
+    }
     
-//    public void testDateValid1() {
-//        Utils utl2 = new Utils();
-//        boolean a = utl2.isDateValid(17,24,1998);
-//        assertEquals(a, true);        
-//    }
+    public void testDateValid1() {
+        boolean a = Utils.isDateValid(17,24,1998);
+        assertEquals(a, true);        
+    }
     
     
 }
