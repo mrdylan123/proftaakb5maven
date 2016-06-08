@@ -35,6 +35,7 @@ public class main2 extends JFrame{
             frame.setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE);
             frame.setTitle ("Login");
             frame.setContentPane(new UserLoginUI());
+            frame.setExtendedState(frame.MAXIMIZED_BOTH);
             frame.setVisible(true);
         }
         

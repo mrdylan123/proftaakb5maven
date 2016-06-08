@@ -35,6 +35,7 @@ public class PresentationUtils {
             frame.setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE);
             frame.setTitle (windowName);
             frame.setContentPane(panel);
+            frame.setExtendedState(frame.MAXIMIZED_BOTH);
             frame.setVisible(true);
     }
     
