@@ -129,66 +129,71 @@ public class InputUI extends JPanel{
         logOutButton.addActionListener(a1 -> PresentationUtils.logout(this));
 
         
-        confirmButton.addActionListener(a1 -> { int CB1SelectedIndex = worker1CB.getSelectedIndex();
-             int CB2SelectedIndex = worker2CB.getSelectedIndex();
-             int CB3SelectedIndex = worker3CB.getSelectedIndex();
-             int dayPartCBSelectedIndex = dayPartCB.getSelectedIndex();
+        confirmButton.addActionListener(a1 -> doConfirmButtonPress() );
+    
+    }
+    
+    private void doConfirmButtonPress()
+    {
+        int CB1SelectedIndex = worker1CB.getSelectedIndex();
+         int CB2SelectedIndex = worker2CB.getSelectedIndex();
+         int CB3SelectedIndex = worker3CB.getSelectedIndex();
+         int dayPartCBSelectedIndex = dayPartCB.getSelectedIndex();
 
-             if (CB1SelectedIndex < 1 && CB2SelectedIndex < 1 
-                        && CB3SelectedIndex < 1)
-             {
-                 PresentationUtils.showSwingAlert("Geen medewerker(s) geselecteerd.");
-                 return;
-             }
+         if (CB1SelectedIndex < 1 && CB2SelectedIndex < 1 
+                    && CB3SelectedIndex < 1)
+         {
+             PresentationUtils.showSwingAlert("Geen medewerker(s) geselecteerd.");
+             return;
+         }
 
-             String dayStr = dayTF.getText();
-             String monthStr = monthTF.getText();
-             String yearStr = yearTF.getText();
-            
-             
-            Integer day = null, month = null, year = null;
-            try
-            {
-                day = Integer.parseInt(dayStr);
-                month = Integer.parseInt(monthStr);
-                year = Integer.parseInt(yearStr);
-            }
-            catch(NumberFormatException nfe)
-            {
-                PresentationUtils.showSwingAlert("De ingevulde datum is incorrect.");
-            }
+         String dayStr = dayTF.getText();
+         String monthStr = monthTF.getText();
+         String yearStr = yearTF.getText();
 
-            if (Utils.isDateValid(day, month, year) == false)
-            {
-                PresentationUtils.showSwingAlert("De ingevulde datum is incorrect.");
-                return;
-            }
 
-            Employee e1 = null, e2 = null, e3 = null;
+        Integer day = null, month = null, year = null;
+        try
+        {
+            day = Integer.parseInt(dayStr);
+            month = Integer.parseInt(monthStr);
+            year = Integer.parseInt(yearStr);
+        }
+        catch(NumberFormatException nfe)
+        {
+            PresentationUtils.showSwingAlert("De ingevulde datum is incorrect.");
+        }
 
-            if (CB1SelectedIndex > 0) e1 = inputManager.getEmployees()
-                                            .get(CB1SelectedIndex - 1);
-            if (CB2SelectedIndex > 0) e2 = inputManager.getEmployees()
-                                            .get(CB2SelectedIndex - 1);
-            if (CB3SelectedIndex > 0) e3 = inputManager.getEmployees()
-                                            .get(CB3SelectedIndex - 1);
+        if (Utils.isDateValid(day, month, year) == false)
+        {
+            PresentationUtils.showSwingAlert("De ingevulde datum is incorrect.");
+            return;
+        }
 
-             try
-             {
-                Date d = new Date(day, month, year);
-                DayPartType dpt = DayPartType.values()[dayPartCBSelectedIndex];
-                inputManager.planEmployeesIntoDayPart(e1, e2, e3, dpt, 
-                                                        d);
+        Employee e1 = null, e2 = null, e3 = null;
 
-                PresentationUtils.showSwingAlert("Medewerker(s) succesvol ingepland.");
-             }
-             catch(PlanInPastException pipe)
-             {
-                 PresentationUtils.showSwingAlert("Database fout: poging om in het verleden"
-                         + " medewerker(s) in te voeren");
-             }
-            });
-            }
+        if (CB1SelectedIndex > 0) e1 = inputManager.getEmployees()
+                                        .get(CB1SelectedIndex - 1);
+        if (CB2SelectedIndex > 0) e2 = inputManager.getEmployees()
+                                        .get(CB2SelectedIndex - 1);
+        if (CB3SelectedIndex > 0) e3 = inputManager.getEmployees()
+                                        .get(CB3SelectedIndex - 1);
+
+         try
+         {
+            Date d = new Date(day, month, year);
+            DayPartType dpt = DayPartType.values()[dayPartCBSelectedIndex];
+            inputManager.planEmployeesIntoDayPart(e1, e2, e3, dpt, 
+                                                    d);
+
+            PresentationUtils.showSwingAlert("Medewerker(s) succesvol ingepland.");
+         }
+         catch(PlanInPastException pipe)
+         {
+             PresentationUtils.showSwingAlert("Database fout: poging om in het verleden"
+                     + " medewerker(s) in te voeren");
+         }
+    }
 }
 
 

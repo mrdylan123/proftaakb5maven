@@ -32,7 +32,7 @@ public class EditUI extends JPanel {
         ACTION_NONE,
         ACTION_ADD,
         ACTION_DELETE
-    };
+    }
     
     public EditUI() {
         

@@ -40,7 +40,7 @@ public class ViewUI extends JPanel{
     private JPanel panelCenter;
     private JPanel panelSouth;
     private ViewManager viewManager;
-    private final int NUM_ROWS_PER_TABLE = 25;
+    private final static int numRowsPerTable = 25;
     
     public ViewUI() {   
         viewManager = new ViewManager();
@@ -62,9 +62,9 @@ public class ViewUI extends JPanel{
         logOutBtn = new JButton ("Uitloggen");
         dateLbl = new JLabel("Datum :");
         
-        morningTable = new JTable(NUM_ROWS_PER_TABLE, 3);
-        afternoonTable = new JTable(NUM_ROWS_PER_TABLE, 3);
-        eveningTable = new JTable(NUM_ROWS_PER_TABLE, 3);
+        morningTable = new JTable(numRowsPerTable, 3);
+        afternoonTable = new JTable(numRowsPerTable, 3);
+        eveningTable = new JTable(numRowsPerTable, 3);
         
         morningTable.setPreferredSize(new Dimension(100, 200));
         afternoonTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
@@ -113,11 +113,7 @@ public class ViewUI extends JPanel{
         
         backBtn.addActionListener(a1 -> PresentationUtils.
                                                   returnToMainMenu(this));
-        logOutBtn.addActionListener(a1 -> PresentationUtils.logout(this));
-        
-        dayTF.addMouseListener(new EmptyOnMouseClickListener(dayTF));        
-        monthTF.addMouseListener(new EmptyOnMouseClickListener(monthTF));                 
-        yearTF.addMouseListener(new EmptyOnMouseClickListener(yearTF));               
+        logOutBtn.addActionListener(a1 -> PresentationUtils.logout(this));             
     
         requestBtn.addActionListener(a1 -> doRequestButtonPress());       
   }
@@ -169,7 +165,7 @@ public class ViewUI extends JPanel{
             tm.addRow(data);
         }
         
-        addBlankRows(table, NUM_ROWS_PER_TABLE);
+        addBlankRows(table, numRowsPerTable);
     }
     
     private void clearTable(JTable table)

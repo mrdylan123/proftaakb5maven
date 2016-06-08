@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartType;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.PresenceStatus;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.main.main2;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.main.Main2;
 
 /**
  *

@@ -132,7 +132,7 @@ public class DayPartDAO {
    * @return Nothing
    */
     public void saveDayPartEmployee(DayPartEmployee dpe, Date d, DayPartType dpt)
-            throws SQLException, PlanInPastException
+            throws PlanInPastException
     {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();

@@ -91,7 +91,7 @@ public class UserLoginDAO {
                 throw sqle;
             }
             
-            connection.closeConnection();;
+            connection.closeConnection();
         }
     }
 }

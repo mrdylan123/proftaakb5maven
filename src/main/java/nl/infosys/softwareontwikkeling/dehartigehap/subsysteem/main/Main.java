@@ -20,12 +20,18 @@ public class Main extends JFrame{
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        /* UserLoginManager ulm = new UserLoginManager();  
+        ulm.registerUser("Maikel", "test");
         
-        JFrame frame = new Main();
-        frame.setTitle("Planning invoeren");     
-        frame.setSize(500,500);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(new ViewUI());
+        boolean check = ulm.checkPassword("Maikel", "test");    
+        System.out.println(check); */
+
+        JFrame frame = new Main2();
+        frame.setSize( 400, 280);
+        frame.setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setTitle ("Login");
+        frame.setContentPane(new UserLoginUI());
+        frame.setExtendedState(frame.MAXIMIZED_BOTH);
         frame.setVisible(true);
     }  
     

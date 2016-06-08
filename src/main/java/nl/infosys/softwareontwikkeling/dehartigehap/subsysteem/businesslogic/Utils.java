@@ -14,16 +14,26 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
    * @return true if the input date is considered valid, else false
    */
 public class Utils {
+    
+    private Utils() {}
+    
     public static boolean isDateValid(Integer day, Integer month, Integer year)
     {
-         if (year == null || month == null || day == null || day < 1 || day > 32
-                || month < 1 || month > 12 || year < 2016 || year > 2100)
-         {
-             return false;
-         }
-         else
-         {
-             return true;
-         }
+        if (year == null || month == null || day == null)
+        {
+            return false;
+        }
+        
+        if (day < 1 || day > 32 || month < 1 )
+        {
+            return false;
+        }
+
+        if (month > 12 || year < 2016 || year > 2100)
+        {
+            return false;
+        }        
+         
+        return true;
     }
 }
