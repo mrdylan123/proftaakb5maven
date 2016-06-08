@@ -223,6 +223,13 @@ public class EditUI extends JPanel {
         int CbIndex1 = statusDayPart1.getSelectedIndex();
         int CbIndex2 = statusDayPart2.getSelectedIndex();
         int CbIndex3 = statusDayPart3.getSelectedIndex();
+        
+        // user didn't first press 'get roster' button, so display warning
+        if (CbIndex1 == -1 && CbIndex2 == -1 && CbIndex3 == -1)
+        {
+            PresentationUtils.showSwingAlert("Haal eerst de planning op "
+                    + "voordat u probeert de planning te wijzigen.");
+        }
                 
         EditAction eaMorning = actionCB1;
         EditAction eaAfternoon = actionCB2; 
@@ -237,6 +244,8 @@ public class EditUI extends JPanel {
         doAction(eaEvening, DayPartType.EVENING);
         
         getRoster();
+        
+        PresentationUtils.showSwingAlert("De planning is gewijzigd.");
     }
     
     private void doAction(EditAction ea, DayPartType dpt)

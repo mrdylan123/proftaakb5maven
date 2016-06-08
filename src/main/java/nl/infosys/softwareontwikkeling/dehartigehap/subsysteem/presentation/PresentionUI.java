@@ -107,9 +107,10 @@ private JPanel panelNorth, panelCenter;
        
        if (d != null && dpe != null)
        {
-            s += String.format("%d-%d-%d %s (%s)\n", d.getDay(), d.getMonth(),
-                    d.getYear(), dp.getDayPartType().toString(), 
-                    dpe.getPresenceStatus().toString());
+            s += String.format("%d-%d-%d\t%s\t%s\n", d.getDay(), d.getMonth(),
+                    d.getYear(), 
+                    PresentationUtils.dayPartTypeToDutchString(dp.getDayPartType()), 
+                    PresentationUtils.presenceStatusToDutchString(dpe.getPresenceStatus()));
        }
        
        return s;

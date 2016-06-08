@@ -16,8 +16,11 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.*;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.DBUtils;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPart;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartEmployee;
@@ -28,7 +31,7 @@ public class ViewUI extends JPanel{
     
     private JButton backBtn, logOutBtn, requestBtn;
     private JLabel dateLbl;
-    private JTextArea barTA, keukenTA;
+    private JTable morningTable, afternoonTable, eveningTable;
     private JTextField dayTF, monthTF, yearTF;
     private JPanel panelNorth;
     private JPanel panelCenter;
@@ -50,13 +53,16 @@ public class ViewUI extends JPanel{
         backBtn = new JButton ("<--");
         logOutBtn = new JButton ("Uitloggen");
         dateLbl = new JLabel("Datum :");
-        barTA= new JTextArea ("De weergave van bar");
-        keukenTA = new JTextArea ("De weergave van keuken.");
+        
+        morningTable = new JTable(5,3);
+        afternoonTable = new JTable(5,3);
+        eveningTable = new JTable(5,3);
+        
         requestBtn = new JButton ("Vraag op");
         
-        dayTF = new JTextField("dag");
-        monthTF = new JTextField("maand");
-        yearTF = new JTextField("jaar");
+        dayTF = new JTextField("");
+        monthTF = new JTextField("");
+        yearTF = new JTextField("");
                
         
         panelNorth.add(backBtn);
@@ -68,8 +74,9 @@ public class ViewUI extends JPanel{
         panelCenter.add(monthTF);
         panelCenter.add(yearTF);
         
-        panelCenter.add(barTA);
-        panelCenter.add(keukenTA);
+        panelCenter.add(morningTable);
+        panelCenter.add(afternoonTable);
+        panelCenter.add(eveningTable);
         
         panelSouth.add(requestBtn);
         
@@ -97,17 +104,41 @@ public class ViewUI extends JPanel{
 
             String s = "";
 
-            for (DayPart dp : dpArr)
-            {
-                s += getFormattedOutputForDayPart(dp);
-            }
-
-            barTA.setText(s);
-            keukenTA.setText(s);
+            setTableData(morningTable, dpArr[0]);
+            setTableData(afternoonTable, dpArr[1]);
+            setTableData(eveningTable, dpArr[2]);
         }
         catch(DateInvalidException die)
         {
             PresentationUtils.showSwingAlert("Entered date is invalid");
+        }
+    }
+    
+    private void setTableData(JTable table, DayPart dp)
+    {
+        clearTable(table);
+        
+        DefaultTableModel tm = (DefaultTableModel)table.getModel();
+        
+        for (DayPartEmployee dpe : dp.getDpeList())
+        {
+            Employee e = dpe.getEmployee();
+            Object[] data = new Object[]{"" + e.getName(), "" + e.getFunction(),
+                                "" + PresentationUtils.presenceStatusToDutchString(
+                                        dpe.getPresenceStatus())};
+            tm.insertRow(0, data);
+        }
+    }
+    
+    private void clearTable(JTable table)
+    {
+        DefaultTableModel tm = (DefaultTableModel)table.getModel();
+        
+        int rowCount = tm.getRowCount();
+        
+        for (int i = 0; i < rowCount; i++)
+        {
+            tm.removeRow(i);
         }
     }
     
