@@ -126,7 +126,7 @@ public class InputUI extends JPanel{
         
         backButton.addActionListener(a1 -> PresentationUtils.
                                                   returnToMainMenu(this));
-        logOutButton.addActionListener(a1 -> PresentationUtils.logout());
+        logOutButton.addActionListener(a1 -> PresentationUtils.logout(this));
 
         
         confirmButton.addActionListener(a1 -> { int CB1SelectedIndex = worker1CB.getSelectedIndex();
@@ -182,14 +182,10 @@ public class InputUI extends JPanel{
 
                 PresentationUtils.showSwingAlert("Medewerker(s) succesvol ingepland.");
              }
-             catch(SQLException sqle)
-             {
-                 PresentationUtils.showSwingAlert("Medewerker(s) succesvol ingepland.");
-             }
              catch(PlanInPastException pipe)
              {
                  PresentationUtils.showSwingAlert("Database fout: poging om in het verleden"
-                         + "medewerker(s) in te voeren");
+                         + " medewerker(s) in te voeren");
              }
             });
             }

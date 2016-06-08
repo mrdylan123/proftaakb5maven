@@ -74,7 +74,7 @@ private JPanel panelNorth, panelCenter;
         
         backButton.addActionListener(a1 -> PresentationUtils.
                                                   returnToMainMenu(this));
-        logOutButton.addActionListener(a1 -> PresentationUtils.logout());
+        logOutButton.addActionListener(a1 -> PresentationUtils.logout(this));
         
         getPresentionButton.addActionListener(a1 -> getPresentionButtonPress());
     }

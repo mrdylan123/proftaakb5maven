@@ -21,59 +21,20 @@ public class main2 extends JFrame{
      */
     public static void main(String[] args) {
 
-        /* UserLoginManager ulm = new UserLoginManager();
-        
+        /* UserLoginManager ulm = new UserLoginManager();  
         ulm.registerUser("Maikel", "test");
         
-        boolean check = ulm.checkPassword("Maikel", "test");
-        
+        boolean check = ulm.checkPassword("Maikel", "test");    
         System.out.println(check); */
-        
-        {
-            JFrame frame = new main2();
-            frame.setSize( 400, 280);
-            frame.setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE);
-            frame.setTitle ("Login");
-            frame.setContentPane(new UserLoginUI());
-            frame.setExtendedState(frame.MAXIMIZED_BOTH);
-            frame.setVisible(true);
-        }
-        
-        /*{
-            JFrame frame = new main2();
-            frame.setSize( 400, 280);
-            frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
-            frame.setTitle ("Statistieken");
-            frame.setContentPane(new StatsUI());
-            frame.setVisible(true);
-        }
-        
-        {
-            JFrame frame = new main2();
-            frame.setSize( 400, 280);
-            frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
-            frame.setTitle ("Edit Planning UI");
-            frame.setContentPane(new EditUI());
-            frame.setVisible(true);
-        }
-        
-        {
-            JFrame frame = new Main();
-            frame.setTitle("Planning invoeren");     
-            frame.setSize(500,500);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setContentPane(new InputUI());
-            frame.setVisible(true);
-        }
-        
-        {
-            JFrame frame = new Main();
-            frame.setTitle("Planning weergave");     
-            frame.setSize(500,500);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setContentPane(new ViewUI());
-            frame.setVisible(true);
-        } */
+
+        JFrame frame = new main2();
+        frame.setSize( 400, 280);
+        frame.setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setTitle ("Login");
+        frame.setContentPane(new UserLoginUI());
+        frame.setExtendedState(frame.MAXIMIZED_BOTH);
+        frame.setVisible(true);
+
     }
     
 }

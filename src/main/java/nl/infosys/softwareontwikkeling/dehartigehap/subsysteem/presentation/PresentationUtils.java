@@ -7,6 +7,7 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Window;
 import javafx.scene.control.Alert;
 import javax.swing.AbstractButton;
 import javax.swing.Action;
@@ -25,7 +26,10 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.main.main2;
  */
 public class PresentationUtils {
     
-    static public void showSwingAlert(String msg) {
+    private PresentationUtils() {}
+    
+    static public void showSwingAlert(String msg) 
+    {
         JOptionPane.showMessageDialog(null, msg, "", 
                                             JOptionPane.INFORMATION_MESSAGE);
     }
@@ -52,7 +56,7 @@ public class PresentationUtils {
         PresentationUtils.destroyWindow(panel);
     }
     
-    static public void logout()
+    static public void logout(JPanel currentPanel)
     {
         int dialogResult = JOptionPane.showConfirmDialog(null, 
                     "Weet u zeker dat u wilt uitloggen?","Waarschuwing",
@@ -60,7 +64,7 @@ public class PresentationUtils {
         
         if(dialogResult == JOptionPane.YES_OPTION)
         {
-            System.exit(0);
+            destroyWindow(currentPanel);
         }
     }
     

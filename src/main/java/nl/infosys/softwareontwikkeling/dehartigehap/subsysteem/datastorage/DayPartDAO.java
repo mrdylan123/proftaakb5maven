@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage;
 
 import java.sql.ResultSet;
@@ -85,7 +80,7 @@ public class DayPartDAO {
    * @throws SQLException SQL exceptions other than PlanInPastException
    * @return Nothing
    */
-    public void saveDayPart(DayPart dp) throws SQLException, PlanInPastException
+    public void saveDayPart(DayPart dp) throws PlanInPastException
     {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
@@ -99,6 +94,12 @@ public class DayPartDAO {
 
                 connection.executeSQLInsertStatement(execStr);
 
+            }
+            catch(SQLException sqle)
+            {             
+            }
+            try
+            {
                 // Delete existing records for this DayPart in employee_daypart
                 deleteDayPartEmployees(dp.getDate(), dp.getDayPartType());
 
@@ -107,13 +108,13 @@ public class DayPartDAO {
                     saveDayPartEmployee(dpe, dp.getDate(), dp.getDayPartType());
                 }
             }
-            catch(SQLException sqle)
-            {
-                throw sqle;
-            }
             catch(PlanInPastException pipe)
             {
                 throw pipe;
+            }
+            catch(SQLException sqle)
+            {
+                
             }
             
             connection.closeConnection();

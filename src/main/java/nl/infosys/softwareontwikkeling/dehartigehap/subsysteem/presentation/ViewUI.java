@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import static java.awt.BorderLayout.CENTER;
 import static java.awt.BorderLayout.NORTH;
 import static java.awt.BorderLayout.SOUTH;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.Box;
@@ -38,6 +40,7 @@ public class ViewUI extends JPanel{
     private JPanel panelCenter;
     private JPanel panelSouth;
     private ViewManager viewManager;
+    private final int NUM_ROWS_PER_TABLE = 25;
     
     public ViewUI() {   
         viewManager = new ViewManager();
@@ -46,18 +49,26 @@ public class ViewUI extends JPanel{
         panelSouth = new JPanel();
         setLayout(new BorderLayout());
         
+        panelNorth.setLayout(new GridLayout(1, 3) );
+        panelCenter.setLayout(new GridLayout(4, 6) );
+        
         add(panelNorth, NORTH);
         add(panelCenter, CENTER);
         add(panelSouth, SOUTH);
+        
         
         // De knoppen op het paneel
         backBtn = new JButton ("<--");
         logOutBtn = new JButton ("Uitloggen");
         dateLbl = new JLabel("Datum :");
         
-        morningTable = new JTable(5,3);
-        afternoonTable = new JTable(5,3);
-        eveningTable = new JTable(5,3);
+        morningTable = new JTable(NUM_ROWS_PER_TABLE, 3);
+        afternoonTable = new JTable(NUM_ROWS_PER_TABLE, 3);
+        eveningTable = new JTable(NUM_ROWS_PER_TABLE, 3);
+        
+        morningTable.setPreferredSize(new Dimension(100, 200));
+        afternoonTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
+        eveningTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
         
         requestBtn = new JButton ("Vraag op");
         
@@ -70,20 +81,39 @@ public class ViewUI extends JPanel{
         panelNorth.add(Box.createHorizontalStrut(100));
         panelNorth.add(logOutBtn);
         
+        panelCenter.add(new JLabel(""));
+        panelCenter.add(new JLabel("Dag"));
+        panelCenter.add(new JLabel(""));
+        panelCenter.add(new JLabel("Maand"));
+        panelCenter.add(new JLabel(""));
+        panelCenter.add(new JLabel("Jaar"));
+        
         panelCenter.add(dateLbl);
         panelCenter.add(dayTF);
+        panelCenter.add(new JLabel(""));
         panelCenter.add(monthTF);
+        panelCenter.add(new JLabel(""));
         panelCenter.add(yearTF);
         
+        panelCenter.add(new JLabel(""));
+        panelCenter.add(new JLabel("Ochtend"));
+        panelCenter.add(new JLabel(""));
+        panelCenter.add(new JLabel("Middag"));
+        panelCenter.add(new JLabel(""));
+        panelCenter.add(new JLabel("Avond"));
+        
+        panelCenter.add(new JLabel(""));
         panelCenter.add(morningTable);
+        panelCenter.add(new JLabel(""));
         panelCenter.add(afternoonTable);
+        panelCenter.add(new JLabel(""));
         panelCenter.add(eveningTable);
         
         panelSouth.add(requestBtn);
         
         backBtn.addActionListener(a1 -> PresentationUtils.
                                                   returnToMainMenu(this));
-        logOutBtn.addActionListener(a1 -> PresentationUtils.logout());
+        logOutBtn.addActionListener(a1 -> PresentationUtils.logout(this));
         
         dayTF.addMouseListener(new EmptyOnMouseClickListener(dayTF));        
         monthTF.addMouseListener(new EmptyOnMouseClickListener(monthTF));                 
@@ -106,7 +136,7 @@ public class ViewUI extends JPanel{
 
             if (Utils.isDateValid(day, month, year) == false)
             {
-                PresentationUtils.showSwingAlert("Entered date is invalid");
+                PresentationUtils.showSwingAlert("Ingevoerde datum is incorrect.");
                 return;
             }
             
@@ -120,7 +150,7 @@ public class ViewUI extends JPanel{
         }
         catch(NumberFormatException nfe)
         {
-            PresentationUtils.showSwingAlert("Entered date is invalid");
+            PresentationUtils.showSwingAlert("Ingevoerde datum is incorrect.");
         }
     }
     
@@ -136,8 +166,10 @@ public class ViewUI extends JPanel{
             Object[] data = new Object[]{"" + e.getName(), "" + e.getFunction(),
                                 "" + PresentationUtils.presenceStatusToDutchString(
                                         dpe.getPresenceStatus())};
-            tm.insertRow(0, data);
+            tm.addRow(data);
         }
+        
+        addBlankRows(table, NUM_ROWS_PER_TABLE);
     }
     
     private void clearTable(JTable table)
@@ -148,38 +180,20 @@ public class ViewUI extends JPanel{
         
         for (int i = 0; i < rowCount; i++)
         {
-            tm.removeRow(i);
+            tm.removeRow(0);
         }
     }
     
-    public String getFormattedOutputForDayPart(DayPart dp)
+    private void addBlankRows(JTable table, int amount)
     {
-        String s = DBUtils.toSQLString(dp.getDate());
-        s += "\t\t\t";
-        s += dp.getDayPartType().toString();
-        s += "\n----------------------------------------\n";
+        DefaultTableModel tm = (DefaultTableModel)table.getModel();
         
-        boolean found = false;
+        int rowCount = tm.getRowCount();
         
-        for (DayPartEmployee dpe : dp.getDpeList())
+        for (int i = tm.getRowCount(); i < amount; i++)
         {
-            found = true;
-            
-            Employee e = dpe.getEmployee();
-            
-            s += e.getName();
-            s += "\t(";
-            s += dpe.getPresenceStatus().toString();
-            s += ")\n";
+            tm.addRow(new Object[]{"","",""});
         }
-        
-        if (found == false)
-        {
-            s += "<NO RESULTS>\n";
-        }
-        
-        s += "\n\n";
-        return s;
     }
 }
 

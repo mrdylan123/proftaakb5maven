@@ -42,7 +42,7 @@ public class InputManager {
    * @return Nothing
    */
     public void planEmployeesIntoDayPart(Employee e1, Employee e2, Employee e3, 
-            DayPartType dpt, Date d) throws SQLException, PlanInPastException
+            DayPartType dpt, Date d) throws PlanInPastException
     {
         try
         {
@@ -58,10 +58,6 @@ public class InputManager {
                                                     PresenceStatus.PLANNED));
 
             dpDAO.saveDayPart(dp);
-        }
-        catch(SQLException sqle)
-        {
-            throw sqle;
         }
         catch(PlanInPastException pipe)
         {

@@ -59,7 +59,7 @@ public class MainMenuUI extends JPanel {
     
     public void logoutButtonPress()
     {
-        PresentationUtils.logout();
+        PresentationUtils.logout(this);
     }
     
     public void newWindowButtonPress(JPanel panel, String windowTitle)

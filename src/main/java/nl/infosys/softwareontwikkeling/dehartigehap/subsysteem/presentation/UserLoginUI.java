@@ -32,7 +32,7 @@ public class UserLoginUI extends JPanel {
         usernameTF = new JTextField("");
         passwordTF = new JPasswordField();
         loginBtn = new JButton("Login");
-        exitBtn = new JButton("Afsluitens");
+        exitBtn = new JButton("Afsluiten");
         
         add(usernameTF);
         add(passwordTF);
@@ -51,7 +51,6 @@ public class UserLoginUI extends JPanel {
         if ( ulm.checkPassword(username, password) )
         {
             /* create main menu window */
-            JFrame frame = new JFrame();
             PresentationUtils.createWindow(new MainMenuUI(), 
                                                 "Hoofdmenu");
             
@@ -64,6 +63,6 @@ public class UserLoginUI extends JPanel {
     
     public void exitButtonPress()
     {
-        PresentationUtils.logout();
+        PresentationUtils.logout(this);
     }
 }

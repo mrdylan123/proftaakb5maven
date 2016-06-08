@@ -125,7 +125,7 @@ public class EditUI extends JPanel {
         backButton.addActionListener(a1 -> PresentationUtils.
                                                   returnToMainMenu(this));
         
-        logOutButton.addActionListener(a1 -> PresentationUtils.logout());
+        logOutButton.addActionListener(a1 -> PresentationUtils.logout(this));
     }
     
     private void getRoster()

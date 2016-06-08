@@ -41,8 +41,12 @@ public class DatabaseConnection {
             try
             {   
                 // Try to create a connection with the library database
+                String url = "jdbc:mysql://164.132.101.65:3306/ivp4b";
+                String username = "ivp4b";
+                String password = "ivp4b";
+                
                 connection = DriverManager.getConnection(
-                    "jdbc:mysql://164.132.101.65:3306/ivp4b" , "ivp4b", "ivp4b");
+                    url , username, password);
 
                 if(connection != null)
                 {
