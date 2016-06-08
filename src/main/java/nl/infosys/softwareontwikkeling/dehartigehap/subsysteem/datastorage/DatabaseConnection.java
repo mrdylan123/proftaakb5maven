@@ -43,7 +43,7 @@ public class DatabaseConnection {
                 
                 result = true;
             } catch(SQLException ex) {
-                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                Logger.getLogger(DatabaseConnection.class.getName()).log(
                                                     Level.SEVERE, null, ex);
                 result = false;
             }
@@ -66,7 +66,7 @@ public class DatabaseConnection {
             try {
                 open = !connection.isClosed() && !statement.isClosed();
             } catch(SQLException ex) {
-                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                Logger.getLogger(DatabaseConnection.class.getName()).log(
                                                     Level.SEVERE, null, ex);
                 open = false;
             }
@@ -88,7 +88,7 @@ public class DatabaseConnection {
             // Close the connection
             connection.close();
         } catch(Exception ex) {
-            Logger.getLogger(UserLoginDAO.class.getName()).log(
+            Logger.getLogger(DatabaseConnection.class.getName()).log(
                                                     Level.SEVERE, null, ex);
         }
     }
@@ -109,7 +109,7 @@ public class DatabaseConnection {
             try {
                 resultset = statement.executeQuery(query);
             } catch(SQLException ex) {
-                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                Logger.getLogger(DatabaseConnection.class.getName()).log(
                                                     Level.SEVERE, null, ex);
                 resultset = null;
             }
@@ -135,7 +135,7 @@ public class DatabaseConnection {
                 statement.executeUpdate(query);
                 result = true;
             } catch(SQLException ex) {
-                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                Logger.getLogger(DatabaseConnection.class.getName()).log(
                                                     Level.SEVERE, null, ex);
                 result = false;
             }

@@ -55,7 +55,7 @@ public class DayPartDAO {
                }
                 dp = new DayPart(d, dayPartType, dpeList);
             } catch(SQLException ex) {
-                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                Logger.getLogger(DayPartDAO.class.getName()).log(
                                                     Level.SEVERE, null, ex);
                 dp = null;
             }
@@ -89,7 +89,7 @@ public class DayPartDAO {
                 connection.executeSQLInsertStatement(execStr);
 
             } catch(SQLException ex){
-                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                Logger.getLogger(DayPartDAO.class.getName()).log(
                                                     Level.SEVERE, null, ex);
             }
             
@@ -103,7 +103,7 @@ public class DayPartDAO {
             } catch(PlanInPastException pipe) {
                 throw pipe;
             } catch(SQLException ex){
-                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                Logger.getLogger(DayPartDAO.class.getName()).log(
                                                     Level.SEVERE, null, ex);
             }
             
@@ -138,7 +138,7 @@ public class DayPartDAO {
 
                     connection.executeSQLInsertStatement(execStr);
             } catch(SQLException ex) {
-                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                Logger.getLogger(DayPartDAO.class.getName()).log(
                                                     Level.SEVERE, null, ex);
                 throw new PlanInPastException();
             }
@@ -230,7 +230,7 @@ public class DayPartDAO {
                     return true;
                }
             } catch(SQLException ex){
-                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                Logger.getLogger(DayPartDAO.class.getName()).log(
                                                     Level.SEVERE, null, ex);
             }
 
@@ -281,7 +281,7 @@ public class DayPartDAO {
                    dayParts.add(dp);
                 }
             } catch(SQLException ex){
-                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                Logger.getLogger(DayPartDAO.class.getName()).log(
                                                     Level.SEVERE, null, ex);
             }
         }
@@ -332,7 +332,7 @@ public class DayPartDAO {
                    dayParts.add(dp);
                 }
             } catch(SQLException ex){
-                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                Logger.getLogger(DayPartDAO.class.getName()).log(
                                                     Level.SEVERE, null, ex);
             }
 

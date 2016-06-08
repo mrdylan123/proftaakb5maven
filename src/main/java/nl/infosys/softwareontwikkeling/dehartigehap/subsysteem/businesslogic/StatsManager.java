@@ -5,10 +5,6 @@ import java.util.List;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.EmployeeDAO;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
 
-/**
- *
- * @author dyl
- */
 public class StatsManager {
     private List<Employee> employees;
     

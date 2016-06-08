@@ -15,10 +15,6 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPart;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartEmployee;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
 
-/**
- *
- * @author maikel
- */
 public class PresentionUI extends JPanel {
 private JPanel panelNorth, panelCenter;
     private JButton backButton, logOutButton, getPresentionButton;

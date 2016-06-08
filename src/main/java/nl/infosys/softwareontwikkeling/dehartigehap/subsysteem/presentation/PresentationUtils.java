@@ -7,10 +7,6 @@ import javax.swing.SwingUtilities;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartType;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.PresenceStatus;
 
-/**
- *
- * @author maikel
- */
 public class PresentationUtils {
     
     private PresentationUtils() {

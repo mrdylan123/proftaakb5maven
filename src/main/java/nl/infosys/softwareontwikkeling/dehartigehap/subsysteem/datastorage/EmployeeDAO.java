@@ -8,10 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 
-/**
- *
- * @author maikel
- */
 public class EmployeeDAO {
     
     public EmployeeDAO() {

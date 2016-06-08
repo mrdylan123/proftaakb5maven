@@ -3,10 +3,6 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.*;
 
-/**
- *
- * @author maikel
- */
 public class ViewManager {
     private static final int TWO = 2;
     private static final int NUMOFDAYPARTS = 3;
