@@ -408,8 +408,8 @@ public class BCrypt {
 
 		while (off < len) {
 			c1 = d[off++] & 0xff;
-			rs.append(BASE64_CODE[(c1 >> 2) & 0x3f]);
-			c1 = (c1 & 0x03) << 4;
+			rs.append(BASE64_CODE[(c1 >> TWO) & 0x3f]);
+			c1 = (c1 & 0x03) << FOUR;
 			if (off >= len) {
 				rs.append(BASE64_CODE[c1 & 0x3f]);
 				return rs.toString();
