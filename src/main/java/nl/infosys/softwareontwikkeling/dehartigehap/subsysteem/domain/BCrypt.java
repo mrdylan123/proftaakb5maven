@@ -484,14 +484,14 @@ public class BCrypt {
             c1 = char64(s.charAt(off++));
             c2 = char64(s.charAt(off++));
             
-            if (checkOffsets(c1, c2, olen2)) {
+            if (checkOffsets(c1, c2)) {
                 return olen2;
             }
             o = (byte)(c1 << TWO);
             o |= (c2 & 0x30) >> FOUR;
             rs.append((char)o);
             
-            if (++olen2 >= maxolen || off >= slen) {
+            if (checkOffsets2(olen2, maxolen, off, slen)) {
                 return olen2;
             }
             c3 = char64(s.charAt(off++));
@@ -501,7 +501,7 @@ public class BCrypt {
             o = (byte)((c2 & 0x0f) << FOUR);
             o |= (c3 & 0x3c) >> TWO;
             rs.append((char)o);
-            if (++olen2 >= maxolen || off >= slen) {
+            if (checkOffsets2(olen2, maxolen, off, slen)) {
                 return olen2;
             }
             c4 = char64(s.charAt(off++));
@@ -513,11 +513,15 @@ public class BCrypt {
         return olen2;
     }
 
+    private static boolean checkOffsets2(int olen2, int maxolen, int off, int slen) {
+        return ++olen2 >= maxolen || off >= slen;
+    }
+
     private static boolean checkLength(int off, int slen, int olen2, int maxolen) {
         return off < slen - 1 && olen2 < maxolen;
     }
 
-    private static boolean checkOffsets(byte c1, byte c2, int olen2) {
+    private static boolean checkOffsets(byte c1, byte c2) {
         if (c1 == -1 || c2 == -1) {
             return true;
         }

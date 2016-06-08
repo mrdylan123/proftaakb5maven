@@ -262,28 +262,7 @@ public class DayPartDAO {
                     + " employeeid='%d' AND date='%s';",
                     e.getEmployeeId(), DBUtils.toSQLString(date));
             
-            ResultSet resultset = connection.executeSQLSelectStatement(execStr);
-
-            if(resultset == null) {
-                connection.closeConnection();
-                return dayParts;
-            }
-            
-            try {
-                while(resultset.next()) {
-                   String dptStr = resultset.getString("dayparttype");
-                   String dateStr = resultset.getString("date");
-
-                   DayPartType dpt = DayPartType.valueOf(dptStr.toUpperCase());
-                   Date d = DBUtils.fromSQLString(dateStr);
-
-                   DayPart dp = (new DayPartDAO()).loadDayPart(d, dpt);
-                   dayParts.add(dp);
-                }
-            } catch(SQLException ex){
-                Logger.getLogger(DayPartDAO.class.getName()).log(
-                                                    Level.SEVERE, null, ex);
-            }
+            if(loadDayParts(connection, execStr, dayParts)) return dayParts;
         }
             // else an error occurred leave array list empty.
 
@@ -313,33 +292,36 @@ public class DayPartDAO {
                     + " employeeid='%d' ORDER BY date ASC LIMIT %d;",
                     e.getEmployeeId(), limit);
             
-            ResultSet resultset = connection.executeSQLSelectStatement(execStr);
-
-            if(resultset == null) {
-                connection.closeConnection();
-                return dayParts;
-            }
-            
-            try {
-                while(resultset.next()) {
-                   String dptStr = resultset.getString("dayparttype");
-                   String dateStr = resultset.getString("date");
-
-                   DayPartType dpt = DayPartType.valueOf(dptStr.toUpperCase());
-                   Date d = DBUtils.fromSQLString(dateStr);
-
-                   DayPart dp = (new DayPartDAO()).loadDayPart(d, dpt);
-                   dayParts.add(dp);
-                }
-            } catch(SQLException ex){
-                Logger.getLogger(DayPartDAO.class.getName()).log(
-                                                    Level.SEVERE, null, ex);
-            }
+            if(loadDayParts(connection, execStr, dayParts)) return dayParts;
 
             // We had a database connection opened. Since we're finished,
             // we need to close it.
             connection.closeConnection();
         }
         return dayParts;    
+    }
+
+    private boolean loadDayParts(DatabaseConnection connection, String execStr, List<DayPart> dayParts) {
+        ResultSet resultset = connection.executeSQLSelectStatement(execStr);
+        if (resultset == null) {
+            connection.closeConnection();
+            return true;
+        }
+        try {
+            while(resultset.next()) {
+                String dptStr = resultset.getString("dayparttype");
+                String dateStr = resultset.getString("date");
+                
+                DayPartType dpt = DayPartType.valueOf(dptStr.toUpperCase());
+                Date d = DBUtils.fromSQLString(dateStr);
+                
+                DayPart dp = (new DayPartDAO()).loadDayPart(d, dpt);
+                dayParts.add(dp);
+            }
+        } catch(SQLException ex){
+            Logger.getLogger(DayPartDAO.class.getName()).log(
+                    Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }
