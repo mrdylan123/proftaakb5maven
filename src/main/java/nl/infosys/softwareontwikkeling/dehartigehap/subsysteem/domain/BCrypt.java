@@ -490,7 +490,7 @@ public class BCrypt {
             o |= (c2 & 0x30) >> FOUR;
             rs.append((char)o);
             if (++olen2 >= maxolen || off >= slen) {
-                return olen2;
+                break;
             }
             c3 = char64(s.charAt(off++));
             if (c3 == -1) {
