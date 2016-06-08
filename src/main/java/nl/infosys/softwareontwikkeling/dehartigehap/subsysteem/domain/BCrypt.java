@@ -401,7 +401,7 @@ public class BCrypt {
 			c1 = (c1 & 0x03) << 4;
 			if (off >= len) {
 				rs.append(BASE64_CODE[c1 & 0x3f]);
-				break;
+				return rs.toString();
 			}
 			c2 = d[off++] & 0xff;
 			c1 |= (c2 >> 4) & 0x0f;
@@ -409,7 +409,7 @@ public class BCrypt {
 			c1 = (c2 & 0x0f) << 2;
 			if (off >= len) {
 				rs.append(BASE64_CODE[c1 & 0x3f]);
-				break;
+				return rs.toString();
 			}
 			c2 = d[off++] & 0xff;
 			c1 |= (c2 >> 6) & 0x03;
@@ -720,14 +720,16 @@ public class BCrypt {
 	}
 
     private static byte[] checkEncoding(byte[] passwordb, String password, char minor) throws AssertionError {
+        byte[] passwordb2 = passwordb;
+        
         try {
-            passwordb = (password + (minor >= 'a' ? "\000" : "")).getBytes(UTF8);
+            passwordb2 = (password + (minor >= 'a' ? "\000" : "")).getBytes(UTF8);
         } catch (UnsupportedEncodingException uee) {
             Logger.getLogger(BCrypt.class.getName()).log(
                     Level.SEVERE, null, uee);
             throw new AssertionError("UTF-8 is not supported");
         }
-        return passwordb;
+        return passwordb2;
     }
 
     private static void checkRounds(int rounds, StringBuilder rs) {
@@ -747,7 +749,7 @@ public class BCrypt {
         }
     }
 
-    private static void checkSalt(String salt) throws IllegalArgumentException {
+    private static void checkSalt(String salt) {
         if (salt.charAt(0) != '$' || salt.charAt(1) != '2') {
             throw new IllegalArgumentException ("Invalid salt version");
         }
