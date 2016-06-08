@@ -15,7 +15,8 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
    */
 public class Utils {
     
-    private Utils() {}
+    private Utils() {
+    }
     
     public static boolean isDateValid(Integer day, Integer month, Integer year)
     {

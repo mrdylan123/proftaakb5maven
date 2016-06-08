@@ -18,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartType;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.PresenceStatus;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.main.Main2;
 
 /**
  *
@@ -26,7 +25,8 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.main.Main2;
  */
 public class PresentationUtils {
     
-    private PresentationUtils() {}
+    private PresentationUtils() {
+    }
     
     static public void showSwingAlert(String msg) 
     {

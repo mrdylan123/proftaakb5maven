@@ -8,6 +8,7 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 
 /**
@@ -16,16 +17,17 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
  */
 public class EmployeeDAO {
     
-    public EmployeeDAO() {}
+    public EmployeeDAO() {
+    }
     
    /**
    * Returns the list of employees from the database (all records
    * in employee table)
    * @return ArrayList of Employees loaded from database
    */
-    public ArrayList<Employee> loadEmployees()
+    public List<Employee> loadEmployees()
     {
-        ArrayList<Employee> employees = new ArrayList<>();
+        List<Employee> employees = new ArrayList<>();
         
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
@@ -48,7 +50,6 @@ public class EmployeeDAO {
                 }
                 catch(SQLException e)
                 {
-                    System.out.println(e);
                     employees.clear();
                 }
             }
@@ -99,7 +100,6 @@ public class EmployeeDAO {
                 }
                 catch(SQLException ex)
                 {
-                    System.out.println(ex);
                     e = null;
                 }
             }

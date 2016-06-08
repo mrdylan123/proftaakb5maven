@@ -139,22 +139,21 @@ public class InputUI extends JPanel{
     
     private void doConfirmButtonPress()
     {
-        int CB1SelectedIndex = worker1CB.getSelectedIndex();
-         int CB2SelectedIndex = worker2CB.getSelectedIndex();
-         int CB3SelectedIndex = worker3CB.getSelectedIndex();
-         int dayPartCBSelectedIndex = dayPartCB.getSelectedIndex();
+        int cB1SelectedIndex = worker1CB.getSelectedIndex();
+        int cB2SelectedIndex = worker2CB.getSelectedIndex();
+        int cB3SelectedIndex = worker3CB.getSelectedIndex();
+        int dayPartCBSelectedIndex = dayPartCB.getSelectedIndex();
 
-         if (CB1SelectedIndex < 1 && CB2SelectedIndex < 1 
-                    && CB3SelectedIndex < 1)
-         {
-             PresentationUtils.showSwingAlert("Geen medewerker(s) geselecteerd.");
-             return;
-         }
+        if (cB1SelectedIndex < 1 && cB2SelectedIndex < 1 
+                    && cB3SelectedIndex < 1)
+        {
+            PresentationUtils.showSwingAlert("Geen medewerker(s) geselecteerd.");
+            return;
+        }
 
-         String dayStr = dayTF.getText();
-         String monthStr = monthTF.getText();
-         String yearStr = yearTF.getText();
-
+        String dayStr = dayTF.getText();
+        String monthStr = monthTF.getText();
+        String yearStr = yearTF.getText();
 
         Integer day = null, month = null, year = null;
         try
@@ -174,7 +173,7 @@ public class InputUI extends JPanel{
             return;
         }
 
-        planEmployees(CB1SelectedIndex, CB2SelectedIndex, CB3SelectedIndex, day, 
+        planEmployees(cB1SelectedIndex, cB2SelectedIndex, cB3SelectedIndex, day, 
                 month, year, dayPartCBSelectedIndex);
     }
 

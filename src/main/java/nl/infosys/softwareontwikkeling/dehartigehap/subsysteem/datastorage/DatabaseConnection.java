@@ -57,7 +57,6 @@ public class DatabaseConnection {
             }
             catch(SQLException e)
             {
-                System.out.println(e);
                 result = false;
             }
         }
@@ -86,7 +85,6 @@ public class DatabaseConnection {
             }
             catch(SQLException e)
             {
-                System.out.println(e);
                 open = false;
             }
         }
@@ -109,9 +107,7 @@ public class DatabaseConnection {
             // Close the connection
             connection.close();
         }
-        catch(Exception e) {
-            System.out.println(e);
-        }
+        catch(Exception e) {}
     }
     
    /**
@@ -135,7 +131,6 @@ public class DatabaseConnection {
             }
             catch(SQLException e)
             {
-                System.out.println(e);
                 resultset = null;
             }
         }
@@ -165,7 +160,6 @@ public class DatabaseConnection {
             }
             catch(SQLException e)
             {
-                System.out.println(e);
                 result = false;
             }
         }

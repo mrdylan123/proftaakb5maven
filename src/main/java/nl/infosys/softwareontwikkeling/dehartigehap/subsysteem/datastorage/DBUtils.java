@@ -13,7 +13,8 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Date;
  */
 public class DBUtils {
     
-    private DBUtils() {}
+    private DBUtils() {
+    }
     
    /**
    * Returns a Date object from a SQL date string

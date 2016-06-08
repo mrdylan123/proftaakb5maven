@@ -15,7 +15,8 @@ import java.util.ArrayList;
  */
 public class ViewManager {
     
-    public ViewManager() {}
+    public ViewManager() {
+    }
     
    /**
    * gets the morning, afternoon and evening DayParts for a date

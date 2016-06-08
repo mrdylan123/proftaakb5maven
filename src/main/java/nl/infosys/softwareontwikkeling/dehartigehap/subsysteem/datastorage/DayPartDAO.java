@@ -3,16 +3,15 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.PlanInPastException;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 
-/**
- *
- * @author maikel
- */
+
 public class DayPartDAO {
 
-    public DayPartDAO() {}
+    public DayPartDAO() {
+    }
     
    /**
    * returns a DayPart from database by Date and DayPartType
@@ -58,7 +57,6 @@ public class DayPartDAO {
                 }
                 catch(SQLException e)
                 {
-                    System.out.println(e);
                     dp = null;
                 }
             }
@@ -248,10 +246,7 @@ public class DayPartDAO {
                         return true;
                    }
                 }
-                catch(SQLException ex)
-                {
-                    System.out.println(ex);
-                }
+                catch(SQLException ex){}
             }
             // else an error occurred leave array list empty.
 
@@ -270,9 +265,9 @@ public class DayPartDAO {
    * @return List of dayparts for the given employee and date, which were
    * found in the database
    */
-    public ArrayList<DayPart> loadDayPartsForEmployee(Employee e, Date date)
+    public List<DayPart> loadDayPartsForEmployee(Employee e, Date date)
     {
-        ArrayList<DayPart> dayParts = new ArrayList<>();
+        List<DayPart> dayParts = new ArrayList<>();
         
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
@@ -301,10 +296,7 @@ public class DayPartDAO {
                        dayParts.add(dp);
                     }
                 }
-                catch(SQLException excpt)
-                {
-                    System.out.println(e);
-                }
+                catch(SQLException excpt){}
             }
             // else an error occurred leave array list empty.
 
@@ -324,9 +316,9 @@ public class DayPartDAO {
    * @return List of DayParts for the given employee with the given limit of 
    * DayParts returned
    */
-    public ArrayList<DayPart> loadDayPartsForEmployee(Employee e, int limit)
+    public List<DayPart> loadDayPartsForEmployee(Employee e, int limit)
     {
-        ArrayList<DayPart> dayParts = new ArrayList<>();
+        List<DayPart> dayParts = new ArrayList<>();
         
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
@@ -355,10 +347,7 @@ public class DayPartDAO {
                        dayParts.add(dp);
                     }
                 }
-                catch(SQLException excpt)
-                {
-                    System.out.println(e);
-                }
+                catch(SQLException excpt){}
             }
             // else an error occurred leave array list empty.
 

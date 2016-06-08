@@ -8,6 +8,7 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -86,7 +87,7 @@ private JPanel panelNorth, panelCenter;
         
         int limit = 10; // amount of results to return
         
-        ArrayList<DayPart> dayparts = presenceManager.getDayPartsForEmployee(
+        List<DayPart> dayparts = presenceManager.getDayPartsForEmployee(
                                                             e, limit);
         
         String s = "";

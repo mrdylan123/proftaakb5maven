@@ -20,7 +20,7 @@ public class Main extends JFrame{
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        JFrame frame = new Main2();
+        JFrame frame = new Main();
         frame.setSize( 400, 280);
         frame.setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE);
         frame.setTitle ("Login");

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.*;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -17,14 +18,14 @@ import javafx.scene.control.Alert.AlertType;
  * @author J. Bouman
  */
 public class InputManager {
-    private ArrayList<Employee> employees;
+    private List<Employee> employees;
     
     public InputManager() 
     {
         employees = (new EmployeeDAO()).loadEmployees();
     }
     
-    public ArrayList<Employee> getEmployees()
+    public List<Employee> getEmployees()
     {
         return employees;
     }

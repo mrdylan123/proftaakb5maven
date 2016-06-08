@@ -18,7 +18,8 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
  * @author maikel
  */
 public class UserLoginDAO {
-    public UserLoginDAO() {}
+    public UserLoginDAO() {
+    }
     
    /**
    * Returns a hashed password for the given username
@@ -49,7 +50,6 @@ public class UserLoginDAO {
                 }
                 catch(SQLException ex)
                 {
-                    System.out.println(ex);
                     s = null;
                 }
             }

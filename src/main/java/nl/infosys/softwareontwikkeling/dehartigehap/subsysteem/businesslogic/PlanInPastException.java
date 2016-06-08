@@ -11,8 +11,19 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
  */
 public class PlanInPastException extends Exception 
 {
-    public PlanInPastException() { super(); }
-    public PlanInPastException(String message) { super(message); }
-    public PlanInPastException(String message, Throwable cause) { super(message, cause); }
-    public PlanInPastException(Throwable cause) { super(cause); }
+    public PlanInPastException() { 
+        super(); 
+    }
+    
+    public PlanInPastException(String message) { 
+        super(message); 
+    }
+    
+    public PlanInPastException(String message, Throwable cause) {
+        super(message, cause); 
+    }
+    
+    public PlanInPastException(Throwable cause) {
+        super(cause); 
+    }
 }

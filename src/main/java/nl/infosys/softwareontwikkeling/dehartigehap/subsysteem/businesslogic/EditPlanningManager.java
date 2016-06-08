@@ -7,6 +7,7 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Date;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPart;
@@ -18,7 +19,7 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
  * Manager for editing of planning
  */
 public class EditPlanningManager {
-    private ArrayList<Employee> employees;
+    private List<Employee> employees;
     private Date selectedDate = null;
     private Employee selectedEmployee = null;
     
@@ -27,7 +28,7 @@ public class EditPlanningManager {
         employees = (new EmployeeDAO()).loadEmployees();
     }
     
-    public ArrayList<Employee> getEmployees() {
+    public List<Employee> getEmployees() {
         return employees;
     }
     
@@ -56,8 +57,7 @@ public class EditPlanningManager {
    * @param d the Date to get the DayParts for
    * @return list of DayParts
    */
-    public ArrayList<DayPart> getDayPartsForEmployee(Employee e, Date d)
-    {
+    public List<DayPart> getDayPartsForEmployee(Employee e, Date d) {
          return (new DayPartDAO()).loadDayPartsForEmployee(e, d);
     }
     
@@ -73,8 +73,7 @@ public class EditPlanningManager {
         try
         {   
             (new DayPartDAO()).saveDayPartEmployee(dpe, d, dpt);
-        }
-        catch(PlanInPastException pipe){}
+        } catch(PlanInPastException pipe){}
     }
     
    /**

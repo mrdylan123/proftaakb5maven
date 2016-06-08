@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
+import java.util.List;
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -156,7 +157,7 @@ public class EditUI extends JPanel {
         epManager.setSelectedEmployee(e);
         
         
-        ArrayList<DayPart> dayParts = epManager.getDayPartsForEmployee(
+        List<DayPart> dayParts = epManager.getDayPartsForEmployee(
                                    e, d);
         
         setRosterAreaText(dayParts, e);
@@ -167,7 +168,7 @@ public class EditUI extends JPanel {
     }
     
     private EditAction setComboBox(JComboBox cmBox, DayPartType dpt,
-                                ArrayList<DayPart> dayParts)
+                                List<DayPart> dayParts)
     {
         EditAction ea = EditAction.ACTION_NONE;
         
@@ -201,7 +202,7 @@ public class EditUI extends JPanel {
         return ea;
     }
     
-    private void setRosterAreaText(ArrayList<DayPart> dayParts, Employee e)
+    private void setRosterAreaText(List<DayPart> dayParts, Employee e)
     {
         String s = "";
        for (DayPart dp : dayParts)
@@ -220,12 +221,12 @@ public class EditUI extends JPanel {
     
     private void editRoster()
     {
-        int CbIndex1 = statusDayPart1.getSelectedIndex();
-        int CbIndex2 = statusDayPart2.getSelectedIndex();
-        int CbIndex3 = statusDayPart3.getSelectedIndex();
+        int cbIndex1 = statusDayPart1.getSelectedIndex();
+        int cbIndex2 = statusDayPart2.getSelectedIndex();
+        int cbIndex3 = statusDayPart3.getSelectedIndex();
         
         // user didn't first press 'get roster' button, so display warning
-        if (CbIndex1 == -1 && CbIndex2 == -1 && CbIndex3 == -1)
+        if (cbIndex1 == -1 && cbIndex2 == -1 && cbIndex3 == -1)
         {
             PresentationUtils.showSwingAlert("Haal eerst de planning op "
                     + "voordat u probeert de planning te wijzigen.");
@@ -235,13 +236,13 @@ public class EditUI extends JPanel {
         EditAction eaAfternoon = actionCB2; 
         EditAction eaEvening = actionCB3;
         
-        if (CbIndex1 == 0) {
+        if (cbIndex1 == 0) {
             eaMorning = EditAction.ACTION_NONE;
         }
-        if (CbIndex2 == 0) {
+        if (cbIndex2 == 0) {
             eaAfternoon = EditAction.ACTION_NONE;
         }
-        if (CbIndex3 == 0) {
+        if (cbIndex3 == 0) {
             eaEvening = EditAction.ACTION_NONE;
         }
         

@@ -6,6 +6,7 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 
 import java.util.ArrayList;
+import java.util.List;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.EmployeeDAO;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
 
@@ -14,14 +15,14 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
  * @author dyl
  */
 public class StatsManager {
-    private ArrayList<Employee> employees;
+    private List<Employee> employees;
     
     public StatsManager() 
     {
         employees = (new EmployeeDAO()).loadEmployees();
     }
     
-    public ArrayList<Employee> getEmployees()
+    public List<Employee> getEmployees()
     {
         return employees;
     }

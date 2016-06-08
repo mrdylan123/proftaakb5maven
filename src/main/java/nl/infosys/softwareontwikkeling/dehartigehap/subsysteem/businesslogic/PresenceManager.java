@@ -6,20 +6,21 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 
 import java.util.ArrayList;
+import java.util.List;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.DayPartDAO;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.EmployeeDAO;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPart;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
 
 public class PresenceManager {
-    private ArrayList<Employee> employees;
+    private List<Employee> employees;
    
     public PresenceManager()
     {
         employees = (new EmployeeDAO()).loadEmployees();
     }
    
-    public ArrayList<Employee> getEmployees()
+    public List<Employee> getEmployees()
     {
         return employees;
     }
@@ -32,7 +33,7 @@ public class PresenceManager {
    * @return ArrayList of Dayparts to return for Employee e with limit
    */
 
-    public ArrayList<DayPart> getDayPartsForEmployee(Employee e, int limit)
+    public List<DayPart> getDayPartsForEmployee(Employee e, int limit)
     {
         return (new DayPartDAO()).loadDayPartsForEmployee(e, limit);
     }
