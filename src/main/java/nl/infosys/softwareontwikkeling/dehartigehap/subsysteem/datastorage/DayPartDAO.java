@@ -262,7 +262,9 @@ public class DayPartDAO {
                     + " employeeid='%d' AND date='%s';",
                     e.getEmployeeId(), DBUtils.toSQLString(date));
             
-            if(loadDayParts(connection, execStr, dayParts)) return dayParts;
+            if(loadDayParts(connection, execStr, dayParts)) {
+                return dayParts;
+            }
         }
             // else an error occurred leave array list empty.
 
@@ -292,7 +294,9 @@ public class DayPartDAO {
                     + " employeeid='%d' ORDER BY date ASC LIMIT %d;",
                     e.getEmployeeId(), limit);
             
-            if(loadDayParts(connection, execStr, dayParts)) return dayParts;
+            if(loadDayParts(connection, execStr, dayParts)) {
+                return dayParts;
+            }
 
             // We had a database connection opened. Since we're finished,
             // we need to close it.
