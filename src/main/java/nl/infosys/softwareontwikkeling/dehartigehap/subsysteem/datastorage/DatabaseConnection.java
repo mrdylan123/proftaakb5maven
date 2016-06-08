@@ -27,6 +27,11 @@ public class DatabaseConnection {
         statement = null;
     }
     
+   /**
+   * opens connection with database
+   * @return true if the connection was successfully opened,
+   *  false otherwise
+   */
     public boolean openConnection()
     {
         boolean result = false;
@@ -61,6 +66,10 @@ public class DatabaseConnection {
         return result;
     }
     
+   /**
+   * Checks if a connection with the database is open
+   * @return true if a connection with the database is open, false otherwise
+   */
     public boolean connectionIsOpen()
     {
         boolean open = false;
@@ -83,6 +92,10 @@ public class DatabaseConnection {
         return open;
     }
     
+   /**
+   * closes the connection with the database
+   * @return nothing
+   */
     public void closeConnection()
     {
         try
@@ -97,6 +110,12 @@ public class DatabaseConnection {
         }
     }
     
+   /**
+   * Executes a given SQL Select statement
+   * @param query the SQL Select statement to executes
+   * @return an ResultSet object with the result of the executed select query,
+   * or null if the SQL Select statement couldn't be executed
+   */
     public ResultSet executeSQLSelectStatement(String query)
     {
         ResultSet resultset = null;
@@ -120,6 +139,12 @@ public class DatabaseConnection {
         return resultset;
     }
     
+   /**
+   * Executes a given SQL Delete statement
+   * @param query the SQL Select statement to executes
+   * @return true if iit was possible to successfully execute the SQL delete
+   * statement, otherwise false
+   */
     public boolean executeSQLDeleteStatement(String query)
     {
         boolean result = false;
@@ -144,6 +169,13 @@ public class DatabaseConnection {
         return result;
     }
     
+   /**
+   * Executes a given SQL Insert statement
+   * @param query the SQL Insert statement to executes
+   * @return an ResultSet object with the result of the executed Insert query,
+   * or null if the SQL Select statement couldn't be executed
+   * @throws SQLException if a SQL-related exception occurs
+   */
     public ResultSet executeSQLInsertStatement(String query) throws SQLException
     {
         ResultSet rs = null;

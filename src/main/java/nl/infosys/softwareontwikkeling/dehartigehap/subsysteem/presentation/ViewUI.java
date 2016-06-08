@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.DBUtils;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Date;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPart;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartEmployee;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
@@ -99,16 +100,25 @@ public class ViewUI extends JPanel{
 
         try
         {
-            DayPart[] dpArr = viewManager.OnRequestButtonPress(
-                    dayStr, monthStr, yearStr);
+            Integer day = Integer.parseInt(dayStr);
+            Integer month = Integer.parseInt(monthStr);
+            Integer year = Integer.parseInt(yearStr);
 
-            String s = "";
+            if (Utils.isDateValid(day, month, year) == false)
+            {
+                PresentationUtils.showSwingAlert("Entered date is invalid");
+                return;
+            }
+            
+            Date d = new Date(day, month, year);
+            
+            DayPart[] dpArr = viewManager.getDayPartsForDate(d);
 
             setTableData(morningTable, dpArr[0]);
             setTableData(afternoonTable, dpArr[1]);
             setTableData(eveningTable, dpArr[2]);
         }
-        catch(DateInvalidException die)
+        catch(NumberFormatException nfe)
         {
             PresentationUtils.showSwingAlert("Entered date is invalid");
         }

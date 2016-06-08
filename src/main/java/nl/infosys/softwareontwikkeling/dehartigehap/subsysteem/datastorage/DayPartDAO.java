@@ -19,6 +19,12 @@ public class DayPartDAO {
 
     public DayPartDAO() {}
     
+   /**
+   * returns a DayPart from database by Date and DayPartType
+   * @param d Date for the DayPart to load from database
+   * @param dayPartType DayPartType for DayPart to load from database
+   * @return DayPart loaded from database for given Date and DayPartType
+   */
     public DayPart loadDayPart(Date d, DayPartType dayPartType)
     {
         DayPart dp = null;
@@ -71,6 +77,14 @@ public class DayPartDAO {
         return dp;
     }
     
+   /**
+   * saves a DayPart into the database
+   * @param dp DayPart to save into the database
+   * @throws PlanInPastException when trying to save a DayPart which has 
+   * DayPartEmployees in its DpeList who are planned in for a past date
+   * @throws SQLException SQL exceptions other than PlanInPastException
+   * @return Nothing
+   */
     public void saveDayPart(DayPart dp) throws SQLException, PlanInPastException
     {
         // First open a database connnection
@@ -106,6 +120,16 @@ public class DayPartDAO {
         }
     }
     
+    /**
+   * saves a DayPartEmployee into the database by Date and DayPartType
+   * @param dpe DayPartEmployee to save into the database
+   * @param d Date to save for
+   * @param dpt DayPartType to save for
+   * @throws PlanInPastException when trying to save a DayPart which has 
+   * DayPartEmployees in its DpeList who are planned in for a past date
+   * @throws SQLException SQL exceptions other than PlanInPastException
+   * @return Nothing
+   */
     public void saveDayPartEmployee(DayPartEmployee dpe, Date d, DayPartType dpt)
             throws SQLException, PlanInPastException
     {
@@ -136,6 +160,13 @@ public class DayPartDAO {
         }
     }
     
+   /**
+   * delete all the planned employees on a daypart 
+   * @param d Date to delete for
+   * @param dpt DayPartType to delete for
+   * @throws SQLException when SQL errors occur
+   * @return Nothing
+   */
     public void deleteDayPartEmployees(Date d, DayPartType dpt) throws SQLException
     {
         // First open a database connnection
@@ -155,11 +186,19 @@ public class DayPartDAO {
                 throw sqle;
             }
                 
-                connection.closeConnection();
+            connection.closeConnection();
         }
     }
     
-        public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt) throws SQLException
+   /**
+   * deletes a specific employees on a daypart
+   * @param e Employee to delete
+   * @param d Date to delete for
+   * @param dpt DayPartType to delete for
+   * @throws SQLException when SQL errors occur
+   * @return Nothing
+   */
+    public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt) throws SQLException
     {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
@@ -183,6 +222,14 @@ public class DayPartDAO {
         }
     }
     
+   /**
+   * checks if an employee is already planned in for a specific daypart
+   * @param e Employee to check for
+   * @param d Date to check for
+   * @param dpt DayPartType to check for
+   * @return true if the employee is already planned in on the given daypart,
+   * false otherwise
+   */
     public boolean checkExistsDayPartEmployee(Employee e, Date d, DayPartType dpt)
     {
         // First open a database connnection
@@ -221,6 +268,13 @@ public class DayPartDAO {
         return false;
     }
     
+   /**
+   * loads a List of dayparts for given employee and date from database
+   * @param e Employee to search for
+   * @param d Date to search for
+   * @return List of dayparts for the given employee and date, which were
+   * found in the database
+   */
     public ArrayList<DayPart> loadDayPartsForEmployee(Employee e, Date date)
     {
         ArrayList<DayPart> dayParts = new ArrayList<>();
@@ -267,7 +321,14 @@ public class DayPartDAO {
         return dayParts;
     
     }
-    
+   /**
+   * returns a list of DayPart in the database for a given employee, with a limit on
+   * the amount of records DayParts returned
+   * @param e Employee to search for
+   * @param limit max limit of amount of DayParts to return
+   * @return List of DayParts for the given employee with the given limit of 
+   * DayParts returned
+   */
     public ArrayList<DayPart> loadDayPartsForEmployee(Employee e, int limit)
     {
         ArrayList<DayPart> dayParts = new ArrayList<>();

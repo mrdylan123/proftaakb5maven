@@ -5,12 +5,14 @@
  */
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 
-import javafx.scene.control.Alert;
-
-/**
- *
- * @author maikel
- */
+   /**
+   * Checks if an input date is reasonably valid, and that the input year has 
+   * strange value (in the past or future)
+   * @param day Integer day to check
+   * @param month Integer Month to check
+   * @param year Integer Year to check
+   * @return true if the input date is considered valid, else false
+   */
 public class Utils {
     public static boolean isDateValid(Integer day, Integer month, Integer year)
     {

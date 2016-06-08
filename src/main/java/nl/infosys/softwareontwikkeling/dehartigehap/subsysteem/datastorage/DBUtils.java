@@ -13,6 +13,11 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Date;
  */
 public class DBUtils {
     
+   /**
+   * Returns a Date object from a SQL date string
+   * @param s the SQL string to return a Date object for
+   * @return the date object for the SQL string
+   */
     public static Date fromSQLString(String s)
     {
         String[] tokens = s.split("[-]");
@@ -23,7 +28,12 @@ public class DBUtils {
         
         return new Date(day, month, year);
     }
-    
+ 
+   /**
+   * Returns a SQL style date string from a Date object
+   * @param d the date object to return a SQL style date string for
+   * @return the SQL style string for the Date object
+   */
     public static String toSQLString(Date d)
     {
         String s = "";

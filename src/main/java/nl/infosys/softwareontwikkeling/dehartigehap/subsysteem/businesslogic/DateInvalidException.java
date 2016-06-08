@@ -6,8 +6,7 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 
 /**
- *
- * @author maikel
+ * Exception which is thrown when an invalid date has been encountered
  */
 public class DateInvalidException extends Exception 
 {

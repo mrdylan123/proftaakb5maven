@@ -144,6 +144,25 @@ public class InputUI extends JPanel{
              String dayStr = dayTF.getText();
              String monthStr = monthTF.getText();
              String yearStr = yearTF.getText();
+            
+             
+            Integer day = null, month = null, year = null;
+            try
+            {
+                day = Integer.parseInt(dayStr);
+                month = Integer.parseInt(monthStr);
+                year = Integer.parseInt(yearStr);
+            }
+            catch(NumberFormatException nfe)
+            {
+                PresentationUtils.showSwingAlert("De ingevulde datum is incorrect.");
+            }
+
+            if (Utils.isDateValid(day, month, year) == false)
+            {
+                PresentationUtils.showSwingAlert("De ingevulde datum is incorrect.");
+                return;
+            }
 
             Employee e1 = null, e2 = null, e3 = null;
 
@@ -156,14 +175,12 @@ public class InputUI extends JPanel{
 
              try
              {
-                 inputManager.planEmployeesIntoDayPart(e1, e2, e3, dayPartCBSelectedIndex, 
-                                                        dayStr, monthStr, yearStr);
+                Date d = new Date(day, month, year);
+                DayPartType dpt = DayPartType.values()[dayPartCBSelectedIndex];
+                inputManager.planEmployeesIntoDayPart(e1, e2, e3, dpt, 
+                                                        d);
 
-                 PresentationUtils.showSwingAlert("Medewerker(s) succesvol ingepland.");
-             }
-             catch(DateInvalidException die)
-             {
-                 PresentationUtils.showSwingAlert("De ingevulde datum is incorrect.");
+                PresentationUtils.showSwingAlert("Medewerker(s) succesvol ingepland.");
              }
              catch(SQLException sqle)
              {

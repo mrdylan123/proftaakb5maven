@@ -28,28 +28,27 @@ public class InputManager {
     {
         return employees;
     }
-    
+       /**
+   * saves into the database (plans in) up to three employees into a day part
+   * @param e1 Employee to save (can be null)
+   * @param e1 Employee to save (can be null)
+   * @param e1 Employee to save (can be null)
+   * @param dpt DayPartType to save for
+   * @param d Date to save for
+   * @throws PlanInPastException when attempting to plan in employee(s) for a 
+   * past date
+   * @throws SQLException for other SQL-related exceptions that might have 
+   * occurred
+   * @return Nothing
+   */
     public void planEmployeesIntoDayPart(Employee e1, Employee e2, Employee e3, 
-            int dayPartSelectedIndex, String dayStr, String monthStr, 
-            String yearStr) throws DateInvalidException, SQLException, PlanInPastException
+            DayPartType dpt, Date d) throws SQLException, PlanInPastException
     {
-
-        try {
-            Integer day = Integer.parseInt(dayStr);
-            Integer month = Integer.parseInt(monthStr);
-            Integer year = Integer.parseInt(yearStr);
-
-            if (Utils.isDateValid(day, month, year) == false)
-            {
-                throw new DateInvalidException();
-            }
-
-            DayPartType dpt = DayPartType.values()[dayPartSelectedIndex];
-
+        try
+        {
             DayPartDAO dpDAO = new DayPartDAO();
 
-            DayPart dp = dpDAO.loadDayPart(new Date((int)day, (int)month, 
-                                                (int)year), dpt);
+            DayPart dp = dpDAO.loadDayPart(d, dpt);
 
             if (e1 != null) dp.getDpeList().add(new DayPartEmployee(e1, 
                                                     PresenceStatus.PLANNED));
@@ -59,10 +58,6 @@ public class InputManager {
                                                     PresenceStatus.PLANNED));
 
             dpDAO.saveDayPart(dp);
-        }
-        catch(NumberFormatException nfe)
-        {
-            throw new DateInvalidException();
         }
         catch(SQLException sqle)
         {

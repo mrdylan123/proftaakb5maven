@@ -6,8 +6,8 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 
 /**
- *
- * @author maikel
+ * Exception thrown by DAO code when an attempt was made to insert an employee
+ * planning for a date in the past
  */
 public class PlanInPastException extends Exception 
 {

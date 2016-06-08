@@ -20,18 +20,32 @@ public class UserLoginManager {
     public UserLoginManager() {
     }
     
-    public void registerUser(String username, String Password)
+   /**
+   * saves into the database (plans in) up to three employees into a day part
+   * @param username the username to save
+   * @param password he password to save
+   * @return Nothing
+   */
+    public void registerUser(String username, String password)
     {
         try 
         {
-            (new UserLoginDAO()).saveUserLogin(username, Password);
+            (new UserLoginDAO()).saveUserLogin(username, password);
         } 
         catch (SQLException sqle) 
         {
             
         }
     }
-    
+   
+   /**
+   * checks if a password for a user matches the hashed password from the
+   * database
+   * @param username the username to check for
+   * @param password the password to check for
+   * @return true if the password matches the hashed password from database,
+   * else false
+   */
     public boolean checkPassword(String username, String password)
     {
         String hashedPasswordFromDB = (new UserLoginDAO()).

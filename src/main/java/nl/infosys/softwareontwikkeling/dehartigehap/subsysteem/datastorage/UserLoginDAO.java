@@ -20,6 +20,11 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
 public class UserLoginDAO {
     public UserLoginDAO() {}
     
+   /**
+   * Returns a hashed password for the given username
+   * @param username the username to return the hashed password for
+   * @return the hashed password
+   */
     public String getHashedPasswordForUsername(String username)
     {
         
@@ -57,7 +62,15 @@ public class UserLoginDAO {
         return s;
         
     }
-    
+  
+   /**
+   * Saves a user login (username + password combo), the password is hashed
+   * before storing in the database
+   * @param username username to save
+   * @param password password to save
+   * @return Nothing
+   * @throws SQLException when an SQL exception occurs
+   */
     public void saveUserLogin(String username, String password) throws SQLException
     {
         String hashedpassword = BCrypt.hashpw(password, BCrypt.gensalt(12));

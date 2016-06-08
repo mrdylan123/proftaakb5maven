@@ -15,8 +15,7 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartTyp
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
 
 /**
- *
- * @author maikel
+ * Manager for editing of planning
  */
 public class EditPlanningManager {
     private ArrayList<Employee> employees;
@@ -49,11 +48,27 @@ public class EditPlanningManager {
         return selectedEmployee;
     }
     
+    /**
+   * returns a list of DayParts for an employee on a date, returns 
+   * morning, afternoon and evening DayParts if the employee is planned in
+   * on those dayparts
+   * @param e Employee to search for 
+   * @param d the Date to get the DayParts for
+   * @return list of DayParts
+   */
     public ArrayList<DayPart> getDayPartsForEmployee(Employee e, Date d)
     {
          return (new DayPartDAO()).loadDayPartsForEmployee(e, d);
     }
     
+   /**
+   * saves a DayPartEmployee (Employee & PresenceStatus) on Date and DayPartType
+   * in the database
+   * @param dpe DayPartEmployee to save
+   * @param d Date for which to save
+   * @param dpt DayPartType for which to save
+   * @return Nothing
+   */
     public void saveDayPartEmployee(DayPartEmployee dpe, Date d, DayPartType dpt) {
         try
         {   
@@ -67,6 +82,14 @@ public class EditPlanningManager {
         }
     }
     
+   /**
+   * deletes an Employee on Date and DayPartType
+   * in the database
+   * @param e Employee to delete
+   * @param d Date for which to delete 
+   * @param dpt DayPartType for which to delete
+   * @return Nothing
+   */
     public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt) {
         try
         {

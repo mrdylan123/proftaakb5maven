@@ -18,6 +18,11 @@ public class EmployeeDAO {
     
     public EmployeeDAO() {}
     
+   /**
+   * Returns the list of employees from the database (all records
+   * in employee table)
+   * @return ArrayList of Employees loaded from database
+   */
     public ArrayList<Employee> loadEmployees()
     {
         ArrayList<Employee> employees = new ArrayList<>();
@@ -57,6 +62,11 @@ public class EmployeeDAO {
         return employees;
     }
 
+   /**
+   * Returns an employee by employeeId
+   * @param employeeId employeeId for the employee to load
+   * @return an Employee, or null if the Employee wasn't found
+   */
     public Employee loadEmployee(String employeeId)
     {
         Employee e = null;
@@ -101,8 +111,15 @@ public class EmployeeDAO {
         }
         return e;
     }
-    
-    public int getAmountServed(Employee e, String table)
+  
+   /**
+   * Returns an amount served for an employee by database table
+   * (helper function to be used with the 'mealorder' and 'drinkorder' tables)
+   * @param e Employee to return amount served for
+   * @param table database table to retrieve amount served from
+   * @return amount served for database table and Employee
+   */
+    private int getAmountServed(Employee e, String table)
     {
         int count = 0;
         
@@ -127,11 +144,21 @@ public class EmployeeDAO {
         return count;
     }
     
+   /**
+   * Returns amount of meals served by an Employee
+   * @param e Employee to return amount served meals for
+   * @return amount of meals served by Employee
+   */
     public int getAmountMealsServed(Employee e)
     {
         return getAmountServed(e, "view_planning_mealorder");
     }
     
+   /**
+   * Returns amount of drinks served by an Employee
+   * @param e Employee to return amount served drinks for
+   * @return amount of drinks served by Employee
+   */
     public int getAmountDrinksServed(Employee e)
     {
         return getAmountServed(e, "view_planning_drinkorder");
