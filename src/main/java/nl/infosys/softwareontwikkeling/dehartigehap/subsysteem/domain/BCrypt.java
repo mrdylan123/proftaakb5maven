@@ -70,6 +70,17 @@ public class BCrypt {
 	// Blowfish parameters
 	private static final int BLOWFISH_NUM_ROUNDS = 16;
 
+        private static final int TWO = 2;
+        private static final int THREE = 3;
+        private static final int FOUR = 4;
+        private static final int SIX = 6;
+        private static final int EIGHT = 8;
+        private static final int SIXTEEN = 16;
+        private static final int TWENTYFOUR = 24;
+        private static final int TWENTYFIVE = 25;
+        private static final int THIRTY = 30;
+        private static final int SIXTYFOUR = 64;
+        
 	// Initial contents of key schedule
 	private static final int[] P_ORIG = {
 		0x243f6a88, 0x85a308d3, 0x13198a2e, 0x03707344,
