@@ -27,6 +27,7 @@ private JPanel panelNorth, panelCenter;
     private static final int ROWSNORTH = 3;
     private static final int COLUMNSCENTER = 2;
     private static final int ROWSCENTER = 3;
+    private static final int LIMIT = 10; 
                             
     public PresentionUI() {
         presenceManager = new PresenceManager();
@@ -78,10 +79,8 @@ private JPanel panelNorth, panelCenter;
         int index = employeeCB.getSelectedIndex();
         Employee e = presenceManager.getEmployees().get(index);
         
-        // amount of results to return
-        int limit = 10; 
-             
-        List<DayPart> dayparts = presenceManager.getDayPartsForEmployee(e, limit);
+        // amount of results to return             
+        List<DayPart> dayparts = presenceManager.getDayPartsForEmployee(e, LIMIT);
         
         String s = "";
         

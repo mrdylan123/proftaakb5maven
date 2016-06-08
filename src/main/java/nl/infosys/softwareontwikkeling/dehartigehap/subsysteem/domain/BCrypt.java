@@ -13,7 +13,6 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain;
 // WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 // ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 // OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-
 import java.io.UnsupportedEncodingException;
 
 import java.security.SecureRandom;
@@ -21,25 +20,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * BCrypt implements OpenBSD-style Blowfish password hashing using
- * the scheme described in "A Future-Adaptable Password Scheme" by
- * Niels Provos and David Mazieres.
+ * BCrypt implements OpenBSD-style Blowfish password hashing using the scheme
+ * described in "A Future-Adaptable Password Scheme" by Niels Provos and David
+ * Mazieres.
  * <p>
- * This password hashing system tries to thwart off-line password
- * cracking using a computationally-intensive hashing algorithm,
- * based on Bruce Schneier's Blowfish cipher. The work factor of
- * the algorithm is parameterised, so it can be increased as
- * computers get faster.
+ * This password hashing system tries to thwart off-line password cracking using
+ * a computationally-intensive hashing algorithm, based on Bruce Schneier's
+ * Blowfish cipher. The work factor of the algorithm is parameterised, so it can
+ * be increased as computers get faster.
  * <p>
- * Usage is really simple. To hash a password for the first time,
- * call the hashpw method with a random salt, like this:
+ * Usage is really simple. To hash a password for the first time, call the
+ * hashpw method with a random salt, like this:
  * <p>
  * <code>
  * String pw_hash = BCrypt.hashpw(plain_password, BCrypt.gensalt()); <br />
  * </code>
  * <p>
- * To check whether a plaintext password matches one that has been
- * hashed previously, use the checkpw method:
+ * To check whether a plaintext password matches one that has been hashed
+ * previously, use the checkpw method:
  * <p>
  * <code>
  * if (BCrypt.checkpw(candidate_password, stored_hash))<br />
@@ -48,17 +46,17 @@ import java.util.logging.Logger;
  * &nbsp;&nbsp;&nbsp;&nbsp;System.out.println("It does not match");<br />
  * </code>
  * <p>
- * The gensalt() method takes an optional parameter (log_rounds)
- * that determines the computational complexity of the hashing:
+ * The gensalt() method takes an optional parameter (log_rounds) that determines
+ * the computational complexity of the hashing:
  * <p>
  * <code>
  * String strong_salt = BCrypt.gensalt(10)<br />
  * String stronger_salt = BCrypt.gensalt(12)<br />
  * </code>
  * <p>
- * The amount of work increases exponentially (2**log_rounds), so 
- * each increment is twice as much work. The default log_rounds is
- * 10, and the valid range is 4 to 30.
+ * The amount of work increases exponentially (2**log_rounds), so each increment
+ * is twice as much work. The default log_rounds is 10, and the valid range is 4
+ * to 30.
  *
  * @author Damien Miller
  * @version 0.4
@@ -446,7 +444,7 @@ public class BCrypt {
 	private static byte[] decodeBase64(String s, int maxolen) {
             StringBuilder rs = new StringBuilder();
             int off = 0, slen = s.length(), olen = 0;
-            byte ret[];
+            byte[] ret;
 
             if (maxolen <= 0) {
                     throw new IllegalArgumentException ("Invalid maxolen");
@@ -507,7 +505,7 @@ public class BCrypt {
 	 * @param lr	an array containing the two 32-bit half blocks
 	 * @param off	the position in the array of the blocks
 	 */
-	private final void encipher(int lr[], int off) {
+	private final void encipher(int[] lr, int off) {
 		int i, n, l = lr[off], r = lr[off + 1];
 
 		l ^= bfP[0];
@@ -537,7 +535,7 @@ public class BCrypt {
 	 * current offset into data
 	 * @return	the next word of material from data
 	 */
-	private static int streamToWord(byte data[], int offp[]) {
+	private static int streamToWord(byte[] data, int[] offp) {
 		int i;
 		int word = 0;
 		int off = offp[0];
@@ -563,10 +561,10 @@ public class BCrypt {
 	 * Key the Blowfish cipher
 	 * @param key	an array containing the key
 	 */
-	private void key(byte key[]) {
+	private void key(byte[] key) {
 		int i;
-		int koffp[] = { 0 };
-		int lr[] = { 0, 0 };
+		int[] koffp = { 0 };
+		int[] lr = { 0, 0 };
 		int plen = bfP.length, slen = bfS.length;
 
 		for (i = 0; i < plen; i++) {
@@ -593,10 +591,10 @@ public class BCrypt {
 	 * @param data	salt information
 	 * @param key	password information
 	 */
-	private void ekskey(byte data[], byte key[]) {
+	private void ekskey(byte[] data, byte[] key) {
 		int i;
-		int koffp[] = { 0 }, doffp[] = { 0 };
-		int lr[] = { 0, 0 };
+		int[] koffp = { 0 }, doffp = { 0 };
+		int[] lr = { 0, 0 };
 		int plen = bfP.length, slen = bfS.length;
 
 		for (i = 0; i < plen; i++) {
@@ -630,11 +628,11 @@ public class BCrypt {
 	 * @param cdata         the plaintext to encrypt
 	 * @return	an array containing the binary hashed password
 	 */
-	public byte[] cryptRaw(byte password[], byte salt[], int logRounds,
-	    int cdata[]) {
+	public byte[] cryptRaw(byte[] password, byte[] salt, int logRounds,
+	    int[] cdata) {
 		int rounds, i, j;
 		int clen = cdata.length;
-		byte ret[];
+		byte[] ret;
 
 		if (logRounds < 4 || logRounds > 30) {
 			throw new IllegalArgumentException ("Bad number of rounds");
@@ -677,7 +675,7 @@ public class BCrypt {
 	public static String hashPassword(String password, String salt) {
             BCrypt b;
             String realSalt;
-            byte passwordb[] = null, saltb[], hashed[];
+            byte[] passwordb = null, saltb, hashed;
             char minor = (char)0;
             int rounds, off = 0;
             StringBuilder rs = new StringBuilder();
@@ -765,7 +763,7 @@ public class BCrypt {
 	 */
 	public static String generateSalt(int logRounds, SecureRandom random) {
 		StringBuilder rs = new StringBuilder();
-		byte rnd[] = new byte[BCRYPT_SALT_LEN];
+		byte[] rnd = new byte[BCRYPT_SALT_LEN];
 
 		random.nextBytes(rnd);
 
