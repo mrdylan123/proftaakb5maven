@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 import java.awt.*;
 import javax.swing.*;
 
-/**
- *
- * @author J. Bouman
- */
 public class PlanUI extends JPanel{
     JPanel panelNorth, panelCenter;
     private JButton terugKnop, loguitKnop, aanwezigheidKnop, inplanKnop, planningKnop, prestatieoverzichtKnop;

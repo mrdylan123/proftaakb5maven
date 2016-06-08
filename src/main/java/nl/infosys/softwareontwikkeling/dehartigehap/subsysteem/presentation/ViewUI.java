@@ -1,23 +1,11 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
-import java.awt.BorderLayout;
-import static java.awt.BorderLayout.CENTER;
-import static java.awt.BorderLayout.NORTH;
-import static java.awt.BorderLayout.SOUTH;
-import java.awt.GridLayout;
-import javax.swing.Box;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.*;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import java.awt.*;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Date;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPart;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartEmployee;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
-
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 
 public class ViewUI extends JPanel {
     private JButton backBtn, logOutBtn, requestBtn;
@@ -41,15 +29,15 @@ public class ViewUI extends JPanel {
         
         int ROWSNORTH = 1;
         int COLUMNSNORTH = 3;
-        int ROWSCENTER = 4;
-        int COLUMNSCENTER = 6;
+        int rowsCenter = 4;
+        int columnsCenter = 6;
         
         panelNorth.setLayout(new GridLayout(ROWSNORTH, COLUMNSNORTH) );
-        panelCenter.setLayout(new GridLayout(ROWSCENTER, COLUMNSCENTER) );
+        panelCenter.setLayout(new GridLayout(rowsCenter, columnsCenter) );
         
-        add(panelNorth, NORTH);
-        add(panelCenter, CENTER);
-        add(panelSouth, SOUTH);
+        add(panelNorth, BorderLayout.NORTH);
+        add(panelCenter, BorderLayout.CENTER);
+        add(panelSouth, BorderLayout.SOUTH);
         
         // The buttons on the panel
         backBtn = new JButton ("<--");

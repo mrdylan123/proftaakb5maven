@@ -1,12 +1,7 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import java.awt.*;
+import javax.swing.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 

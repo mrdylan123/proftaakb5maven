@@ -1,10 +1,7 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
 import java.awt.GridLayout;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.UserLoginManager;
 
 

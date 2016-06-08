@@ -1,19 +1,13 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
+
+import java.util.*;
 import java.util.List;
 import java.awt.*;
-import java.util.ArrayList;
 import javax.swing.*;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.EditPlanningManager;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.*;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Date;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPart;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartEmployee;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartType;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.PresenceStatus;
-/**
- *
- * @author J. Bouman
- */
+
 public class EditUI extends JPanel {
     private JPanel panelNorth, panelCenter;
     private JButton backButton, logOutButton, getActualRosterButton, confirmEditButton;

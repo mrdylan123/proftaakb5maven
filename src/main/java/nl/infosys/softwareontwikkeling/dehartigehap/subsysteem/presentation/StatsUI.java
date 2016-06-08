@@ -1,7 +1,6 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 import javax.swing.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.StatsManager;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
