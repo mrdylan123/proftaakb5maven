@@ -449,7 +449,6 @@ public class BCrypt {
             StringBuilder rs = new StringBuilder();
             int off = 0, slen = s.length(), olen = 0;
             byte ret[];
-            byte c1, c2, c3, c4, o;
 
             if (maxolen <= 0) {
                     throw new IllegalArgumentException ("Invalid maxolen");
@@ -471,7 +470,9 @@ public class BCrypt {
         byte o;
         byte c3;
         byte c4;
-        while (off < slen - 1 && olen < maxolen) {
+        int olen2 = olen;
+        
+        while (off < slen - 1 && olen2 < maxolen) {
             c1 = char64(s.charAt(off++));
             c2 = char64(s.charAt(off++));
             if (c1 == -1 || c2 == -1) {
@@ -480,7 +481,7 @@ public class BCrypt {
             o = (byte)(c1 << 2);
             o |= (c2 & 0x30) >> 4;
             rs.append((char)o);
-            if (++olen >= maxolen || off >= slen) {
+            if (++olen2 >= maxolen || off >= slen) {
                 break;
             }
             c3 = char64(s.charAt(off++));
@@ -490,16 +491,16 @@ public class BCrypt {
             o = (byte)((c2 & 0x0f) << 4);
             o |= (c3 & 0x3c) >> 2;
             rs.append((char)o);
-            if (++olen >= maxolen || off >= slen) {
+            if (++olen2 >= maxolen || off >= slen) {
                 break;
             }
             c4 = char64(s.charAt(off++));
             o = (byte)((c3 & 0x03) << 6);
             o |= c4;
             rs.append((char)o);
-            ++olen;
+            ++olen2;
         }
-        return olen;
+        return olen2;
     }
 
 	/**
