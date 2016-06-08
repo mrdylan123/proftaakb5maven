@@ -42,6 +42,6 @@ public class UserLoginManager {
             return false;
         }
         
-        return BCrypt.checkpw(password, hashedPasswordFromDB);
+        return BCrypt.checkPassword(password, hashedPasswordFromDB);
     }
 }
