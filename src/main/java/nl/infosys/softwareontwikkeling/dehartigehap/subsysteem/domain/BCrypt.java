@@ -19,7 +19,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.SecureRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.UserLoginDAO;
 
 /**
  * BCrypt implements OpenBSD-style Blowfish password hashing using
@@ -66,6 +65,7 @@ import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.UserL
  */
 public class BCrypt {
 	// BCrypt parameters
+        private static final String UTF8 = "UTF-8";
 	private static final int GENSALT_DEFAULT_LOG2_ROUNDS = 10;
 	private static final int BCRYPT_SALT_LEN = 16;
 
@@ -342,13 +342,13 @@ public class BCrypt {
 	// bcrypt IV: "OrpheanBeholderScryDoubt". The C implementation calls
 	// this "ciphertext", but it is really plaintext or an IV. We keep
 	// the name to make code comparison easier.
-	static private final int[] BF_CRYPT_CIPHERTEXT = {
+	private static final int[] BF_CRYPT_CIPHERTEXT = {
 		0x4f727068, 0x65616e42, 0x65686f6c,
 		0x64657253, 0x63727944, 0x6f756274
 	};
 
 	// Table for Base64 encoding
-	static private final char[] BASE64_CODE = {
+	private static final char[] BASE64_CODE = {
 		'.', '/', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
 		'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
 		'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
@@ -358,7 +358,7 @@ public class BCrypt {
 	};
 
 	// Table for Base64 decoding
-	static private final byte[] INDEX_64 = {
+	private static final byte[] INDEX_64 = {
 		-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
 		-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
 		-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
@@ -388,8 +388,7 @@ public class BCrypt {
 	 * @return	base64-encoded string
 	 * @exception IllegalArgumentException if the length is invalid
 	 */
-	private static String encodeBase64(byte d[], int len)
-		throws IllegalArgumentException {
+	private static String encodeBase64(byte[] d, int len) {
 		int off = 0;
 		StringBuilder rs = new StringBuilder();
 		int c1, c2;
@@ -444,8 +443,7 @@ public class BCrypt {
 	 * @return	an array containing the decoded bytes
 	 * @throws IllegalArgumentException if maxolen is invalid
 	 */
-	private static byte[] decodeBase64(String s, int maxolen)
-            throws IllegalArgumentException {
+	private static byte[] decodeBase64(String s, int maxolen) {
             StringBuilder rs = new StringBuilder();
             int off = 0, slen = s.length(), olen = 0;
             byte ret[];
@@ -679,7 +677,7 @@ public class BCrypt {
 	public static String hashPassword(String password, String salt) {
             BCrypt b;
             String realSalt;
-            byte passwordb[], saltb[], hashed[];
+            byte passwordb[] = null, saltb[], hashed[];
             char minor = (char)0;
             int rounds, off = 0;
             StringBuilder rs = new StringBuilder();
@@ -725,7 +723,7 @@ public class BCrypt {
 
     private static byte[] checkEncoding(byte[] passwordb, String password, char minor) throws AssertionError {
         try {
-            passwordb = (password + (minor >= 'a' ? "\000" : "")).getBytes("UTF-8");
+            passwordb = (password + (minor >= 'a' ? "\000" : "")).getBytes(UTF8);
         } catch (UnsupportedEncodingException uee) {
             Logger.getLogger(BCrypt.class.getName()).log(
                     Level.SEVERE, null, uee);
@@ -734,7 +732,7 @@ public class BCrypt {
         return passwordb;
     }
 
-    private static void checkRounds(int rounds, StringBuilder rs) throws IllegalArgumentException {
+    private static void checkRounds(int rounds, StringBuilder rs) {
         if (rounds < 10) {
             rs.append("0");
         }
@@ -744,7 +742,7 @@ public class BCrypt {
         }
     }
 
-    private static void checkSalt2(String salt, int off) throws IllegalArgumentException {
+    private static void checkSalt2(String salt, int off) {
         // Extract number of rounds
         if (salt.charAt(off + 2) > '$') {
             throw new IllegalArgumentException ("Missing salt rounds");
@@ -818,8 +816,8 @@ public class BCrypt {
 		byte[] tryBytes;
 		try {
                     String tryPassword = hashPassword(plainText, hashed);
-                    hashedByte = hashed.getBytes("UTF-8");
-                    tryBytes = tryPassword.getBytes("UTF-8");
+                    hashedByte = hashed.getBytes(UTF8);
+                    tryBytes = tryPassword.getBytes(UTF8);
 		} catch (UnsupportedEncodingException uee) {
                     Logger.getLogger(BCrypt.class.getName()).log(
                                                     Level.SEVERE, null, uee);
