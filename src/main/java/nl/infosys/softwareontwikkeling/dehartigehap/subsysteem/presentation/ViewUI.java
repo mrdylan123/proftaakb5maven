@@ -40,7 +40,7 @@ public class ViewUI extends JPanel{
     private JPanel panelCenter;
     private JPanel panelSouth;
     private ViewManager viewManager;
-    private final static int numRowsPerTable = 25;
+    private final static int NUMROWSPERTABLE = 25;
     
     public ViewUI() {   
         viewManager = new ViewManager();
@@ -62,9 +62,9 @@ public class ViewUI extends JPanel{
         logOutBtn = new JButton ("Uitloggen");
         dateLbl = new JLabel("Datum :");
         
-        morningTable = new JTable(numRowsPerTable, 3);
-        afternoonTable = new JTable(numRowsPerTable, 3);
-        eveningTable = new JTable(numRowsPerTable, 3);
+        morningTable = new JTable(NUMROWSPERTABLE, 3);
+        afternoonTable = new JTable(NUMROWSPERTABLE, 3);
+        eveningTable = new JTable(NUMROWSPERTABLE, 3);
         
         morningTable.setPreferredSize(new Dimension(100, 200));
         afternoonTable.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
@@ -165,7 +165,7 @@ public class ViewUI extends JPanel{
             tm.addRow(data);
         }
         
-        addBlankRows(table, numRowsPerTable);
+        addBlankRows(table, NUMROWSPERTABLE);
     }
     
     private void clearTable(JTable table)

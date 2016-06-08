@@ -32,10 +32,8 @@ public class UserLoginManager {
         {
             (new UserLoginDAO()).saveUserLogin(username, password);
         } 
-        catch (SQLException sqle) 
-        {
-            
-        }
+        catch (SQLException sqle) {}
+
     }
    
    /**

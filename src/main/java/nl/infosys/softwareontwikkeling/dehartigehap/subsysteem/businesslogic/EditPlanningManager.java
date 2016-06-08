@@ -74,12 +74,7 @@ public class EditPlanningManager {
         {   
             (new DayPartDAO()).saveDayPartEmployee(dpe, d, dpt);
         }
-        catch(SQLException sqle)
-        {          
-        }
-        catch(PlanInPastException pipe)
-        {
-        }
+        catch(PlanInPastException pipe){}
     }
     
    /**
@@ -95,9 +90,6 @@ public class EditPlanningManager {
         {
             (new DayPartDAO()).deleteDayPartEmployee(e, d, dpt);
         }
-        catch(SQLException sqle)
-        {
-            
-        }
+        catch(SQLException sqle){}
     }
 }

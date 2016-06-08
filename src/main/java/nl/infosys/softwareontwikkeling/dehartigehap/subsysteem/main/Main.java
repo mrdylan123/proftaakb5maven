@@ -20,12 +20,6 @@ public class Main extends JFrame{
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        /* UserLoginManager ulm = new UserLoginManager();  
-        ulm.registerUser("Maikel", "test");
-        
-        boolean check = ulm.checkPassword("Maikel", "test");    
-        System.out.println(check); */
-
         JFrame frame = new Main2();
         frame.setSize( 400, 280);
         frame.setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE);

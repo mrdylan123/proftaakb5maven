@@ -83,7 +83,6 @@ public class UserLoginDAO {
             String execStr = "INSERT INTO userlogin(username,"
                     + "password) VALUES('" + username + "','"  + hashedpassword + "');";
                 
-               // System.out.println(execStr);
                 connection.executeSQLInsertStatement(execStr);
             }
             catch(SQLException sqle)

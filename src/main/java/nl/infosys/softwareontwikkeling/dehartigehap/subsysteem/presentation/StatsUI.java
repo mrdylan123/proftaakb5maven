@@ -36,13 +36,8 @@ public class StatsUI extends JPanel {
         panelCenter.setLayout(new GridLayout(2, 3) );
         
         backButton = new JButton ("<--");
-        //backbutton.addActionListener(new backButtonHandler);
-        
-        logOutButton = new JButton ("Uitloggen");
-        //logOutButton.addActionListener(new logOutButtonHandler);
-        
+        logOutButton = new JButton ("Uitloggen");       
         getStatsButton = new JButton ("Vraag op");
-        //getStatsButton.addActionListener(new getStatsButtonHandler);
         
         employeesLabel = new JLabel ("Medewerker");
         
@@ -83,7 +78,9 @@ public class StatsUI extends JPanel {
         Employee e = statsManager.getEmployees().get(
                 employeeCB.getSelectedIndex());
         
-        if (e == null) return;
+        if (e == null) {
+            return;
+        }
         
         setStatsResultTextArea(e);
     }

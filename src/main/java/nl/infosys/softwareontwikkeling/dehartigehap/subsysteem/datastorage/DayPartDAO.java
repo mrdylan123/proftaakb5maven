@@ -95,9 +95,7 @@ public class DayPartDAO {
                 connection.executeSQLInsertStatement(execStr);
 
             }
-            catch(SQLException sqle)
-            {             
-            }
+            catch(SQLException sqle){}
             try
             {
                 // Delete existing records for this DayPart in employee_daypart
@@ -112,10 +110,7 @@ public class DayPartDAO {
             {
                 throw pipe;
             }
-            catch(SQLException sqle)
-            {
-                
-            }
+            catch(SQLException sqle){}
             
             connection.closeConnection();
         }
@@ -149,7 +144,6 @@ public class DayPartDAO {
                             dpe.getPresenceStatus().toString().toLowerCase() 
                             + "');";
 
-                   // System.out.println(execStr);
                     connection.executeSQLInsertStatement(execStr);
             }
             catch(SQLException sqle)

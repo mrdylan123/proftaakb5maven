@@ -235,9 +235,15 @@ public class EditUI extends JPanel {
         EditAction eaAfternoon = actionCB2; 
         EditAction eaEvening = actionCB3;
         
-        if (CbIndex1 == 0) eaMorning = EditAction.ACTION_NONE;
-        if (CbIndex2 == 0) eaAfternoon = EditAction.ACTION_NONE;
-        if (CbIndex3 == 0) eaEvening = EditAction.ACTION_NONE;
+        if (CbIndex1 == 0) {
+            eaMorning = EditAction.ACTION_NONE;
+        }
+        if (CbIndex2 == 0) {
+            eaAfternoon = EditAction.ACTION_NONE;
+        }
+        if (CbIndex3 == 0) {
+            eaEvening = EditAction.ACTION_NONE;
+        }
         
         doAction(eaMorning, DayPartType.MORNING);
         doAction(eaAfternoon, DayPartType.AFTERNOON);

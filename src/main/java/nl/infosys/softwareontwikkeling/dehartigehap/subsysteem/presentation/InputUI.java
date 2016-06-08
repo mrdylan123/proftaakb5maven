@@ -53,21 +53,7 @@ public class InputUI extends JPanel{
         logOutButton = new JButton("Uitloggen");
         confirmButton = new JButton("Invoer bevestigen");
 
-        worker1CB = new JComboBox();
-        worker2CB = new JComboBox();
-        worker3CB = new JComboBox();
-        
-        
-        worker1CB.addItem("");
-        worker2CB.addItem("");
-        worker3CB.addItem("");
-        
-        for(Employee e : inputManager.getEmployees() )
-        {
-            worker1CB.addItem(e.getName());
-            worker2CB.addItem(e.getName());
-            worker3CB.addItem(e.getName());
-        }
+        initComboBoxes();
         
         dayPartCB = new JComboBox();
         
@@ -132,6 +118,24 @@ public class InputUI extends JPanel{
         confirmButton.addActionListener(a1 -> doConfirmButtonPress() );
     
     }
+
+    private void initComboBoxes() {
+        worker1CB = new JComboBox();
+        worker2CB = new JComboBox();
+        worker3CB = new JComboBox();
+        
+        
+        worker1CB.addItem("");
+        worker2CB.addItem("");
+        worker3CB.addItem("");
+        
+        for(Employee e : inputManager.getEmployees() )
+        {
+            worker1CB.addItem(e.getName());
+            worker2CB.addItem(e.getName());
+            worker3CB.addItem(e.getName());
+        }
+    }
     
     private void doConfirmButtonPress()
     {
@@ -170,29 +174,39 @@ public class InputUI extends JPanel{
             return;
         }
 
+        planEmployees(CB1SelectedIndex, CB2SelectedIndex, CB3SelectedIndex, day, 
+                month, year, dayPartCBSelectedIndex);
+    }
+
+    private void planEmployees(int CB1SelectedIndex, int CB2SelectedIndex, 
+            int CB3SelectedIndex, Integer day, Integer month, Integer year, 
+            int dayPartCBSelectedIndex) {
         Employee e1 = null, e2 = null, e3 = null;
-
-        if (CB1SelectedIndex > 0) e1 = inputManager.getEmployees()
-                                        .get(CB1SelectedIndex - 1);
-        if (CB2SelectedIndex > 0) e2 = inputManager.getEmployees()
-                                        .get(CB2SelectedIndex - 1);
-        if (CB3SelectedIndex > 0) e3 = inputManager.getEmployees()
-                                        .get(CB3SelectedIndex - 1);
-
-         try
-         {
+        
+        if (CB1SelectedIndex > 0) {
+            e1 = inputManager.getEmployees().get(CB1SelectedIndex - 1);
+        }
+        if (CB2SelectedIndex > 0) {
+            e2 = inputManager.getEmployees().get(CB2SelectedIndex - 1);
+        }
+        if (CB3SelectedIndex > 0) {
+            e3 = inputManager.getEmployees().get(CB3SelectedIndex - 1);
+        }
+        
+        try
+        {
             Date d = new Date(day, month, year);
             DayPartType dpt = DayPartType.values()[dayPartCBSelectedIndex];
-            inputManager.planEmployeesIntoDayPart(e1, e2, e3, dpt, 
-                                                    d);
-
+            inputManager.planEmployeesIntoDayPart(e1, e2, e3, dpt,
+                    d);
+            
             PresentationUtils.showSwingAlert("Medewerker(s) succesvol ingepland.");
-         }
-         catch(PlanInPastException pipe)
-         {
-             PresentationUtils.showSwingAlert("Database fout: poging om in het verleden"
-                     + " medewerker(s) in te voeren");
-         }
+        }
+        catch(PlanInPastException pipe)
+        {
+            PresentationUtils.showSwingAlert("Database fout: poging om in het verleden"
+                    + " medewerker(s) in te voeren");
+        }
     }
 }
 
