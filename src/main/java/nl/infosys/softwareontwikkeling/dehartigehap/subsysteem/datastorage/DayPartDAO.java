@@ -1,10 +1,10 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage;
 
+import java.util.List;
+import java.util.logging.Level;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.PlanInPastException;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;

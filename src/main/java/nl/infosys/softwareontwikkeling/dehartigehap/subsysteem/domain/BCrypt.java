@@ -472,23 +472,23 @@ public class BCrypt {
             c1 = char64(s.charAt(off++));
             c2 = char64(s.charAt(off++));
             if (c1 == -1 || c2 == -1) {
-                break;
+                return olen2;
             }
             o = (byte)(c1 << 2);
             o |= (c2 & 0x30) >> 4;
             rs.append((char)o);
             if (++olen2 >= maxolen || off >= slen) {
-                break;
+                return olen2;
             }
             c3 = char64(s.charAt(off++));
             if (c3 == -1) {
-                break;
+                return olen2;
             }
             o = (byte)((c2 & 0x0f) << 4);
             o |= (c3 & 0x3c) >> 2;
             rs.append((char)o);
             if (++olen2 >= maxolen || off >= slen) {
-                break;
+                return olen2;
             }
             c4 = char64(s.charAt(off++));
             o = (byte)((c3 & 0x03) << 6);
