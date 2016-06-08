@@ -2,6 +2,8 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.BCrypt;
 
 
@@ -34,11 +36,13 @@ public class UserLoginDAO {
             
             try {
                 if(resultset.next()) {
-                     s = resultset.getString("password");
-                }
-            } catch(SQLException ex) {
+                    s = resultset.getString("password");
+                }} catch (SQLException ex) {
+                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                                                    Level.SEVERE, null, ex);
                 s = null;
             }
+          
         }
         // else an error occurred leave 'member' to null.
 

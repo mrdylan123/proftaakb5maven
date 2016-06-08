@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 
 /**
@@ -33,24 +35,23 @@ public class EmployeeDAO {
             if(resultset == null) {
                 connection.closeConnection();
                 return employees;
-            }
-                
+            }               
+
             try {
                 while(resultset.next()) {
                     Employee e = loadEmployee(resultset.getString("employeeid"));
-
-                    employees.add(e);
-               }
-            } catch(SQLException e) {
+                    employees.add(e);          
+                }
+                // else an error occurred leave array list empty.
+            } catch (SQLException ex) {
                 employees.clear();
+                Logger.getLogger(EmployeeDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        // else an error occurred leave array list empty.
 
         // We had a database connection opened. Since we're finished,
         // we need to close it.
-        connection.closeConnection();
-        
+            connection.closeConnection();
+        }
         return employees;
     }
 
@@ -88,6 +89,7 @@ public class EmployeeDAO {
 
                 }
             } catch(SQLException ex) {
+                Logger.getLogger(EmployeeDAO.class.getName()).log(Level.SEVERE, null, ex);
                 e = null;
             }
         }
@@ -119,9 +121,11 @@ public class EmployeeDAO {
 
             try {
                 count = resultset.last() ? resultset.getRow() : 0;
-            } catch(SQLException sqlexcept) {
-                connection.closeConnection();
+            } catch(SQLException ex) {
+                Logger.getLogger(EmployeeDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            connection.closeConnection();
         }
         
         return count;

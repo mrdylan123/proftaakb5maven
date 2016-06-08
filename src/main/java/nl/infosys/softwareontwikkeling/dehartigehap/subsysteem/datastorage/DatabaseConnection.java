@@ -1,6 +1,8 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage;
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DatabaseConnection {
     
@@ -40,7 +42,9 @@ public class DatabaseConnection {
                 }
                 
                 result = true;
-            } catch(SQLException e) {
+            } catch(SQLException ex) {
+                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                                                    Level.SEVERE, null, ex);
                 result = false;
             }
         } else {
@@ -61,7 +65,9 @@ public class DatabaseConnection {
         if(connection != null && statement != null) {
             try {
                 open = !connection.isClosed() && !statement.isClosed();
-            } catch(SQLException e) {
+            } catch(SQLException ex) {
+                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                                                    Level.SEVERE, null, ex);
                 open = false;
             }
         }
@@ -81,7 +87,9 @@ public class DatabaseConnection {
             
             // Close the connection
             connection.close();
-        } catch(Exception e) {
+        } catch(Exception ex) {
+            Logger.getLogger(UserLoginDAO.class.getName()).log(
+                                                    Level.SEVERE, null, ex);
         }
     }
     
@@ -100,7 +108,9 @@ public class DatabaseConnection {
             // Then, if succeeded, execute the query.
             try {
                 resultset = statement.executeQuery(query);
-            } catch(SQLException e) {
+            } catch(SQLException ex) {
+                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                                                    Level.SEVERE, null, ex);
                 resultset = null;
             }
         }
@@ -124,7 +134,9 @@ public class DatabaseConnection {
             try {
                 statement.executeUpdate(query);
                 result = true;
-            } catch(SQLException e) {
+            } catch(SQLException ex) {
+                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                                                    Level.SEVERE, null, ex);
                 result = false;
             }
         }

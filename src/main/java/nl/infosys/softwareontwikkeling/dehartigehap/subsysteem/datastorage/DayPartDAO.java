@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.PlanInPastException;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 
@@ -52,7 +54,9 @@ public class DayPartDAO {
                     dpeList.add(dpe);
                }
                 dp = new DayPart(d, dayPartType, dpeList);
-            } catch(SQLException e) {
+            } catch(SQLException ex) {
+                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                                                    Level.SEVERE, null, ex);
                 dp = null;
             }
         }
@@ -84,7 +88,9 @@ public class DayPartDAO {
 
                 connection.executeSQLInsertStatement(execStr);
 
-            } catch(SQLException sqle){
+            } catch(SQLException ex){
+                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                                                    Level.SEVERE, null, ex);
             }
             
             try {
@@ -96,7 +102,9 @@ public class DayPartDAO {
                 }
             } catch(PlanInPastException pipe) {
                 throw pipe;
-            } catch(SQLException sqle){
+            } catch(SQLException ex){
+                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                                                    Level.SEVERE, null, ex);
             }
             
             connection.closeConnection();
@@ -129,7 +137,9 @@ public class DayPartDAO {
                             + "');";
 
                     connection.executeSQLInsertStatement(execStr);
-            } catch(SQLException sqle) {
+            } catch(SQLException ex) {
+                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                                                    Level.SEVERE, null, ex);
                 throw new PlanInPastException();
             }
             
@@ -183,8 +193,8 @@ public class DayPartDAO {
                         e.getEmployeeId() + "';";
 
                     connection.executeSQLInsertStatement(execStr);
-            } catch(SQLException sqle) {
-                throw sqle;
+            } catch(SQLException ex) {
+                throw ex;
             }
                 
             connection.closeConnection();
@@ -220,6 +230,8 @@ public class DayPartDAO {
                     return true;
                }
             } catch(SQLException ex){
+                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                                                    Level.SEVERE, null, ex);
             }
 
             // else an error occurred leave array list empty.
@@ -268,7 +280,9 @@ public class DayPartDAO {
                    DayPart dp = (new DayPartDAO()).loadDayPart(d, dpt);
                    dayParts.add(dp);
                 }
-            } catch(SQLException excpt){
+            } catch(SQLException ex){
+                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                                                    Level.SEVERE, null, ex);
             }
         }
             // else an error occurred leave array list empty.
@@ -317,7 +331,9 @@ public class DayPartDAO {
                    DayPart dp = (new DayPartDAO()).loadDayPart(d, dpt);
                    dayParts.add(dp);
                 }
-            } catch(SQLException excpt){
+            } catch(SQLException ex){
+                Logger.getLogger(UserLoginDAO.class.getName()).log(
+                                                    Level.SEVERE, null, ex);
             }
 
             // We had a database connection opened. Since we're finished,

@@ -40,16 +40,10 @@ private JPanel panelNorth, panelCenter;
         panelNorth = new JPanel();
         panelCenter = new JPanel();
 
-        int COLUMNSNORTH = 1;
-        int ROWSNORTH = 3;
-        int COLUMNSCENTER = 2;
-        int ROWSCENTER = 3;
-        
         panelNorth.setLayout(new GridLayout(COLUMNSNORTH, ROWSNORTH));
         panelCenter.setLayout(new GridLayout(COLUMNSCENTER, ROWSCENTER));
 
         backButton = new JButton ("<--");
-
         logOutButton = new JButton ("Uitloggen");
 
         getPresentionButton = new JButton ("Vraag op");

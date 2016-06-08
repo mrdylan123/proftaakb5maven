@@ -23,6 +23,8 @@ public class ViewUI extends JPanel {
     private static final int COLUMNSNORTH = 3;
     private static final int ROWSCENTER = 4;
     private static final int COLUMNSCENTER = 6;
+    private static final int HORIZONTALSPACING = 100;
+    private static final int TWO = 2;
     
     public ViewUI() {   
         viewManager = new ViewManager();
@@ -52,11 +54,8 @@ public class ViewUI extends JPanel {
         dayTF = new JTextField("");
         monthTF = new JTextField("");
         yearTF = new JTextField("");
-               
-        
+                     
         panelNorth.add(backBtn);
-        
-        int HORIZONTALSPACING = 100;
         panelNorth.add(Box.createHorizontalStrut(HORIZONTALSPACING));
         panelNorth.add(logOutBtn);
         
@@ -118,7 +117,6 @@ public class ViewUI extends JPanel {
 
             setTableData(morningTable, dpArr[0]);
             setTableData(afternoonTable, dpArr[1]);
-            int TWO = 2;
             setTableData(eveningTable, dpArr[TWO]);
         } catch(NumberFormatException nfe) {
             PresentationUtils.showSwingAlert("Ingevoerde datum is incorrect.");
