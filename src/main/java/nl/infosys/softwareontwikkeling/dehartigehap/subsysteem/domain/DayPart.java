@@ -35,4 +35,18 @@ public class DayPart {
         
         return null;
     }
+    
+    public void removeByNameFromDpeList(String employeeName) {
+        List<DayPartEmployee> dpeList2 = new ArrayList<>();
+        
+        for( DayPartEmployee dpe : dpeList) {
+            if (dpe.getEmployee().getName().equals(employeeName)) {
+               dpeList2.add(dpe);
+            }
+        }
+        
+        for ( DayPartEmployee dpe2 : dpeList2) {
+            dpeList.remove(dpe2);
+        }
+    }
 }

@@ -44,7 +44,7 @@ public class UserLoginUI extends JPanel {
             
             PresentationUtils.destroyWindow(this);
         } else {
-            PresentationUtils.showSwingAlert("Invalid username/password.");
+            PresentationUtils.showSwingAlert("Incorrecte gebruikersnaam/wachtwoord");
         }   
     }
     
