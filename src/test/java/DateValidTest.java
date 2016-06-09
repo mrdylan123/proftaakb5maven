@@ -78,6 +78,7 @@ public class DateValidTest {
     @Test
     public void testDateValid6() {
         boolean a = Utils.isDateValid(17, 9, 1990);
+        assertEquals(a, false);
     }
     
 }
