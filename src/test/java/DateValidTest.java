@@ -42,5 +42,10 @@ public class DateValidTest {
         assertEquals(a, true);        
     }
     
+    public void testDateValid2() {
+        boolean a = Utils.isDateValid(59, 9, 1998);
+        assertEquals(a, false);
+    }
+    
     
 }
