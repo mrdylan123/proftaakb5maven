@@ -1,6 +1,8 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
 import java.awt.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.*;
@@ -120,8 +122,8 @@ public class ViewUI extends JPanel {
             setTableData(eveningTable, dpArr[TWO]);
         } catch(NumberFormatException nfe) {
             PresentationUtils.showSwingAlert("Ingevoerde datum is incorrect.");
-        } catch(DatabaseConnectionException dce)
-        {
+        } catch(DatabaseConnectionException dce) {
+            Logger.getLogger(ViewUI.class.getName()).log(Level.OFF, null, dce);
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
             return;
         }  

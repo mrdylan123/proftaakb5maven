@@ -1,6 +1,8 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
 import java.awt.GridLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.UserLoginManager;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DatabaseConnectionException;
@@ -49,6 +51,7 @@ public class UserLoginUI extends JPanel {
                 PresentationUtils.showSwingAlert("Incorrecte gebruikersnaam/wachtwoord");
             }
         } catch(DatabaseConnectionException dce) {
+            Logger.getLogger(UserLoginUI.class.getName()).log(Level.OFF, null, dce);
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
         }
             

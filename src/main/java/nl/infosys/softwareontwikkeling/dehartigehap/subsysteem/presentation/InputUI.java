@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.*;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.DayPartDAO;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 
 
@@ -32,6 +33,7 @@ public class InputUI extends JPanel{
             inputManager = new InputManager();
         } catch(DatabaseConnectionException dce)
         {
+            Logger.getLogger(InputUI.class.getName()).log(Level.OFF, null, dce);
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
             PresentationUtils.destroyWindow(this);
             return;
@@ -179,26 +181,10 @@ public class InputUI extends JPanel{
         }
         
         Date d = new Date(day, month, year);   
-        Calendar cal = Calendar.getInstance();
-                
-        int currentDay = cal.get(Calendar.DAY_OF_MONTH);
-        // Calendar.MONTH is 0-11 so do + 1
-        int currentMonth = cal.get(Calendar.MONTH) + 1;
-        int currentYear = cal.get(Calendar.YEAR);
         
-        if (d.getYear() < currentYear) {
+        if (checkForPastDate(d)) {
             showPastDateAlert();
             return;
-        }
-        
-        if ( d.getMonth() < currentMonth ) {
-            showPastDateAlert();
-            return;
-        }
-        
-        if (d.getDay() < currentDay && d.getMonth() == currentMonth ) {
-            showPastDateAlert();
-            return; 
         }
                  
         try {
@@ -209,9 +195,29 @@ public class InputUI extends JPanel{
             PresentationUtils.showSwingAlert("Medewerker(s) succesvol ingepland.");
         } catch(DatabaseConnectionException dce)
         {
+            Logger.getLogger(InputUI.class.getName()).log(Level.OFF, null, dce);
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
             return;
         }  
+    }
+
+    private boolean checkForPastDate(Date d) {
+                Calendar cal = Calendar.getInstance();
+        int currentDay = cal.get(Calendar.DAY_OF_MONTH);
+        // Calendar.MONTH is 0-11 so do + 1
+        int currentMonth = cal.get(Calendar.MONTH) + 1;
+        int currentYear = cal.get(Calendar.YEAR);
+        
+        if (d.getYear() < currentYear) {
+            return true;
+        }
+        if (d.getMonth() < currentMonth) {
+            return true;
+        }
+        if (d.getDay() < currentDay && d.getMonth() == currentMonth) {
+            return true;
+        }
+        return false;
     }
     
     private void showPastDateAlert()

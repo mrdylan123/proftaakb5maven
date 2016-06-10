@@ -3,6 +3,8 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 import java.util.*;
 import java.util.List;
 import java.awt.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
@@ -33,6 +35,7 @@ public class EditUI extends JPanel {
             epManager = new EditPlanningManager();
         } catch(DatabaseConnectionException dce)
         {
+            Logger.getLogger(EditUI.class.getName()).log(Level.OFF, null, dce);
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
             PresentationUtils.destroyWindow(this);
             return;
@@ -156,10 +159,12 @@ public class EditUI extends JPanel {
             actionCB2 = setComboBox(statusDayPart2, DayPartType.AFTERNOON, dayParts);
             actionCB3 = setComboBox(statusDayPart3, DayPartType.EVENING, dayParts);
         } catch(NumberFormatException nfe) {
+            Logger.getLogger(EditUI.class.getName()).log(Level.OFF, null, nfe);
             PresentationUtils.showSwingAlert("Incorrecte datum ingevoerd.");
             return; 
         } catch(DatabaseConnectionException dce)
         {
+            Logger.getLogger(EditUI.class.getName()).log(Level.OFF, null, dce);
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
             return;
         }  

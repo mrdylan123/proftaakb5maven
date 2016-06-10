@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -35,18 +37,18 @@ private JPanel panelNorth, panelCenter;
             presenceManager = new PresenceManager();
         } catch(DatabaseConnectionException dce)
         {
+            Logger.getLogger(PresentionUI.class.getName()).log(Level.OFF, null, dce);
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
             PresentationUtils.destroyWindow(this);
             return;
         }  
    
         setLayout(new BorderLayout() );
-
-        panelNorth = new JPanel();
         panelCenter = new JPanel();
+        panelNorth = new JPanel();
 
-        panelNorth.setLayout(new GridLayout(COLUMNSNORTH, ROWSNORTH));
         panelCenter.setLayout(new GridLayout(COLUMNSCENTER, ROWSCENTER));
+        panelNorth.setLayout(new GridLayout(COLUMNSNORTH, ROWSNORTH));
 
         backButton = new JButton ("<--");
         logOutButton = new JButton ("Uitloggen");
@@ -107,6 +109,7 @@ private JPanel panelNorth, panelCenter;
             presentionResults.setText(s);
         } catch(DatabaseConnectionException dce)
         {
+            Logger.getLogger(PresentionUI.class.getName()).log(Level.OFF, null, dce);
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
             return;
         }  

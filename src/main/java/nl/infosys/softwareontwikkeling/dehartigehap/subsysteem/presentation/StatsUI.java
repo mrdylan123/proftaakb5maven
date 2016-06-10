@@ -1,6 +1,8 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
 import java.awt.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.StatsManager;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DatabaseConnectionException;
@@ -25,6 +27,7 @@ public class StatsUI extends JPanel {
             statsManager = new StatsManager();
         } catch(DatabaseConnectionException dce)
         {
+            Logger.getLogger(StatsUI.class.getName()).log(Level.OFF, null, dce);
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
             PresentationUtils.destroyWindow(this);
             return;
@@ -85,6 +88,7 @@ public class StatsUI extends JPanel {
             setStatsResultTextArea(e);
         } catch(DatabaseConnectionException dce)
         {
+            Logger.getLogger(StatsUI.class.getName()).log(Level.OFF, null, dce);
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
             return;
         }  
