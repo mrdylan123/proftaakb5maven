@@ -14,7 +14,6 @@ public class UserLoginManager {
    * @param username the username to save
    * @param password the passsword to save
    * @throws DatabaseConnectionException if connection could not be opened
-   * @return Nothing
    */
     public void registerUser(String username, String password) 
             throws DatabaseConnectionException {

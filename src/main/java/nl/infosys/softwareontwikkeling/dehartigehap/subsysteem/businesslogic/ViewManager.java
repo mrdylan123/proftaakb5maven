@@ -14,10 +14,11 @@ public class ViewManager {
    * gets the morning, afternoon and evening DayParts for a date
    * database
    * @param d the date to grab the DayParts list for
-   * for
+   * @throws DatabaseConnectionException when connection can't be opened
    * @return List of DayParts for the given date
    */
-    public DayPart[] getDayPartsForDate(Date d) throws DatabaseConnectionException {
+    public DayPart[] getDayPartsForDate(Date d) 
+            throws DatabaseConnectionException {
         DayPart[] dpArr = new DayPart[NUMOFDAYPARTS];
 
         DayPartDAO dpDAO = new DayPartDAO();

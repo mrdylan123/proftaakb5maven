@@ -1,9 +1,7 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 
-import java.sql.SQLException;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class InputManager {
@@ -19,15 +17,11 @@ public class InputManager {
        /**
    * saves into the database (plans in) up to three employees into a day part
    * @param e1 Employee to save (can be null)
-   * @param e1 Employee to save (can be null)
-   * @param e1 Employee to save (can be null)
+   * @param e2 Employee to save (can be null)
+   * @param e3 Employee to save (can be null)
    * @param dpt DayPartType to save for
    * @param d Date to save for
-   * @throws PlanInPastException when attempting to plan in employee(s) for a 
-   * past date
-   * @throws SQLException for other SQL-related exceptions that might have 
-   * occurred
-   * @return Nothing
+   * @throws DatabaseConnectionException if connection can't be opened
    */
     public void planEmployeesIntoDayPart(Employee e1, Employee e2, Employee e3, 
         DayPartType dpt, Date d) throws DatabaseConnectionException {

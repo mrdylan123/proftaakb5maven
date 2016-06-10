@@ -79,7 +79,6 @@ public class DatabaseConnection {
     
    /**
    * closes the connection with the database
-   * @return nothing
    */
     public void closeConnection() {
         try {

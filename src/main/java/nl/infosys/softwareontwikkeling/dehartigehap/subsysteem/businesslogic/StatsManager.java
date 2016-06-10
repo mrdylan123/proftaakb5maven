@@ -23,11 +23,13 @@ public class StatsManager {
         return employees;
     }
         
-    public int getAmountDrinksServed(Employee e) throws DatabaseConnectionException {
+    public int getAmountDrinksServed(Employee e) 
+            throws DatabaseConnectionException {
         return (new EmployeeDAO()).getAmountDrinksServed(e);
     }
     
-    public int getAmountMealsServed(Employee e) throws DatabaseConnectionException {
+    public int getAmountMealsServed(Employee e) 
+            throws DatabaseConnectionException {
         return (new EmployeeDAO()).getAmountMealsServed(e);
     }
 }

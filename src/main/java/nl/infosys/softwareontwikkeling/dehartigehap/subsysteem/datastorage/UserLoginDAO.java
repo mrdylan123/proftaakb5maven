@@ -18,6 +18,7 @@ public class UserLoginDAO {
    * Returns a hashed password for the given username
    * @param username the username to return the hashed password for
    * @return the hashed password
+   * @throws DatabaseConnectionException if connection can't be opened
    */
     public String getHashedPasswordForUsername(String username) 
             throws DatabaseConnectionException {       
@@ -55,8 +56,7 @@ public class UserLoginDAO {
    * before storing in the database
    * @param username username to save
    * @param password password to save
-   * @return Nothing
-   * @throws SQLException when an SQL exception occurs
+   * @throws DatabaseConnectionException when connection can not be opened
    */
     public void saveUserLogin(String username, String password) 
             throws DatabaseConnectionException {

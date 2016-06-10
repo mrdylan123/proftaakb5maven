@@ -48,7 +48,8 @@ public class EditPlanningManager {
    * on those dayparts
    * @param e Employee to search for 
    * @param d the Date to get the DayParts for
-   * throws DatabaseConnectionException @return list of DayParts
+   * @throws DatabaseConnectionException @return list of DayParts
+   * @return List of DayParts for the Employee at the Date specified
    */
     public List<DayPart> getDayPartsForEmployee(Employee e, Date d) 
             throws DatabaseConnectionException {
@@ -61,9 +62,10 @@ public class EditPlanningManager {
    * @param dpe DayPartEmployee to save
    * @param d Date for which to save
    * @param dpt DayPartType for which to save
-   * @return Nothing
+   * @throws DatabaseConnectionException if connection can't be opened
    */
-    public void saveDayPartEmployee(DayPartEmployee dpe, Date d, DayPartType dpt) throws DatabaseConnectionException {  
+    public void saveDayPartEmployee(DayPartEmployee dpe, Date d, DayPartType dpt) 
+            throws DatabaseConnectionException {  
         (new DayPartDAO()).saveDayPartEmployee(dpe, d, dpt);
     }
     
@@ -73,7 +75,7 @@ public class EditPlanningManager {
    * @param e Employee to delete
    * @param d Date for which to delete 
    * @param dpt DayPartType for which to delete
-   * @return Nothing
+   * @throws DatabaseConnectionException if connection can't be opened
    */
     public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt) 
             throws DatabaseConnectionException {

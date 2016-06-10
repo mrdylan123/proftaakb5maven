@@ -68,11 +68,7 @@ public class DayPartDAO {
    /**
    * saves a DayPart into the database
    * @param dp DayPart to save into the database
-   * @throws PlanInPastException when trying to save a DayPart which has 
-   * DayPartEmployees in its DpeList who are planned in for a past date
-   * @throws SQLException SQL exceptions other than PlanInPastException
    * @throws DatabaseConnectionException if connection could not be opened
-   * @return Nothing
    */
     public void saveDayPart(DayPart dp) throws DatabaseConnectionException {
         // First open a database connnection
@@ -108,11 +104,7 @@ public class DayPartDAO {
    * @param dpe DayPartEmployee to save into the database
    * @param d Date to save for
    * @param dpt DayPartType to save for
-   * @throws PlanInPastException when trying to save a DayPart which has 
-   * DayPartEmployees in its DpeList who are planned in for a past date
-   * @throws SQLException SQL exceptions other than PlanInPastException
    * @throws DatabaseConnectionException if connection could not be opened
-   * @return Nothing
    */
     public void saveDayPartEmployee(DayPartEmployee dpe, Date d, DayPartType dpt)
             throws DatabaseConnectionException {
@@ -145,9 +137,7 @@ public class DayPartDAO {
    * delete all the planned employees on a daypart 
    * @param d Date to delete for
    * @param dpt DayPartType to delete for
-   * @throws SQLException when SQL errors occur
    * @throws DatabaseConnectionException if connection could not be opened
-   * @return Nothing
    */
     public void deleteDayPartEmployees(Date d, DayPartType dpt) 
             throws DatabaseConnectionException {
@@ -176,9 +166,7 @@ public class DayPartDAO {
    * @param e Employee to delete
    * @param d Date to delete for
    * @param dpt DayPartType to delete for
-   * @throws SQLException when SQL errors occur
    * @throws DatabaseConnectionException if connection could not be opened
-   * @return Nothing
    */
     public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt) 
             throws DatabaseConnectionException {
@@ -212,7 +200,8 @@ public class DayPartDAO {
    * @return true if the employee is already planned in on the given daypart,
    * false otherwise
    */
-    public boolean checkExistsDayPartEmployee(Employee e, Date d, DayPartType dpt) {
+    public boolean checkExistsDayPartEmployee(Employee e, Date d, DayPartType dpt) 
+            throws DatabaseConnectionException {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
         if(connection.openConnection()) {
@@ -242,7 +231,9 @@ public class DayPartDAO {
             // We had a database connection opened. Since we're finished,
             // we need to close it.
             connection.closeConnection();
-        }
+        } else {
+            throw new DatabaseConnectionException();
+        }    
         
         return false;
     }
@@ -250,12 +241,13 @@ public class DayPartDAO {
    /**
    * loads a List of dayparts for given employee and date from database
    * @param e Employee to search for
-   * @param d Date to search for
+   * @param date Date to search for
    * @return List of dayparts for the given employee and date, which were
    * @throws DatabaseConnectionException if connection could not be opened
    * found in the database
    */
-    public List<DayPart> loadDayPartsForEmployee(Employee e, Date date) throws DatabaseConnectionException {
+    public List<DayPart> loadDayPartsForEmployee(Employee e, Date date) 
+            throws DatabaseConnectionException {
         List<DayPart> dayParts = new ArrayList<>();
         
         // First open a database connnection
@@ -310,8 +302,8 @@ public class DayPartDAO {
     }
     
     // private helper function for loadDayPartsForEmployee
-    private boolean loadDayParts(DatabaseConnection connection, String execStr, List<DayPart> dayParts) 
-            throws DatabaseConnectionException {
+    private boolean loadDayParts(DatabaseConnection connection, String execStr, 
+            List<DayPart> dayParts) throws DatabaseConnectionException {
         ResultSet resultset = connection.executeSQLSelectStatement(execStr);
         if (resultset == null) {
             connection.closeConnection();

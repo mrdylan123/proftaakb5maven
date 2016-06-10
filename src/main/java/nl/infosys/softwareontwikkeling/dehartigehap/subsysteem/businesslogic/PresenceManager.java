@@ -23,9 +23,11 @@ public class PresenceManager {
     * returned
     * @param e Employee to return DayParts for
     * @param limit max limit of DayParts to return
+    * @throws DatabaseConnection if connection can not be opened
     * @return ArrayList of Dayparts to return for Employee e with limit
     */
-    public List<DayPart> getDayPartsForEmployee(Employee e, int limit) throws DatabaseConnectionException {
+    public List<DayPart> getDayPartsForEmployee(Employee e, int limit) 
+            throws DatabaseConnectionException {
         return (new DayPartDAO()).loadDayPartsForEmployee(e, limit);
     }
 }
