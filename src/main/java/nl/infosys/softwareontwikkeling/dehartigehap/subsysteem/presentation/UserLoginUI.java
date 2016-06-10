@@ -3,6 +3,7 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 import java.awt.GridLayout;
 import javax.swing.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.UserLoginManager;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DatabaseConnectionException;
 
 public class UserLoginUI extends JPanel {
     private JTextField usernameTF; 
@@ -37,15 +38,20 @@ public class UserLoginUI extends JPanel {
         String username = usernameTF.getText();
         String password = passwordTF.getText();
         
-        if (ulm.checkPassword(username, password)) {
-            /* create main menu window */
-            PresentationUtils.createWindow(new MainMenuUI(), 
-                                                "Hoofdmenu");
+        try {
+            if (ulm.checkPassword(username, password)) {
+                /* create main menu window */
+                PresentationUtils.createWindow(new MainMenuUI(), 
+                                                    "Hoofdmenu");
+
+                PresentationUtils.destroyWindow(this);
+            } else {
+                PresentationUtils.showSwingAlert("Incorrecte gebruikersnaam/wachtwoord");
+            }
+        } catch(DatabaseConnectionException dce) {
+            PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
+        }
             
-            PresentationUtils.destroyWindow(this);
-        } else {
-            PresentationUtils.showSwingAlert("Incorrecte gebruikersnaam/wachtwoord");
-        }   
     }
     
     public void exitButtonPress() {

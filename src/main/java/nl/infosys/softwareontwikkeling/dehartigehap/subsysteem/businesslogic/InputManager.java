@@ -1,5 +1,6 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.PlanInPastException;
 import java.sql.SQLException;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.*;
@@ -9,7 +10,7 @@ import java.util.List;
 public class InputManager {
     private List<Employee> employees;
     
-    public InputManager() {
+    public InputManager() throws DatabaseConnectionException {
         employees = (new EmployeeDAO()).loadEmployees();
     }
     
@@ -30,7 +31,7 @@ public class InputManager {
    * @return Nothing
    */
     public void planEmployeesIntoDayPart(Employee e1, Employee e2, Employee e3, 
-            DayPartType dpt, Date d) throws PlanInPastException {
+            DayPartType dpt, Date d) throws PlanInPastException, DatabaseConnectionException {
         try {
             DayPartDAO dpDAO = new DayPartDAO();
 

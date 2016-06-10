@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.PlanInPastException;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.PlanInPastException;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 
 
@@ -19,9 +19,10 @@ public class DayPartDAO {
    * returns a DayPart from database by Date and DayPartType
    * @param d Date for the DayPart to load from database
    * @param dayPartType DayPartType for DayPart to load from database
+   * @throws DatabaseConnectionException if connection could not be opened
    * @return DayPart loaded from database for given Date and DayPartType
    */
-    public DayPart loadDayPart(Date d, DayPartType dayPartType) {
+    public DayPart loadDayPart(Date d, DayPartType dayPartType) throws DatabaseConnectionException {
         DayPart dp = null;
         
         String dateStr = DBUtils.toSQLString(d);
@@ -59,13 +60,9 @@ public class DayPartDAO {
                                                     Level.SEVERE, null, ex);
                 dp = null;
             }
-        }
-            // else an error occurred leave array list empty.
-
-            // We had a database connection opened. Since we're finished,
-            // we need to close it.
-        connection.closeConnection();
-        
+        } else {
+            throw new DatabaseConnectionException();
+        }           
         return dp;
     }
     
@@ -75,9 +72,10 @@ public class DayPartDAO {
    * @throws PlanInPastException when trying to save a DayPart which has 
    * DayPartEmployees in its DpeList who are planned in for a past date
    * @throws SQLException SQL exceptions other than PlanInPastException
+   * @throws DatabaseConnectionException if connection could not be opened
    * @return Nothing
    */
-    public void saveDayPart(DayPart dp) throws PlanInPastException {
+    public void saveDayPart(DayPart dp) throws PlanInPastException, DatabaseConnectionException {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
         if(connection.openConnection()) {
@@ -108,7 +106,9 @@ public class DayPartDAO {
             }
             
             connection.closeConnection();
-        }
+        } else {
+            throw new DatabaseConnectionException();
+        }      
     }
     
     /**
@@ -119,10 +119,11 @@ public class DayPartDAO {
    * @throws PlanInPastException when trying to save a DayPart which has 
    * DayPartEmployees in its DpeList who are planned in for a past date
    * @throws SQLException SQL exceptions other than PlanInPastException
+   * @throws DatabaseConnectionException if connection could not be opened
    * @return Nothing
    */
     public void saveDayPartEmployee(DayPartEmployee dpe, Date d, DayPartType dpt)
-            throws PlanInPastException {
+            throws PlanInPastException, DatabaseConnectionException {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
         if(connection.openConnection()) {
@@ -144,7 +145,9 @@ public class DayPartDAO {
             }
             
             connection.closeConnection();
-        }
+        } else {
+            throw new DatabaseConnectionException();
+        }      
     }
     
    /**
@@ -152,10 +155,11 @@ public class DayPartDAO {
    * @param d Date to delete for
    * @param dpt DayPartType to delete for
    * @throws SQLException when SQL errors occur
+   * @throws DatabaseConnectionException if connection could not be opened
    * @return Nothing
    */
     public void deleteDayPartEmployees(Date d, DayPartType dpt) 
-            throws SQLException {
+            throws SQLException, DatabaseConnectionException {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
         if(connection.openConnection()) {
@@ -170,7 +174,9 @@ public class DayPartDAO {
             }
                 
             connection.closeConnection();
-        }
+        } else {
+            throw new DatabaseConnectionException();
+        }      
     }
     
    /**
@@ -179,10 +185,11 @@ public class DayPartDAO {
    * @param d Date to delete for
    * @param dpt DayPartType to delete for
    * @throws SQLException when SQL errors occur
+   * @throws DatabaseConnectionException if connection could not be opened
    * @return Nothing
    */
     public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt) 
-            throws SQLException {
+            throws SQLException, DatabaseConnectionException {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
         if(connection.openConnection()) {
@@ -198,7 +205,9 @@ public class DayPartDAO {
             }
                 
             connection.closeConnection();
-        }
+        } else {
+            throw new DatabaseConnectionException();
+        }      
     }
     
    /**
@@ -206,6 +215,7 @@ public class DayPartDAO {
    * @param e Employee to check for
    * @param d Date to check for
    * @param dpt DayPartType to check for
+   * @throws DatabaseConnectionException if connection could not be opened
    * @return true if the employee is already planned in on the given daypart,
    * false otherwise
    */
@@ -249,9 +259,10 @@ public class DayPartDAO {
    * @param e Employee to search for
    * @param d Date to search for
    * @return List of dayparts for the given employee and date, which were
+   * @throws DatabaseConnectionException if connection could not be opened
    * found in the database
    */
-    public List<DayPart> loadDayPartsForEmployee(Employee e, Date date) {
+    public List<DayPart> loadDayPartsForEmployee(Employee e, Date date) throws DatabaseConnectionException {
         List<DayPart> dayParts = new ArrayList<>();
         
         // First open a database connnection
@@ -265,25 +276,23 @@ public class DayPartDAO {
             if(loadDayParts(connection, execStr, dayParts)) {
                 return dayParts;
             }
-        }
-            // else an error occurred leave array list empty.
-
-            // We had a database connection opened. Since we're finished,
-            // we need to close it.
-        connection.closeConnection();
-
-        return dayParts;
-    
+            connection.closeConnection();           
+        } else {
+            throw new DatabaseConnectionException();
+        }    
+        return dayParts;  
     }
    /**
    * returns a list of DayPart in the database for a given employee, with a limit on
    * the amount of records DayParts returned
    * @param e Employee to search for
    * @param limit max limit of amount of DayParts to return
+   * @throws DatabaseConnectionException if connection could not be opened
    * @return List of DayParts for the given employee with the given limit of 
    * DayParts returned
    */
-    public List<DayPart> loadDayPartsForEmployee(Employee e, int limit) {
+    public List<DayPart> loadDayPartsForEmployee(Employee e, int limit) 
+            throws DatabaseConnectionException {
         List<DayPart> dayParts = new ArrayList<>();
         
         // First open a database connnection
@@ -301,11 +310,15 @@ public class DayPartDAO {
             // We had a database connection opened. Since we're finished,
             // we need to close it.
             connection.closeConnection();
-        }
+        } else {
+            throw new DatabaseConnectionException();
+        }    
         return dayParts;    
     }
-
-    private boolean loadDayParts(DatabaseConnection connection, String execStr, List<DayPart> dayParts) {
+    
+    // private helper function for loadDayPartsForEmployee
+    private boolean loadDayParts(DatabaseConnection connection, String execStr, List<DayPart> dayParts) 
+            throws DatabaseConnectionException {
         ResultSet resultset = connection.executeSQLSelectStatement(execStr);
         if (resultset == null) {
             connection.closeConnection();

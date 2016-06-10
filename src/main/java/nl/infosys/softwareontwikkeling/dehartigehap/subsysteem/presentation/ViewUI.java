@@ -120,7 +120,11 @@ public class ViewUI extends JPanel {
             setTableData(eveningTable, dpArr[TWO]);
         } catch(NumberFormatException nfe) {
             PresentationUtils.showSwingAlert("Ingevoerde datum is incorrect.");
-        }
+        } catch(DatabaseConnectionException dce)
+        {
+            PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
+            return;
+        }  
     }
     
     private void setTableData(JTable table, DayPart dp) {

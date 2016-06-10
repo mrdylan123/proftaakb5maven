@@ -1,4 +1,4 @@
-package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
+package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain;
 
 /**
  * Exception which is thrown when an invalid date has been encountered

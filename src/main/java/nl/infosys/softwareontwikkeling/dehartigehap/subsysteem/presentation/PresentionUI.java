@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.PresenceManager;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DatabaseConnectionException;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Date;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPart;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartEmployee;
@@ -30,7 +31,14 @@ private JPanel panelNorth, panelCenter;
     private static final int LIMIT = 10; 
                             
     public PresentionUI() {
-        presenceManager = new PresenceManager();
+        try {
+            presenceManager = new PresenceManager();
+        } catch(DatabaseConnectionException dce)
+        {
+            PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
+            PresentationUtils.destroyWindow(this);
+            return;
+        }  
    
         setLayout(new BorderLayout() );
 
@@ -79,24 +87,29 @@ private JPanel panelNorth, panelCenter;
         int index = employeeCB.getSelectedIndex();
         Employee e = presenceManager.getEmployees().get(index);
         
-        // amount of results to return             
-        List<DayPart> dayparts = presenceManager.getDayPartsForEmployee(e, LIMIT);
-        
-        String s = "";
-        
-        boolean atleastOneResult = false;
-        
-        for (DayPart dp : dayparts) {
-            atleastOneResult = true;
-            s += getFormattedOutputForDayPart(dp, e);
-        }
-        
-        if (!atleastOneResult)
+        try {
+            List<DayPart> dayparts = presenceManager.getDayPartsForEmployee(e, LIMIT);
+
+            String s = "";
+
+            boolean atleastOneResult = false;
+
+            for (DayPart dp : dayparts) {
+                atleastOneResult = true;
+                s += getFormattedOutputForDayPart(dp, e);
+            }
+
+            if (!atleastOneResult)
+            {
+                s = "Geen resultaten.";
+            }
+
+            presentionResults.setText(s);
+        } catch(DatabaseConnectionException dce)
         {
-            s = "Geen resultaten.";
-        }
-        
-        presentionResults.setText(s);
+            PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
+            return;
+        }  
     }
    
    public String getFormattedOutputForDayPart(DayPart dp, Employee e) {

@@ -12,9 +12,14 @@ public class PresentationUtils {
     private PresentationUtils() {
     }
     
-    public  static void showSwingAlert(String msg) {
+    public static void showSwingAlert(String msg) {
         JOptionPane.showMessageDialog(null, msg, "", 
                                             JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public static void showDutchUnableToOpenDatabaseConnectionAlert()
+    {
+        showSwingAlert("Kan geen verbinding met de database openen.");
     }
     
     public static void createWindow(JPanel panel, String windowName) {

@@ -3,6 +3,7 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DatabaseConnectionException;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.UserLoginDAO;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.BCrypt;
 
@@ -14,10 +15,12 @@ public class UserLoginManager {
    /**
    * saves into the database (plans in) up to three employees into a day part
    * @param username the username to save
-   * @param password he password to save
+   * @param password the passsword to save
+   * @throws DatabaseConnectionException if connection could not be opened
    * @return Nothing
    */
-    public void registerUser(String username, String password) {
+    public void registerUser(String username, String password) 
+            throws DatabaseConnectionException {
         try {
             (new UserLoginDAO()).saveUserLogin(username, password);
         } catch (SQLException ex) {
@@ -31,10 +34,12 @@ public class UserLoginManager {
    * database
    * @param username the username to check for
    * @param password the password to check for
+   * @throws DatabaseConnectionException if connection could not be opened
    * @return true if the password matches the hashed password from database,
    * else false
    */
-    public boolean checkPassword(String username, String password) {
+    public boolean checkPassword(String username, String password) 
+            throws DatabaseConnectionException {
         String hashedPasswordFromDB = (new UserLoginDAO()).
                                         getHashedPasswordForUsername(username);
                 

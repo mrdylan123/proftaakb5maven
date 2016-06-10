@@ -1,4 +1,4 @@
-package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
+package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain;
 
 /**
  * Exception thrown by DAO code when an attempt was made to insert an employee

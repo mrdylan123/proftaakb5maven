@@ -1,5 +1,6 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.PlanInPastException;
 import java.awt.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +28,14 @@ public class InputUI extends JPanel{
     private static final int COLUMNSCENTER = 4;
         
     public InputUI() {
-        inputManager = new InputManager();
+        try {
+            inputManager = new InputManager();
+        } catch(DatabaseConnectionException dce)
+        {
+            PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
+            PresentationUtils.destroyWindow(this);
+            return;
+        }  
         
         setLayout(new BorderLayout());
 
@@ -182,7 +190,11 @@ public class InputUI extends JPanel{
                                                     Level.SEVERE, null, pipe);
             PresentationUtils.showSwingAlert("Database fout: poging om in het verleden"
                     + " medewerker(s) in te voeren");
-        }
+        } catch(DatabaseConnectionException dce)
+        {
+            PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
+            return;
+        }  
     }
 }
 

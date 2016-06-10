@@ -1,5 +1,6 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage;
 
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DatabaseConnectionException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -18,8 +19,8 @@ public class UserLoginDAO {
    * @param username the username to return the hashed password for
    * @return the hashed password
    */
-    public String getHashedPasswordForUsername(String username) {
-        
+    public String getHashedPasswordForUsername(String username) 
+            throws DatabaseConnectionException {       
         String s = null;
         
         // First open a database connnection
@@ -41,17 +42,13 @@ public class UserLoginDAO {
                 Logger.getLogger(UserLoginDAO.class.getName()).log(
                                                     Level.SEVERE, null, ex);
                 s = null;
-            }
-          
+            }         
+            connection.closeConnection();          
+        } else 
+        {
+            throw new DatabaseConnectionException();
         }
-        // else an error occurred leave 'member' to null.
-
-        // We had a database connection opened. Since we're finished,
-        // we need to close it.
-        connection.closeConnection(); 
-        
-        return s;
-        
+        return s;       
     }
   
    /**
@@ -63,7 +60,7 @@ public class UserLoginDAO {
    * @throws SQLException when an SQL exception occurs
    */
     public void saveUserLogin(String username, String password) 
-            throws SQLException {
+            throws SQLException, DatabaseConnectionException {
         
         String hashedpassword = BCrypt.hashPassword(password, BCrypt.generateSalt(HASHSIZE));
         
@@ -80,6 +77,9 @@ public class UserLoginDAO {
             }
             
             connection.closeConnection();
+        } else 
+        {
+            throw new DatabaseConnectionException();
         }
     }
 }

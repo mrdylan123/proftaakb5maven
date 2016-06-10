@@ -1,11 +1,13 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.PlanInPastException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.*;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DatabaseConnectionException;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Date;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPart;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DayPartEmployee;
@@ -20,7 +22,7 @@ public class EditPlanningManager {
     private Date selectedDate = null;
     private Employee selectedEmployee = null;
     
-    public EditPlanningManager() {
+    public EditPlanningManager() throws DatabaseConnectionException {
         employees = (new EmployeeDAO()).loadEmployees();
     }
     
@@ -51,9 +53,10 @@ public class EditPlanningManager {
    * on those dayparts
    * @param e Employee to search for 
    * @param d the Date to get the DayParts for
-   * @return list of DayParts
+   * throws DatabaseConnectionException @return list of DayParts
    */
-    public List<DayPart> getDayPartsForEmployee(Employee e, Date d) {
+    public List<DayPart> getDayPartsForEmployee(Employee e, Date d) 
+            throws DatabaseConnectionException {
          return (new DayPartDAO()).loadDayPartsForEmployee(e, d);
     }
     
@@ -65,7 +68,7 @@ public class EditPlanningManager {
    * @param dpt DayPartType for which to save
    * @return Nothing
    */
-    public void saveDayPartEmployee(DayPartEmployee dpe, Date d, DayPartType dpt) {  
+    public void saveDayPartEmployee(DayPartEmployee dpe, Date d, DayPartType dpt) throws DatabaseConnectionException {  
         try {
             (new DayPartDAO()).saveDayPartEmployee(dpe, d, dpt);
         } catch (PlanInPastException ex) {
@@ -81,7 +84,7 @@ public class EditPlanningManager {
    * @param dpt DayPartType for which to delete
    * @return Nothing
    */
-    public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt) {
+    public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt) throws DatabaseConnectionException {
         try {
             (new DayPartDAO()).deleteDayPartEmployee(e, d, dpt);
         } catch (SQLException ex) {

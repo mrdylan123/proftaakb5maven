@@ -29,8 +29,14 @@ public class EditUI extends JPanel {
     }
     
     public EditUI() {
-        
-        epManager = new EditPlanningManager();
+        try {
+            epManager = new EditPlanningManager();
+        } catch(DatabaseConnectionException dce)
+        {
+            PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
+            PresentationUtils.destroyWindow(this);
+            return;
+        }  
 
         setLayout (new BorderLayout() );
 
@@ -135,24 +141,28 @@ public class EditUI extends JPanel {
             day = Integer.parseInt(dayTF.getText());
             month = Integer.parseInt(monthTF.getText());
             year = Integer.parseInt(yearTF.getText());
+            
+            Date d = new Date(day,month,year);
+            Employee e = epManager.getEmployees().get(cBIndex);
+
+            epManager.setSelectedDate(d);
+            epManager.setSelectedEmployee(e);
+
+            List<DayPart> dayParts = epManager.getDayPartsForEmployee(e, d);
+
+            setRosterAreaText(dayParts, e);
+
+            actionCB1 = setComboBox(statusDayPart1, DayPartType.MORNING, dayParts);
+            actionCB2 = setComboBox(statusDayPart2, DayPartType.AFTERNOON, dayParts);
+            actionCB3 = setComboBox(statusDayPart3, DayPartType.EVENING, dayParts);
         } catch(NumberFormatException nfe) {
             PresentationUtils.showSwingAlert("Incorrecte datum ingevoerd.");
             return; 
-        }
-        
-        Date d = new Date(day,month,year);
-        Employee e = epManager.getEmployees().get(cBIndex);
-        
-        epManager.setSelectedDate(d);
-        epManager.setSelectedEmployee(e);
-             
-        List<DayPart> dayParts = epManager.getDayPartsForEmployee(e, d);
-        
-        setRosterAreaText(dayParts, e);
-        
-        actionCB1 = setComboBox(statusDayPart1, DayPartType.MORNING, dayParts);
-        actionCB2 = setComboBox(statusDayPart2, DayPartType.AFTERNOON, dayParts);
-        actionCB3 = setComboBox(statusDayPart3, DayPartType.EVENING, dayParts);
+        } catch(DatabaseConnectionException dce)
+        {
+            PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
+            return;
+        }  
     }
     
     private EditAction setComboBox(JComboBox cmBox, DayPartType dpt,
@@ -208,6 +218,7 @@ public class EditUI extends JPanel {
         if (cbIndex1 == -1 && cbIndex2 == -1 && cbIndex3 == -1) {
             PresentationUtils.showSwingAlert("Haal eerst de planning op "
                     + "voordat u probeert de planning te wijzigen.");
+            return;
         }
                 
         EditAction eaMorning = actionCB1;
@@ -223,17 +234,21 @@ public class EditUI extends JPanel {
         if (cbIndex3 == 0) {
             eaEvening = EditAction.ACTION_NONE;
         }
-        
-        doAction(eaMorning, DayPartType.MORNING);
-        doAction(eaAfternoon, DayPartType.AFTERNOON);
-        doAction(eaEvening, DayPartType.EVENING);
-        
-        getRoster();
-        
-        PresentationUtils.showSwingAlert("De planning is gewijzigd.");
+        try {
+            doAction(eaMorning, DayPartType.MORNING);
+            doAction(eaAfternoon, DayPartType.AFTERNOON);
+            doAction(eaEvening, DayPartType.EVENING);
+
+            getRoster();
+
+            PresentationUtils.showSwingAlert("De planning is gewijzigd.");
+        } catch(DatabaseConnectionException dce) {
+            PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
+            return;
+        }
     }
     
-    private void doAction(EditAction ea, DayPartType dpt) {
+    private void doAction(EditAction ea, DayPartType dpt) throws DatabaseConnectionException {
         Employee e = epManager.getSelectedEmployee();
         if (ea == EditAction.ACTION_ADD ) {
             DayPartEmployee dpe = new DayPartEmployee(e, PresenceStatus.PLANNED);

@@ -3,6 +3,7 @@ package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 import java.awt.*;
 import javax.swing.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.StatsManager;
+import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DatabaseConnectionException;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.Employee;
 
 public class StatsUI extends JPanel {
@@ -20,7 +21,14 @@ public class StatsUI extends JPanel {
     private static final int COLUMNSCENTER = 2;
     
     public StatsUI() {
-        statsManager = new StatsManager();
+        try {
+            statsManager = new StatsManager();
+        } catch(DatabaseConnectionException dce)
+        {
+            PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
+            PresentationUtils.destroyWindow(this);
+            return;
+        }  
         
         setLayout(new BorderLayout());
         
@@ -73,11 +81,17 @@ public class StatsUI extends JPanel {
         if (e == null) {
             return;
         }
-        
-        setStatsResultTextArea(e);
+        try {
+            setStatsResultTextArea(e);
+        } catch(DatabaseConnectionException dce)
+        {
+            PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
+            return;
+        }  
     }
     
-    private void setStatsResultTextArea(Employee e) {        
+    private void setStatsResultTextArea(Employee e) 
+            throws DatabaseConnectionException {        
         int mealsServed = statsManager.getAmountMealsServed(e);
         int drinksServed = statsManager.getAmountDrinksServed(e);
         

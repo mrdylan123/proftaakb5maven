@@ -13,9 +13,9 @@ public class MainMenuUI extends JPanel {
     public MainMenuUI() {    
         setLayout(new GridLayout(COLUMNS, ROWS, SPACING, SPACING));
         
-        inputBtn = new JButton("Planning Invoeren");
+        inputBtn = new JButton("Planning invoeren");
         editBtn = new JButton("Planning wijzigen");
-        viewBtn = new JButton("Planning bekijken");
+        viewBtn = new JButton("Planning weergeven");
         statsBtn = new JButton("Statistieken bekijken");
         presenceBtn = new JButton("Presentie bekijken");
         logoutBtn = new JButton("Uitloggen");

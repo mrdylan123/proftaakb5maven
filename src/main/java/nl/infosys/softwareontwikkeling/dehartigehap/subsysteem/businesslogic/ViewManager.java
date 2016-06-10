@@ -17,7 +17,7 @@ public class ViewManager {
    * for
    * @return List of DayParts for the given date
    */
-    public DayPart[] getDayPartsForDate(Date d) {
+    public DayPart[] getDayPartsForDate(Date d) throws DatabaseConnectionException {
         DayPart[] dpArr = new DayPart[NUMOFDAYPARTS];
 
         DayPartDAO dpDAO = new DayPartDAO();

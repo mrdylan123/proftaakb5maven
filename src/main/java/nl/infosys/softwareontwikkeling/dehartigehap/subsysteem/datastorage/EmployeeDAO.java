@@ -17,8 +17,9 @@ public class EmployeeDAO {
    * Returns the list of employees from the database (all records
    * in employee table)
    * @return ArrayList of Employees loaded from database
+   * @throws DatabaseConnectionException if connection could not be opened
    */
-    public List<Employee> loadEmployees() {
+    public List<Employee> loadEmployees() throws DatabaseConnectionException {
         List<Employee> employees = new ArrayList<>();
         
         // First open a database connnection
@@ -47,6 +48,8 @@ public class EmployeeDAO {
         // We had a database connection opened. Since we're finished,
         // we need to close it.
             connection.closeConnection();
+        } else {
+            throw new DatabaseConnectionException();
         }
         return employees;
     }
@@ -54,9 +57,10 @@ public class EmployeeDAO {
    /**
    * Returns an employee by employeeId
    * @param employeeId employeeId for the employee to load
+   * @throws DatabaseConnectionException if connection could not be opened
    * @return an Employee, or null if the Employee wasn't found
    */
-    public Employee loadEmployee(String employeeId) {
+    public Employee loadEmployee(String employeeId) throws DatabaseConnectionException {
         Employee e = null;
         
         // First open a database connnection
@@ -87,13 +91,12 @@ public class EmployeeDAO {
             } catch(SQLException ex) {
                 Logger.getLogger(EmployeeDAO.class.getName()).log(Level.SEVERE, null, ex);
                 e = null;
-            }
-        }
-        // else an error occurred leave 'member' to null.
-
-        // We had a database connection opened. Since we're finished,
-        // we need to close it.
-        connection.closeConnection(); 
+            }           
+            connection.closeConnection(); 
+            
+        } else {
+            throw new DatabaseConnectionException();
+        }    
         return e;
     }
   
@@ -102,9 +105,10 @@ public class EmployeeDAO {
    * (helper function to be used with the 'mealorder' and 'drinkorder' tables)
    * @param e Employee to return amount served for
    * @param table database table to retrieve amount served from
+   * @throws DatabaseConnectionException if connection could not be opened
    * @return amount served for database table and Employee
    */
-    private int getAmountServed(Employee e, String table) {
+    private int getAmountServed(Employee e, String table) throws DatabaseConnectionException {
         int count = 0;
         
         DatabaseConnection connection = new DatabaseConnection();
@@ -122,7 +126,9 @@ public class EmployeeDAO {
             }
             
             connection.closeConnection();
-        }
+        } else {
+            throw new DatabaseConnectionException();
+        }    
         
         return count;
     }
@@ -130,18 +136,20 @@ public class EmployeeDAO {
    /**
    * Returns amount of meals served by an Employee
    * @param e Employee to return amount served meals for
+   * @throws DatabaseConnectionException if connection could not be opened
    * @return amount of meals served by Employee
    */
-    public int getAmountMealsServed(Employee e) {
+    public int getAmountMealsServed(Employee e) throws DatabaseConnectionException {
         return getAmountServed(e, "view_planning_mealorder");
     }
     
    /**
    * Returns amount of drinks served by an Employee
    * @param e Employee to return amount served drinks for
+   * @throws DatabaseConnectionException if connection could not be opened
    * @return amount of drinks served by Employee
    */
-    public int getAmountDrinksServed(Employee e) {
+    public int getAmountDrinksServed(Employee e) throws DatabaseConnectionException {
         return getAmountServed(e, "view_planning_drinkorder");
     }
     
