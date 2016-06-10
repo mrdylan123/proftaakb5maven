@@ -14,7 +14,7 @@ public class StatsManager {
         
         for (Employee e : (new EmployeeDAO()).loadEmployees())
         {
-            if (e.getFunction().equals("barmedewerker"))
+            if ("barmedewerker".equals(e.getFunction()))
             {
                 employees.add(e);
             }

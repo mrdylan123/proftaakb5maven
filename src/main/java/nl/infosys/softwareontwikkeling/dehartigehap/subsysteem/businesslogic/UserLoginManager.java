@@ -21,12 +21,8 @@ public class UserLoginManager {
    */
     public void registerUser(String username, String password) 
             throws DatabaseConnectionException {
-        try {
-            (new UserLoginDAO()).saveUserLogin(username, password);
-        } catch (SQLException ex) {
-            Logger.getLogger(UserLoginManager.class.getName()).log(Level.OFF, 
-                                    null, ex);
-        }
+        
+        (new UserLoginDAO()).saveUserLogin(username, password);
     }
    
    /**

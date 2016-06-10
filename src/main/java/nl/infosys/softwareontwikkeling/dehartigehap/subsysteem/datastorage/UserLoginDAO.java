@@ -60,7 +60,7 @@ public class UserLoginDAO {
    * @throws SQLException when an SQL exception occurs
    */
     public void saveUserLogin(String username, String password) 
-            throws SQLException, DatabaseConnectionException {
+            throws DatabaseConnectionException {
         
         String hashedpassword = BCrypt.hashPassword(password, BCrypt.generateSalt(HASHSIZE));
         
@@ -70,11 +70,11 @@ public class UserLoginDAO {
             try {
                 String execStr = "INSERT INTO userlogin(username,"
                     + "password) VALUES('" + username + "','"  + hashedpassword + "');";
-                
+
                 connection.executeSQLInsertStatement(execStr);
-            } catch(SQLException sqle) {
-                throw sqle;
-            }
+            } catch (SQLException ex) {
+                    Logger.getLogger(UserLoginDAO.class.getName()).log(Level.OFF, null, ex);
+                }
             
             connection.closeConnection();
         } else 

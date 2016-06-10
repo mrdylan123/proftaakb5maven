@@ -1,7 +1,7 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.presentation;
 
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.PlanInPastException;
 import java.awt.*;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -178,23 +178,46 @@ public class InputUI extends JPanel{
             e3 = inputManager.getEmployees().get(cB3SelectedIndex - 1);
         }
         
+        Date d = new Date(day, month, year);   
+        Calendar cal = Calendar.getInstance();
+                
+        int currentDay = cal.get(Calendar.DAY_OF_MONTH);
+        // Calendar.MONTH is 0-11 so do + 1
+        int currentMonth = cal.get(Calendar.MONTH) + 1;
+        int currentYear = cal.get(Calendar.YEAR);
+        
+        if (d.getYear() < currentYear) {
+            showPastDateAlert();
+            return;
+        }
+        
+        if ( d.getMonth() < currentMonth ) {
+            showPastDateAlert();
+            return;
+        }
+        
+        if (d.getDay() < currentDay && d.getMonth() == currentMonth ) {
+            showPastDateAlert();
+            return; 
+        }
+                 
         try {
-            Date d = new Date(day, month, year);
             DayPartType dpt = DayPartType.values()[dayPartCBSelectedIndex];
             
             inputManager.planEmployeesIntoDayPart(e1, e2, e3, dpt, d);
             
             PresentationUtils.showSwingAlert("Medewerker(s) succesvol ingepland.");
-        } catch(PlanInPastException pipe) {
-            Logger.getLogger(InputUI.class.getName()).log(
-                                                    Level.OFF, null, pipe);
-            PresentationUtils.showSwingAlert("Database fout: poging om in het verleden"
-                    + " medewerker(s) in te voeren");
         } catch(DatabaseConnectionException dce)
         {
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
             return;
         }  
+    }
+    
+    private void showPastDateAlert()
+    {
+        PresentationUtils.showSwingAlert("Poging om medewerker(s) in het verleden"
+                + " in te plannen.");
     }
 }
 

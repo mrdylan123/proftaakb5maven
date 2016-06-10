@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.PlanInPastException;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 
 
@@ -75,7 +74,7 @@ public class DayPartDAO {
    * @throws DatabaseConnectionException if connection could not be opened
    * @return Nothing
    */
-    public void saveDayPart(DayPart dp) throws PlanInPastException, DatabaseConnectionException {
+    public void saveDayPart(DayPart dp) throws DatabaseConnectionException {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
         if(connection.openConnection()) {
@@ -98,8 +97,6 @@ public class DayPartDAO {
                 for( DayPartEmployee dpe : dp.getDpeList()) {
                     saveDayPartEmployee(dpe, dp.getDate(), dp.getDayPartType());
                 }
-            } catch(PlanInPastException pipe) {
-                throw pipe;
             } catch(SQLException ex){
                 Logger.getLogger(DayPartDAO.class.getName()).log(
                                                     Level.OFF, null, ex);
@@ -123,7 +120,7 @@ public class DayPartDAO {
    * @return Nothing
    */
     public void saveDayPartEmployee(DayPartEmployee dpe, Date d, DayPartType dpt)
-            throws PlanInPastException, DatabaseConnectionException {
+            throws DatabaseConnectionException {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
         if(connection.openConnection()) {
@@ -141,7 +138,6 @@ public class DayPartDAO {
             } catch(SQLException ex) {
                 Logger.getLogger(DayPartDAO.class.getName()).log(
                                                     Level.OFF, null, ex);
-                throw new PlanInPastException();
             }
             
             connection.closeConnection();

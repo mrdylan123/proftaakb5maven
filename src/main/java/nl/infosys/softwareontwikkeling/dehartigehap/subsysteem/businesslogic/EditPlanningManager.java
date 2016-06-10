@@ -1,6 +1,5 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.PlanInPastException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,11 +68,7 @@ public class EditPlanningManager {
    * @return Nothing
    */
     public void saveDayPartEmployee(DayPartEmployee dpe, Date d, DayPartType dpt) throws DatabaseConnectionException {  
-        try {
-            (new DayPartDAO()).saveDayPartEmployee(dpe, d, dpt);
-        } catch (PlanInPastException ex) {
-            Logger.getLogger(EditPlanningManager.class.getName()).log(Level.OFF, null, ex);
-        }
+        (new DayPartDAO()).saveDayPartEmployee(dpe, d, dpt);
     }
     
    /**
