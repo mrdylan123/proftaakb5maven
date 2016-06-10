@@ -217,8 +217,7 @@ public class InputUI extends JPanel{
         return false;
     }
     
-    private void showPastDateAlert()
-    {
+    private void showPastDateAlert() {
         PresentationUtils.showSwingAlert("Poging om medewerker(s) in het verleden"
                 + " in te plannen.");
     }

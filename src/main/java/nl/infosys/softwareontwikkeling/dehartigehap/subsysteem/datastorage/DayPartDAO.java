@@ -89,17 +89,12 @@ public class DayPartDAO {
                 Logger.getLogger(DayPartDAO.class.getName()).log(
                                                     Level.OFF, null, ex);
             }
-            
-            try {
-                // Delete existing records for this DayPart in employee_daypart
-                deleteDayPartEmployees(dp.getDate(), dp.getDayPartType());
+           
+            // Delete existing records for this DayPart in employee_daypart
+            deleteDayPartEmployees(dp.getDate(), dp.getDayPartType());
 
-                for( DayPartEmployee dpe : dp.getDpeList()) {
-                    saveDayPartEmployee(dpe, dp.getDate(), dp.getDayPartType());
-                }
-            } catch(SQLException ex){
-                Logger.getLogger(DayPartDAO.class.getName()).log(
-                                                    Level.OFF, null, ex);
+            for( DayPartEmployee dpe : dp.getDpeList()) {
+                saveDayPartEmployee(dpe, dp.getDate(), dp.getDayPartType());
             }
             
             connection.closeConnection();
@@ -165,7 +160,7 @@ public class DayPartDAO {
                         dpt.toString().toLowerCase() + "';";
                 
                 connection.executeSQLInsertStatement(execStr);
-            } catch(SQLException sqle) {
+            } catch(SQLException ex) {
                 Logger.getLogger(DayPartDAO.class.getName()).log(
                                                     Level.OFF, null, ex);
             }
