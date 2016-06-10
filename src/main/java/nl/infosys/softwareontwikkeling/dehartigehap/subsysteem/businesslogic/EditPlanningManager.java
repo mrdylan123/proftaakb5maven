@@ -79,11 +79,8 @@ public class EditPlanningManager {
    * @param dpt DayPartType for which to delete
    * @return Nothing
    */
-    public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt) throws DatabaseConnectionException {
-        try {
-            (new DayPartDAO()).deleteDayPartEmployee(e, d, dpt);
-        } catch (SQLException ex) {
-            Logger.getLogger(EditPlanningManager.class.getName()).log(Level.OFF, null, ex);
-        }
+    public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt) 
+            throws DatabaseConnectionException {
+        (new DayPartDAO()).deleteDayPartEmployee(e, d, dpt);
     }
 }
