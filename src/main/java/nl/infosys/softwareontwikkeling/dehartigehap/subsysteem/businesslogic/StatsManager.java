@@ -9,7 +9,15 @@ public class StatsManager {
     private List<Employee> employees;
     
     public StatsManager() {
-        employees = (new EmployeeDAO()).loadEmployees();
+        employees = new ArrayList<>();
+        
+        for (Employee e : (new EmployeeDAO()).loadEmployees())
+        {
+            if (e.getFunction().equals("barmedewerker"))
+            {
+                employees.add(e);
+            }
+        }
     }
     
     public List<Employee> getEmployees() {

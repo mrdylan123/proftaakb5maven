@@ -84,9 +84,18 @@ private JPanel panelNorth, panelCenter;
         
         String s = "";
         
+        boolean atleastOneResult = false;
+        
         for (DayPart dp : dayparts) {
+            atleastOneResult = true;
             s += getFormattedOutputForDayPart(dp, e);
         }
+        
+        if (!atleastOneResult)
+        {
+            s = "Geen resultaten.";
+        }
+        
         presentionResults.setText(s);
     }
    
