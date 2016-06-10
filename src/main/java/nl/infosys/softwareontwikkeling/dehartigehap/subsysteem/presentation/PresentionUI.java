@@ -35,8 +35,7 @@ private JPanel panelNorth, panelCenter;
     public PresentionUI() {
         try {
             presenceManager = new PresenceManager();
-        } catch(DatabaseConnectionException dce)
-        {
+        } catch(DatabaseConnectionException dce) {
             Logger.getLogger(PresentionUI.class.getName()).log(Level.OFF, null, dce);
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
             PresentationUtils.destroyWindow(this);
@@ -101,14 +100,12 @@ private JPanel panelNorth, panelCenter;
                 s += getFormattedOutputForDayPart(dp, e);
             }
 
-            if (!atleastOneResult)
-            {
+            if (!atleastOneResult) {
                 s = "Geen resultaten.";
             }
 
             presentionResults.setText(s);
-        } catch(DatabaseConnectionException dce)
-        {
+        } catch(DatabaseConnectionException dce) {
             Logger.getLogger(PresentionUI.class.getName()).log(Level.OFF, null, dce);
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
             return;

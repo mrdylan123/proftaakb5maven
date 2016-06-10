@@ -155,7 +155,7 @@ public class DayPartDAO {
    * @return Nothing
    */
     public void deleteDayPartEmployees(Date d, DayPartType dpt) 
-            throws SQLException, DatabaseConnectionException {
+            throws DatabaseConnectionException {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
         if(connection.openConnection()) {
@@ -166,7 +166,8 @@ public class DayPartDAO {
                 
                 connection.executeSQLInsertStatement(execStr);
             } catch(SQLException sqle) {
-                throw sqle;
+                Logger.getLogger(DayPartDAO.class.getName()).log(
+                                                    Level.OFF, null, ex);
             }
                 
             connection.closeConnection();
@@ -185,7 +186,7 @@ public class DayPartDAO {
    * @return Nothing
    */
     public void deleteDayPartEmployee(Employee e, Date d, DayPartType dpt) 
-            throws SQLException, DatabaseConnectionException {
+            throws DatabaseConnectionException {
         // First open a database connnection
         DatabaseConnection connection = new DatabaseConnection();
         if(connection.openConnection()) {
@@ -197,7 +198,8 @@ public class DayPartDAO {
 
                     connection.executeSQLInsertStatement(execStr);
             } catch(SQLException ex) {
-                throw ex;
+                Logger.getLogger(DayPartDAO.class.getName()).log(
+                                                    Level.OFF, null, ex);
             }
                 
             connection.closeConnection();

@@ -44,8 +44,7 @@ public class UserLoginDAO {
                 s = null;
             }         
             connection.closeConnection();          
-        } else 
-        {
+        } else {
             throw new DatabaseConnectionException();
         }
         return s;       
@@ -77,8 +76,7 @@ public class UserLoginDAO {
                 }
             
             connection.closeConnection();
-        } else 
-        {
+        } else {
             throw new DatabaseConnectionException();
         }
     }

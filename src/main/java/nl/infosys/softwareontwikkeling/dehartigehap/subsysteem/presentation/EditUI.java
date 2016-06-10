@@ -33,8 +33,7 @@ public class EditUI extends JPanel {
     public EditUI() {
         try {
             epManager = new EditPlanningManager();
-        } catch(DatabaseConnectionException dce)
-        {
+        } catch(DatabaseConnectionException dce) {
             Logger.getLogger(EditUI.class.getName()).log(Level.OFF, null, dce);
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
             PresentationUtils.destroyWindow(this);
@@ -162,8 +161,7 @@ public class EditUI extends JPanel {
             Logger.getLogger(EditUI.class.getName()).log(Level.OFF, null, nfe);
             PresentationUtils.showSwingAlert("Incorrecte datum ingevoerd.");
             return; 
-        } catch(DatabaseConnectionException dce)
-        {
+        } catch(DatabaseConnectionException dce) {
             Logger.getLogger(EditUI.class.getName()).log(Level.OFF, null, dce);
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
             return;
@@ -248,6 +246,7 @@ public class EditUI extends JPanel {
 
             PresentationUtils.showSwingAlert("De planning is gewijzigd.");
         } catch(DatabaseConnectionException dce) {
+            Logger.getLogger(EditUI.class.getName()).log(Level.OFF, null, dce);
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
             return;
         }

@@ -12,10 +12,8 @@ public class StatsManager {
     public StatsManager() throws DatabaseConnectionException {
         employees = new ArrayList<>();
         
-        for (Employee e : (new EmployeeDAO()).loadEmployees())
-        {
-            if ("barmedewerker".equals(e.getFunction()))
-            {
+        for (Employee e : (new EmployeeDAO()).loadEmployees()) {
+            if ("barmedewerker".equals(e.getFunction())) {
                 employees.add(e);
             }
         }

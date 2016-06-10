@@ -1,8 +1,5 @@
 package nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.DatabaseConnectionException;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.UserLoginDAO;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.BCrypt;

@@ -25,8 +25,7 @@ public class StatsUI extends JPanel {
     public StatsUI() {
         try {
             statsManager = new StatsManager();
-        } catch(DatabaseConnectionException dce)
-        {
+        } catch(DatabaseConnectionException dce) {
             Logger.getLogger(StatsUI.class.getName()).log(Level.OFF, null, dce);
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
             PresentationUtils.destroyWindow(this);
@@ -86,8 +85,7 @@ public class StatsUI extends JPanel {
         }
         try {
             setStatsResultTextArea(e);
-        } catch(DatabaseConnectionException dce)
-        {
+        } catch(DatabaseConnectionException dce) {
             Logger.getLogger(StatsUI.class.getName()).log(Level.OFF, null, dce);
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
             return;

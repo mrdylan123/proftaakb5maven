@@ -17,8 +17,7 @@ public class PresentationUtils {
                                             JOptionPane.INFORMATION_MESSAGE);
     }
     
-    public static void showDutchUnableToOpenDatabaseConnectionAlert()
-    {
+    public static void showDutchUnableToOpenDatabaseConnectionAlert() {
         showSwingAlert("Kan geen verbinding met de database openen.");
     }
     

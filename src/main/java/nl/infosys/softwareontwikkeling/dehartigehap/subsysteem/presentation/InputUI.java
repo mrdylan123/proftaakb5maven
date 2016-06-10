@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.businesslogic.*;
-import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.datastorage.DayPartDAO;
 import nl.infosys.softwareontwikkeling.dehartigehap.subsysteem.domain.*;
 
 
@@ -31,8 +30,7 @@ public class InputUI extends JPanel{
     public InputUI() {
         try {
             inputManager = new InputManager();
-        } catch(DatabaseConnectionException dce)
-        {
+        } catch(DatabaseConnectionException dce) {
             Logger.getLogger(InputUI.class.getName()).log(Level.OFF, null, dce);
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
             PresentationUtils.destroyWindow(this);
@@ -193,8 +191,7 @@ public class InputUI extends JPanel{
             inputManager.planEmployeesIntoDayPart(e1, e2, e3, dpt, d);
             
             PresentationUtils.showSwingAlert("Medewerker(s) succesvol ingepland.");
-        } catch(DatabaseConnectionException dce)
-        {
+        } catch(DatabaseConnectionException dce) {
             Logger.getLogger(InputUI.class.getName()).log(Level.OFF, null, dce);
             PresentationUtils.showDutchUnableToOpenDatabaseConnectionAlert();
             return;
