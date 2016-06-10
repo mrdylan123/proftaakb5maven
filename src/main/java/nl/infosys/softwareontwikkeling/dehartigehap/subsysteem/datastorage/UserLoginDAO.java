@@ -40,7 +40,7 @@ public class UserLoginDAO {
                     s = resultset.getString("password");
                 }} catch (SQLException ex) {
                 Logger.getLogger(UserLoginDAO.class.getName()).log(
-                                                    Level.SEVERE, null, ex);
+                                                    Level.OFF, null, ex);
                 s = null;
             }         
             connection.closeConnection();          

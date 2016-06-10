@@ -72,7 +72,7 @@ public class EditPlanningManager {
         try {
             (new DayPartDAO()).saveDayPartEmployee(dpe, d, dpt);
         } catch (PlanInPastException ex) {
-            Logger.getLogger(EditPlanningManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditPlanningManager.class.getName()).log(Level.OFF, null, ex);
         }
     }
     
@@ -88,7 +88,7 @@ public class EditPlanningManager {
         try {
             (new DayPartDAO()).deleteDayPartEmployee(e, d, dpt);
         } catch (SQLException ex) {
-            Logger.getLogger(EditPlanningManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditPlanningManager.class.getName()).log(Level.OFF, null, ex);
         }
     }
 }

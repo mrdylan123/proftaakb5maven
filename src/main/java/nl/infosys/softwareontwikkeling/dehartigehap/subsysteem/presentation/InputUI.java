@@ -187,7 +187,7 @@ public class InputUI extends JPanel{
             PresentationUtils.showSwingAlert("Medewerker(s) succesvol ingepland.");
         } catch(PlanInPastException pipe) {
             Logger.getLogger(InputUI.class.getName()).log(
-                                                    Level.SEVERE, null, pipe);
+                                                    Level.OFF, null, pipe);
             PresentationUtils.showSwingAlert("Database fout: poging om in het verleden"
                     + " medewerker(s) in te voeren");
         } catch(DatabaseConnectionException dce)

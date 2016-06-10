@@ -44,7 +44,7 @@ public class DatabaseConnection {
                 result = true;
             } catch(SQLException ex) {
                 Logger.getLogger(DatabaseConnection.class.getName()).log(
-                                                    Level.SEVERE, null, ex);
+                                                    Level.OFF, null, ex);
                 result = false;
             }
         } else {
@@ -67,7 +67,7 @@ public class DatabaseConnection {
                 open = !connection.isClosed() && !statement.isClosed();
             } catch(SQLException ex) {
                 Logger.getLogger(DatabaseConnection.class.getName()).log(
-                                                    Level.SEVERE, null, ex);
+                                                    Level.OFF, null, ex);
                 open = false;
             }
         }
@@ -89,7 +89,7 @@ public class DatabaseConnection {
             connection.close();
         } catch(Exception ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(
-                                                    Level.SEVERE, null, ex);
+                                                    Level.OFF, null, ex);
         }
     }
     
@@ -110,7 +110,7 @@ public class DatabaseConnection {
                 resultset = statement.executeQuery(query);
             } catch(SQLException ex) {
                 Logger.getLogger(DatabaseConnection.class.getName()).log(
-                                                    Level.SEVERE, null, ex);
+                                                    Level.OFF, null, ex);
                 resultset = null;
             }
         }
@@ -136,7 +136,7 @@ public class DatabaseConnection {
                 result = true;
             } catch(SQLException ex) {
                 Logger.getLogger(DatabaseConnection.class.getName()).log(
-                                                    Level.SEVERE, null, ex);
+                                                    Level.OFF, null, ex);
                 result = false;
             }
         }

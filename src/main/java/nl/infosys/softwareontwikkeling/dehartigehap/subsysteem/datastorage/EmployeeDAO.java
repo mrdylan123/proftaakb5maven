@@ -42,7 +42,7 @@ public class EmployeeDAO {
                 // else an error occurred leave array list empty.
             } catch (SQLException ex) {
                 employees.clear();
-                Logger.getLogger(EmployeeDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EmployeeDAO.class.getName()).log(Level.OFF, null, ex);
             }
 
         // We had a database connection opened. Since we're finished,
@@ -89,7 +89,7 @@ public class EmployeeDAO {
 
                 }
             } catch(SQLException ex) {
-                Logger.getLogger(EmployeeDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EmployeeDAO.class.getName()).log(Level.OFF, null, ex);
                 e = null;
             }           
             connection.closeConnection(); 
@@ -122,7 +122,7 @@ public class EmployeeDAO {
             try {
                 count = resultset.last() ? resultset.getRow() : 0;
             } catch(SQLException ex) {
-                Logger.getLogger(EmployeeDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EmployeeDAO.class.getName()).log(Level.OFF, null, ex);
             }
             
             connection.closeConnection();

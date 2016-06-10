@@ -57,7 +57,7 @@ public class DayPartDAO {
                 dp = new DayPart(d, dayPartType, dpeList);
             } catch(SQLException ex) {
                 Logger.getLogger(DayPartDAO.class.getName()).log(
-                                                    Level.SEVERE, null, ex);
+                                                    Level.OFF, null, ex);
                 dp = null;
             }
         } else {
@@ -88,7 +88,7 @@ public class DayPartDAO {
 
             } catch(SQLException ex){
                 Logger.getLogger(DayPartDAO.class.getName()).log(
-                                                    Level.SEVERE, null, ex);
+                                                    Level.OFF, null, ex);
             }
             
             try {
@@ -102,7 +102,7 @@ public class DayPartDAO {
                 throw pipe;
             } catch(SQLException ex){
                 Logger.getLogger(DayPartDAO.class.getName()).log(
-                                                    Level.SEVERE, null, ex);
+                                                    Level.OFF, null, ex);
             }
             
             connection.closeConnection();
@@ -140,7 +140,7 @@ public class DayPartDAO {
                     connection.executeSQLInsertStatement(execStr);
             } catch(SQLException ex) {
                 Logger.getLogger(DayPartDAO.class.getName()).log(
-                                                    Level.SEVERE, null, ex);
+                                                    Level.OFF, null, ex);
                 throw new PlanInPastException();
             }
             
@@ -241,7 +241,7 @@ public class DayPartDAO {
                }
             } catch(SQLException ex){
                 Logger.getLogger(DayPartDAO.class.getName()).log(
-                                                    Level.SEVERE, null, ex);
+                                                    Level.OFF, null, ex);
             }
 
             // else an error occurred leave array list empty.
@@ -337,7 +337,7 @@ public class DayPartDAO {
             }
         } catch(SQLException ex){
             Logger.getLogger(DayPartDAO.class.getName()).log(
-                    Level.SEVERE, null, ex);
+                    Level.OFF, null, ex);
         }
         return false;
     }

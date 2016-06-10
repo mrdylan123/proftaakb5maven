@@ -24,7 +24,7 @@ public class UserLoginManager {
         try {
             (new UserLoginDAO()).saveUserLogin(username, password);
         } catch (SQLException ex) {
-            Logger.getLogger(UserLoginManager.class.getName()).log(Level.SEVERE, 
+            Logger.getLogger(UserLoginManager.class.getName()).log(Level.OFF, 
                                     null, ex);
         }
     }

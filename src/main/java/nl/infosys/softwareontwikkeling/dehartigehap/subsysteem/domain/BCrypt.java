@@ -758,7 +758,7 @@ public class BCrypt {
             passwordb2 = (password + (minor >= 'a' ? "\000" : "")).getBytes(UTF8);
         } catch (UnsupportedEncodingException uee) {
             Logger.getLogger(BCrypt.class.getName()).log(
-                    Level.SEVERE, null, uee);
+                    Level.OFF, null, uee);
             throw new AssertionError("UTF-8 is not supported");
         }
         return passwordb2;
@@ -852,7 +852,7 @@ public class BCrypt {
                     tryBytes = tryPassword.getBytes(UTF8);
         } catch (UnsupportedEncodingException uee) {
                     Logger.getLogger(BCrypt.class.getName()).log(
-                                                    Level.SEVERE, null, uee);
+                                                    Level.OFF, null, uee);
                     return false;
         }
         if (hashedByte.length != tryBytes.length) {
