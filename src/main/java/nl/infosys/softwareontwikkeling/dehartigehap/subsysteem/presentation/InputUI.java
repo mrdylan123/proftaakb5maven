@@ -199,7 +199,8 @@ public class InputUI extends JPanel{
     }
 
     private boolean checkForPastDate(Date d) {
-                Calendar cal = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance();
+        
         int currentDay = cal.get(Calendar.DAY_OF_MONTH);
         // Calendar.MONTH is 0-11 so do + 1
         int currentMonth = cal.get(Calendar.MONTH) + 1;
