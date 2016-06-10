@@ -14,7 +14,7 @@ public class UserLoginUI extends JPanel {
     private UserLoginManager ulm;
         
     private static final int COLUMNS = 1;
-    private static final int ROWS = 5;
+    private static final int ROWS = 6;
     private static final int SPACING = 6;
     
     public UserLoginUI() {      
@@ -27,7 +27,9 @@ public class UserLoginUI extends JPanel {
         loginBtn = new JButton("Login");
         exitBtn = new JButton("Afsluiten");
         
+        add(new JLabel("Gebruikersnaam:", SwingConstants.CENTER));
         add(usernameTF);
+        add(new JLabel("Wachtwoord:", SwingConstants.CENTER));
         add(passwordTF);
         add(loginBtn);
         add(exitBtn);
