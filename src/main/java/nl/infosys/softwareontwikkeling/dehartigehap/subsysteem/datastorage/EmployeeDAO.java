@@ -117,7 +117,7 @@ public class EmployeeDAO {
             // If a connection was successfully setup, execute the SELECT statement.
             ResultSet resultset = connection.executeSQLSelectStatement(
                 "SELECT * FROM " + table + " WHERE employeeid='" 
-                        + e.getEmployeeId() + "' AND status='ready';");
+                        + e.getEmployeeId() + "' AND (status='ready' OR status='served');");
 
             try {
                 count = resultset.last() ? resultset.getRow() : 0;
