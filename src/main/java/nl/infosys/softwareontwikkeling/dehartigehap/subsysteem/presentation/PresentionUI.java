@@ -30,7 +30,7 @@ private JPanel panelNorth, panelCenter;
     private static final int ROWSNORTH = 3;
     private static final int COLUMNSCENTER = 2;
     private static final int ROWSCENTER = 3;
-    private static final int LIMIT = 10; 
+    private static final int LIMIT = 50; 
                             
     public PresentionUI() {
         try {
